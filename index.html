@@ -45,7 +45,6 @@ body {
   flex-direction: column;
 }
 
-/* Grain overlay */
 body::after {
   content: '';
   position: fixed;
@@ -56,7 +55,6 @@ body::after {
   opacity: 0.4;
 }
 
-/* Titlebar */
 .titlebar {
   background: var(--ink);
   height: 36px;
@@ -68,14 +66,10 @@ body::after {
   user-select: none;
 }
 
-.titlebar-dots {
-  display: flex;
-  gap: 6px;
-}
+.titlebar-dots { display: flex; gap: 6px; }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 12px; height: 12px;
   border-radius: 50%;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -86,35 +80,22 @@ body::after {
 .dot-green { background: #28c840; }
 
 .titlebar-title {
-  flex: 1;
-  text-align: center;
+  flex: 1; text-align: center;
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 2px;
+  font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 2px;
 }
 
 .titlebar-time {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: rgba(255,255,255,0.3);
+  font-size: 11px; color: rgba(255,255,255,0.3);
 }
 
-/* App shell */
-.app {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
+.app { display: flex; flex: 1; overflow: hidden; }
 
-/* Sidebar */
 .sidebar {
-  width: 220px;
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  padding: 20px 0;
+  width: 220px; background: var(--ink);
+  display: flex; flex-direction: column;
+  flex-shrink: 0; padding: 20px 0;
 }
 
 .sidebar-brand {
@@ -124,634 +105,230 @@ body::after {
 
 .brand-name {
   font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  color: white;
-  letter-spacing: -0.5px;
+  font-weight: 800; font-size: 20px;
+  color: white; letter-spacing: -0.5px;
 }
 
 .brand-sub {
   font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-top: 2px;
+  font-size: 9px; color: rgba(255,255,255,0.3);
+  letter-spacing: 2px; text-transform: uppercase; margin-top: 2px;
 }
 
 .sidebar-nav {
-  padding: 16px 12px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  padding: 16px 12px; flex: 1;
+  display: flex; flex-direction: column; gap: 2px;
 }
 
 .nav-section-label {
   font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.2);
-  padding: 8px 8px 4px;
-  margin-top: 8px;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.2); padding: 8px 8px 4px; margin-top: 8px;
 }
 
 .nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  color: rgba(255,255,255,0.5);
-  font-size: 13px;
-  font-weight: 500;
-  position: relative;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: 8px; cursor: pointer;
+  transition: all 0.15s ease; color: rgba(255,255,255,0.5);
+  font-size: 13px; font-weight: 500; position: relative;
 }
+.nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+.nav-item.active { background: var(--accent); color: white; }
 
-.nav-item:hover {
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.8);
-}
-
-.nav-item.active {
-  background: var(--accent);
-  color: white;
-}
-
-.nav-icon {
-  font-size: 16px;
-  width: 20px;
-  text-align: center;
-  flex-shrink: 0;
-}
+.nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
 
 .nav-badge {
-  margin-left: auto;
-  background: var(--accent);
-  color: white;
-  font-size: 9px;
-  font-family: 'DM Mono', monospace;
-  padding: 2px 6px;
-  border-radius: 10px;
-  min-width: 18px;
-  text-align: center;
+  margin-left: auto; background: var(--accent); color: white;
+  font-size: 9px; font-family: 'DM Mono', monospace;
+  padding: 2px 6px; border-radius: 10px; min-width: 18px; text-align: center;
 }
-
-.nav-item.active .nav-badge {
-  background: rgba(255,255,255,0.25);
-}
+.nav-item.active .nav-badge { background: rgba(255,255,255,0.25); }
 
 .sidebar-profile {
-  padding: 16px 20px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+  padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
 }
 
 .profile-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 13px;
-  color: white;
-  flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent); display: flex; align-items: center;
+  justify-content: center; font-weight: 700; font-size: 13px;
+  color: white; flex-shrink: 0;
 }
 
-.profile-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.8);
-}
+.profile-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8); }
+.profile-role { font-size: 10px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.3); }
 
-.profile-role {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: rgba(255,255,255,0.3);
-}
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-/* Main content */
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* Topbar */
 .topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 28px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 0 28px; height: 56px; display: flex; align-items: center;
+  gap: 16px; flex-shrink: 0;
 }
 
-.topbar-title {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--ink);
-}
-
-.topbar-sub {
-  font-size: 12px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-.topbar-actions {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.topbar-title { font-weight: 700; font-size: 16px; color: var(--ink); }
+.topbar-sub { font-size: 12px; font-family: 'DM Mono', monospace; color: var(--ink3); }
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
 
 .btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-  border: none;
-  transition: all 0.15s ease;
+  padding: 8px 16px; border-radius: 8px; font-size: 12px;
+  font-weight: 600; font-family: 'Manrope', sans-serif;
+  cursor: pointer; border: none; transition: all 0.15s ease;
 }
-
-.btn-primary {
-  background: var(--accent);
-  color: white;
-}
+.btn-primary { background: var(--accent); color: white; }
 .btn-primary:hover { background: var(--accent2); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--ink2);
-  border: 1px solid var(--border);
-}
+.btn-ghost { background: transparent; color: var(--ink2); border: 1px solid var(--border); }
 .btn-ghost:hover { background: var(--bg2); }
 
 .notif-bell {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  background: var(--surface);
-  transition: all 0.15s;
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--border); display: flex; align-items: center;
+  justify-content: center; cursor: pointer; position: relative;
+  background: var(--surface); transition: all 0.15s;
 }
 .notif-bell:hover { background: var(--bg2); }
 
 .notif-dot {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 1px solid var(--surface);
+  position: absolute; top: 6px; right: 6px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); border: 1px solid var(--surface);
 }
 
-/* Content area */
-.content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 24px 28px;
-  display: none;
-}
-
+.content { flex: 1; overflow-y: auto; padding: 24px 28px; display: none; }
 .content.active { display: block; }
 
-/* Dashboard grid */
 .dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 16px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto; gap: 16px;
 }
 
-/* Cards */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
 
 .card-header {
-  padding: 16px 18px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 18px 12px; display: flex; align-items: center;
+  gap: 10px; border-bottom: 1px solid var(--border);
 }
 
 .card-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
 }
 
-.card-title {
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--ink);
-}
+.card-title { font-weight: 700; font-size: 13px; color: var(--ink); }
+.card-sub { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 1px; }
+.card-body { padding: 14px 18px; }
 
-.card-sub {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  margin-top: 1px;
-}
-
-.card-body {
-  padding: 14px 18px;
-}
-
-/* What's New card */
-.whats-new {
-  grid-column: 1 / -1;
-  background: var(--ink);
-  border-color: transparent;
-}
-
-.whats-new .card-header {
-  border-bottom-color: rgba(255,255,255,0.08);
-}
-
+.whats-new { grid-column: 1 / -1; background: var(--ink); border-color: transparent; }
+.whats-new .card-header { border-bottom-color: rgba(255,255,255,0.08); }
 .whats-new .card-title { color: white; }
 .whats-new .card-sub { color: rgba(255,255,255,0.35); }
 
-.whats-new-body {
-  padding: 16px 18px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
+.whats-new-body { padding: 16px 18px; display: flex; gap: 12px; align-items: flex-start; }
 
-.profile-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  flex: 1;
-}
+.profile-tags { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
 
 .profile-tag {
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s;
 }
+.tag-active { background: var(--accent); color: white; }
+.tag-inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); }
+.tag-inactive:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
+.tag-add { background: transparent; color: rgba(255,255,255,0.3); border: 1px dashed rgba(255,255,255,0.15); }
+.tag-add:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.5); }
 
-.tag-active {
-  background: var(--accent);
-  color: white;
-}
-
-.tag-inactive {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.tag-inactive:hover {
-  background: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.7);
-}
-
-.tag-add {
-  background: transparent;
-  color: rgba(255,255,255,0.3);
-  border: 1px dashed rgba(255,255,255,0.15);
-}
-
-.tag-add:hover {
-  border-color: rgba(255,255,255,0.3);
-  color: rgba(255,255,255,0.5);
-}
-
-/* Task list */
 .task-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.15s;
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: all 0.15s;
 }
-
 .task-item:last-child { border-bottom: none; }
 .task-item:hover { opacity: 0.8; }
 
 .task-check {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  border: 1.5px solid var(--border2);
-  flex-shrink: 0;
-  margin-top: 1px;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 16px; height: 16px; border-radius: 4px;
+  border: 1.5px solid var(--border2); flex-shrink: 0; margin-top: 1px;
+  cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
 }
+.task-check.done { background: var(--green); border-color: var(--green); color: white; font-size: 10px; }
 
-.task-check.done {
-  background: var(--green);
-  border-color: var(--green);
-  color: white;
-  font-size: 10px;
-}
-
-.task-text {
-  flex: 1;
-  font-size: 12px;
-  color: var(--ink2);
-  line-height: 1.4;
-}
-
-.task-text.done {
-  text-decoration: line-through;
-  color: var(--ink3);
-}
+.task-text { flex: 1; font-size: 12px; color: var(--ink2); line-height: 1.4; }
+.task-text.done { text-decoration: line-through; color: var(--ink3); }
 
 .task-source {
-  font-size: 9px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  background: var(--bg2);
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
+  font-size: 9px; font-family: 'DM Mono', monospace;
+  color: var(--ink3); background: var(--bg2);
+  padding: 2px 6px; border-radius: 4px; white-space: nowrap;
 }
 
-/* Email items */
 .email-item {
-  display: flex;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: opacity 0.15s;
+  display: flex; gap: 10px; padding: 10px 0;
+  border-bottom: 1px solid var(--border); cursor: pointer; transition: opacity 0.15s;
 }
 .email-item:last-child { border-bottom: none; }
 .email-item:hover { opacity: 0.75; }
 
 .email-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: white; flex-shrink: 0;
 }
-
 .email-content { flex: 1; min-width: 0; }
+.email-from { font-size: 11px; font-weight: 700; color: var(--ink); }
+.email-subject { font-size: 11px; color: var(--ink2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.email-summary { font-size: 10px; color: var(--ink3); font-family: 'DM Mono', monospace; margin-top: 2px; }
+.email-time { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); flex-shrink: 0; }
 
-.email-from {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink);
-}
+.budget-chart-wrap { display: flex; gap: 16px; align-items: center; }
 
-.email-subject {
-  font-size: 11px;
-  color: var(--ink2);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.email-summary {
-  font-size: 10px;
-  color: var(--ink3);
-  font-family: 'DM Mono', monospace;
-  margin-top: 2px;
-}
-
-.email-time {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  flex-shrink: 0;
-}
-
-/* Budget chart */
-.budget-chart-wrap {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.pie-wrap {
-  position: relative;
-  width: 90px;
-  height: 90px;
-  flex-shrink: 0;
-}
-
-.pie-wrap svg {
-  transform: rotate(-90deg);
-}
+.pie-wrap { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
+.pie-wrap svg { transform: rotate(-90deg); }
 
 .pie-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); text-align: center;
 }
+.pie-total { font-size: 13px; font-weight: 800; color: var(--ink); line-height: 1; }
+.pie-label { font-size: 8px; font-family: 'DM Mono', monospace; color: var(--ink3); text-transform: uppercase; }
 
-.pie-total {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--ink);
-  line-height: 1;
-}
+.budget-legend { flex: 1; display: flex; flex-direction: column; gap: 6px; }
 
-.pie-label {
-  font-size: 8px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  text-transform: uppercase;
-}
+.budget-item { display: flex; align-items: center; gap: 8px; }
+.budget-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.budget-cat { font-size: 11px; color: var(--ink2); flex: 1; }
+.budget-amt { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--ink); font-weight: 500; }
+.budget-pct { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); width: 30px; text-align: right; }
 
-.budget-legend {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.budget-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.budget-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.budget-cat {
-  font-size: 11px;
-  color: var(--ink2);
-  flex: 1;
-}
-
-.budget-amt {
-  font-size: 11px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.budget-pct {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  width: 30px;
-  text-align: right;
-}
-
-/* Inventory */
-.inventory-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-}
+.inventory-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); }
 .inventory-item:last-child { border-bottom: none; }
-
 .inv-emoji { font-size: 16px; width: 24px; text-align: center; }
+.inv-name { font-size: 12px; font-weight: 600; color: var(--ink); flex: 1; }
+.inv-qty { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--ink2); }
+.stock-bar { width: 50px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.stock-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
 
-.inv-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-  flex: 1;
-}
-
-.inv-qty {
-  font-size: 11px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink2);
-}
-
-.stock-bar {
-  width: 50px;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.stock-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 0.5s ease;
-}
-
-/* Parcel items */
-.parcel-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--border);
-}
+.parcel-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); }
 .parcel-item:last-child { border-bottom: none; }
-
-.parcel-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  background: var(--bg2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
+.parcel-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--bg2); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
 .parcel-info { flex: 1; }
+.parcel-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.parcel-courier { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); }
 
-.parcel-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.parcel-courier {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-.status-pill {
-  font-size: 9px;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  padding: 3px 8px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
+.status-pill { font-size: 9px; font-family: 'DM Mono', monospace; font-weight: 500; padding: 3px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 .status-transit { background: var(--amber-light); color: var(--amber); }
 .status-delivered { background: var(--green-light); color: var(--green); }
 .status-processing { background: var(--blue-light); color: var(--blue); }
 .status-alert { background: var(--red-light); color: var(--red); }
 
-/* Notification panel */
 .notif-panel {
-  position: fixed;
-  top: 92px;
-  right: 28px;
-  width: 320px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-  z-index: 100;
-  display: none;
-  overflow: hidden;
+  position: fixed; top: 92px; right: 28px; width: 320px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  z-index: 100; display: none; overflow: hidden;
 }
-
 .notif-panel.open { display: block; animation: slideDown 0.2s ease; }
 
 @keyframes slideDown {
@@ -759,509 +336,311 @@ body::after {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.notif-header {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.notif-title {
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.notif-clear {
-  font-size: 11px;
-  color: var(--accent);
-  cursor: pointer;
-  font-family: 'DM Mono', monospace;
-}
-
-.notif-list {
-  max-height: 320px;
-  overflow-y: auto;
-}
-
-.notif-item {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  gap: 10px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
+.notif-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.notif-title { font-size: 13px; font-weight: 700; }
+.notif-clear { font-size: 11px; color: var(--accent); cursor: pointer; font-family: 'DM Mono', monospace; }
+.notif-list { max-height: 320px; overflow-y: auto; }
+.notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; cursor: pointer; transition: background 0.15s; }
 .notif-item:last-child { border-bottom: none; }
 .notif-item:hover { background: var(--bg2); }
-
-.notif-ico {
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
+.notif-ico { font-size: 18px; flex-shrink: 0; }
 .notif-body { flex: 1; }
+.notif-msg { font-size: 12px; color: var(--ink); line-height: 1.4; }
+.notif-time { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
 
-.notif-msg {
-  font-size: 12px;
-  color: var(--ink);
-  line-height: 1.4;
-}
-
-.notif-time {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  margin-top: 2px;
-}
-
-/* Calendar */
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-}
-
-.cal-day-label {
-  text-align: center;
-  font-size: 9px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 0;
-}
-
-.cal-day {
-  aspect-ratio: 1;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink2);
-  cursor: pointer;
-  transition: all 0.15s;
-  position: relative;
-}
-
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-day-label { text-align: center; font-size: 9px; font-family: 'DM Mono', monospace; color: var(--ink3); text-transform: uppercase; letter-spacing: 1px; padding: 4px 0; }
+.cal-day { aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.15s; position: relative; }
 .cal-day:hover { background: var(--bg2); }
-.cal-day.today {
-  background: var(--accent);
-  color: white;
-  font-weight: 700;
-}
-.cal-day.has-event::after {
-  content: '';
-  position: absolute;
-  bottom: 3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.cal-day.today.has-event::after {
-  background: white;
-}
+.cal-day.today { background: var(--accent); color: white; font-weight: 700; }
+.cal-day.has-event::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+.cal-day.today.has-event::after { background: white; }
 .cal-day.other-month { color: var(--border2); }
 
-/* Events list */
-.event-item {
-  display: flex;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: flex-start;
-}
+.event-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
 .event-item:last-child { border-bottom: none; }
-
-.event-time-col {
-  width: 50px;
-  flex-shrink: 0;
-}
-
-.event-time {
-  font-size: 11px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-.event-bar {
-  width: 3px;
-  border-radius: 2px;
-  margin-top: 4px;
-  height: 30px;
-}
-
+.event-time-col { width: 50px; flex-shrink: 0; }
+.event-time { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--ink3); }
+.event-bar { width: 3px; border-radius: 2px; margin-top: 4px; height: 30px; }
 .event-info { flex: 1; }
+.event-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.event-detail { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
 
-.event-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.event-detail {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  margin-top: 2px;
-}
-
-/* Bills */
-.bill-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--border);
-}
+.bill-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); }
 .bill-item:last-child { border-bottom: none; }
-
-.bill-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
+.bill-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
 .bill-info { flex: 1; }
+.bill-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.bill-freq { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); }
+.bill-amount { font-size: 13px; font-family: 'DM Mono', monospace; font-weight: 500; color: var(--ink); }
+.price-change { font-size: 9px; color: var(--red); display: flex; align-items: center; gap: 2px; }
 
-.bill-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.bill-freq {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-.bill-amount {
-  font-size: 13px;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-.price-change {
-  font-size: 9px;
-  color: var(--red);
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-/* Stat cards */
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
-}
-
-.stat-value {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.stat-label {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 4px;
-}
-
-.stat-change {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  margin-top: 6px;
-}
-
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.stat-value { font-size: 22px; font-weight: 800; color: var(--ink); line-height: 1; }
+.stat-label { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.stat-change { font-size: 10px; font-family: 'DM Mono', monospace; margin-top: 6px; }
 .change-up { color: var(--green); }
 .change-down { color: var(--red); }
 
-/* Wallet card */
-.wallet-card {
-  background: linear-gradient(135deg, #1a1714 0%, #2d2520 100%);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 12px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
+.wallet-card { background: linear-gradient(135deg, #1a1714 0%, #2d2520 100%); border-radius: 12px; padding: 20px; margin-bottom: 12px; position: relative; overflow: hidden; cursor: pointer; transition: transform 0.2s ease; }
 .wallet-card:hover { transform: translateY(-2px); }
+.wallet-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(200, 82, 26, 0.15); }
+.wallet-type { font-size: 9px; font-family: 'DM Mono', monospace; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
+.wallet-event { font-size: 16px; font-weight: 700; color: white; margin-bottom: 4px; }
+.wallet-detail { font-size: 11px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.4); }
+.wallet-barcode { margin-top: 14px; height: 36px; background: repeating-linear-gradient(90deg, rgba(255,255,255,0.8) 0px, rgba(255,255,255,0.8) 2px, transparent 2px, transparent 5px); border-radius: 3px; opacity: 0.6; }
 
-.wallet-card::before {
-  content: '';
-  position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: rgba(200, 82, 26, 0.15);
-}
+.trip-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; }
+.trip-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(200,82,26,0.08); }
+.trip-img { height: 80px; background: linear-gradient(135deg, var(--bg2) 0%, var(--border) 100%); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.trip-info { padding: 10px 12px; }
+.trip-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+.trip-dates { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
 
-.wallet-type {
-  font-size: 9px;
-  font-family: 'DM Mono', monospace;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 12px;
-}
-
-.wallet-event {
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 4px;
-}
-
-.wallet-detail {
-  font-size: 11px;
-  font-family: 'DM Mono', monospace;
-  color: rgba(255,255,255,0.4);
-}
-
-.wallet-barcode {
-  margin-top: 14px;
-  height: 36px;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(255,255,255,0.8) 0px,
-    rgba(255,255,255,0.8) 2px,
-    transparent 2px,
-    transparent 5px
-  );
-  border-radius: 3px;
-  opacity: 0.6;
-}
-
-/* Trip card */
-.trip-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.trip-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(200,82,26,0.08);
-}
-
-.trip-img {
-  height: 80px;
-  background: linear-gradient(135deg, var(--bg2) 0%, var(--border) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-}
-
-.trip-info {
-  padding: 10px 12px;
-}
-
-.trip-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.trip-dates {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  margin-top: 2px;
-}
-
-/* Meal cards */
-.meal-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 8px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
+.meal-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; gap: 10px; align-items: center; }
 .meal-emoji { font-size: 24px; }
-
 .meal-info { flex: 1; }
+.meal-name { font-size: 12px; font-weight: 700; color: var(--ink); }
+.meal-macros { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
+.meal-day { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); }
 
-.meal-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.meal-macros {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  margin-top: 2px;
-}
-
-.meal-day {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-/* Call log */
-.call-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
+.call-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
 .call-item:last-child { border-bottom: none; }
-
-.call-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
-}
-
+.call-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; flex-shrink: 0; }
 .call-info { flex: 1; }
+.call-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.call-summary { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; line-height: 1.4; }
+.call-meta { text-align: right; }
+.call-time { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); }
+.call-duration { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); }
 
-.call-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.call-summary {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-  margin-top: 2px;
-  line-height: 1.4;
-}
-
-.call-meta {
-  text-align: right;
-}
-
-.call-time {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-.call-duration {
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  color: var(--ink3);
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.content.active { animation: fadeIn 0.25s ease both; }
 
-.content.active {
-  animation: fadeIn 0.25s ease both;
-}
-
-/* Toast */
 .toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--ink);
-  color: white;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-family: 'DM Mono', monospace;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  z-index: 1000;
-  transform: translateY(80px);
-  opacity: 0;
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--ink); color: white; padding: 12px 18px;
+  border-radius: 10px; font-size: 12px; font-family: 'DM Mono', monospace;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 1000;
+  transform: translateY(80px); opacity: 0;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+.toast.show { transform: translateY(0); opacity: 1; }
 
-.toast.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Add task input */
-.add-task-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-}
+.add-task-row { display: flex; gap: 8px; margin-bottom: 12px; }
 
 .task-input {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 12px;
-  font-family: 'Manrope', sans-serif;
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  transition: border-color 0.15s;
+  flex: 1; padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: 7px; font-size: 12px; font-family: 'Manrope', sans-serif;
+  background: var(--surface); color: var(--ink); outline: none; transition: border-color 0.15s;
 }
-
 .task-input:focus { border-color: var(--accent); }
 .task-input::placeholder { color: var(--ink3); }
+
+/* ── TRANSACTIONS ── */
+.tx-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.15s;
+  border-radius: 4px;
+}
+.tx-item:last-child { border-bottom: none; }
+.tx-item:hover { background: var(--bg2); margin: 0 -6px; padding: 11px 6px; }
+
+.tx-logo {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; flex-shrink: 0;
+  letter-spacing: -0.5px;
+}
+
+.tx-info { flex: 1; min-width: 0; }
+
+.tx-merchant {
+  font-size: 12px; font-weight: 700; color: var(--ink);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.tx-meta { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
+
+.tx-right { text-align: right; flex-shrink: 0; }
+
+.tx-amount {
+  font-size: 13px; font-family: 'DM Mono', monospace;
+  font-weight: 600; color: var(--ink);
+}
+.tx-amount.credit { color: var(--green); }
+.tx-amount.debit { color: var(--ink); }
+
+.tx-date { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
+
+/* Receipt badge on transaction */
+.receipt-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 9px; font-family: 'DM Mono', monospace;
+  background: var(--green-light); color: var(--green);
+  border: 1px solid rgba(21,128,61,0.15);
+  padding: 2px 7px; border-radius: 4px;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.15s;
+}
+.receipt-badge:hover { background: #dcfce7; }
+
+.cat-pill {
+  font-size: 9px; font-family: 'DM Mono', monospace;
+  padding: 2px 7px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.cat-food { background: #fef3c7; color: #92400e; }
+.cat-transport { background: var(--blue-light); color: var(--blue); }
+.cat-shopping { background: var(--purple-light); color: var(--purple); }
+.cat-subs { background: #fdf4ff; color: #7e22ce; }
+.cat-housing { background: #f0f9ff; color: #0369a1; }
+
+/* Receipt modal overlay */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(26,23,20,0.6);
+  z-index: 200; display: none; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+
+.receipt-modal {
+  background: var(--surface); border-radius: 14px;
+  width: 340px; max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+}
+
+.receipt-modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+
+.receipt-modal-close {
+  margin-left: auto; width: 24px; height: 24px;
+  border-radius: 50%; background: var(--bg2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 12px; color: var(--ink3);
+  transition: all 0.15s; border: none;
+}
+.receipt-modal-close:hover { background: var(--border); color: var(--ink); }
+
+.receipt-body { padding: 16px 20px; }
+
+/* Tesco-style receipt */
+.receipt-paper {
+  background: #fffef9;
+  border: 1px solid #e8e4dc;
+  border-radius: 6px;
+  padding: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #2a2420;
+}
+
+.receipt-paper-header {
+  text-align: center;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.receipt-store-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #00539f;
+}
+
+.receipt-store-sub {
+  font-size: 9px;
+  color: #888;
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+.receipt-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid #f0ede8;
+  gap: 8px;
+}
+.receipt-line:last-child { border-bottom: none; }
+
+.receipt-line-name { flex: 1; }
+.receipt-line-qty { color: #888; width: 24px; text-align: center; flex-shrink: 0; }
+.receipt-line-price { font-weight: 600; flex-shrink: 0; text-align: right; }
+
+.receipt-divider {
+  border: none;
+  border-top: 1px dashed #ccc;
+  margin: 8px 0;
+}
+
+.receipt-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 12px;
+}
+
+.receipt-total-row.grand {
+  font-size: 14px;
+  font-weight: 700;
+  border-top: 2px solid #2a2420;
+  margin-top: 4px;
+  padding-top: 6px;
+}
+
+.receipt-footer {
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #ccc;
+  font-size: 9px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.receipt-barcode-img {
+  margin: 8px auto 0;
+  height: 28px;
+  background: repeating-linear-gradient(
+    90deg,
+    #333 0px, #333 1.5px,
+    transparent 1.5px, transparent 4px
+  );
+  border-radius: 2px;
+  opacity: 0.6;
+  width: 160px;
+}
+
+/* Tesco logo colours */
+.tesco-logo {
+  background: #00539f;
+  color: white;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
 </style>
 </head>
 <body>
 
-<!-- Titlebar -->
 <div class="titlebar">
   <div class="titlebar-dots">
     <div class="dot dot-red"></div>
@@ -1272,67 +651,30 @@ body::after {
   <div class="titlebar-time" id="clock">--:--</div>
 </div>
 
-<!-- App -->
 <div class="app">
-
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-brand">
       <div class="brand-name">ANN</div>
       <div class="brand-sub">Personal Assistant</div>
     </div>
-
     <div class="sidebar-nav">
       <div class="nav-section-label">Overview</div>
-      <div class="nav-item active" onclick="navigate('dashboard', this)">
-        <span class="nav-icon">⊞</span> Dashboard
-      </div>
-      <div class="nav-item" onclick="navigate('calendar', this)">
-        <span class="nav-icon">◫</span> Calendar
-        <span class="nav-badge">3</span>
-      </div>
-      <div class="nav-item" onclick="navigate('tasks', this)">
-        <span class="nav-icon">✓</span> Tasks
-        <span class="nav-badge">5</span>
-      </div>
-
+      <div class="nav-item active" onclick="navigate('dashboard', this)"><span class="nav-icon">⊞</span> Dashboard</div>
+      <div class="nav-item" onclick="navigate('calendar', this)"><span class="nav-icon">◫</span> Calendar<span class="nav-badge">3</span></div>
+      <div class="nav-item" onclick="navigate('tasks', this)"><span class="nav-icon">✓</span> Tasks<span class="nav-badge">5</span></div>
       <div class="nav-section-label">Communications</div>
-      <div class="nav-item" onclick="navigate('emails', this)">
-        <span class="nav-icon">✉</span> Emails
-        <span class="nav-badge">4</span>
-      </div>
-      <div class="nav-item" onclick="navigate('calls', this)">
-        <span class="nav-icon">☎</span> Calls
-      </div>
-      <div class="nav-item" onclick="navigate('wallet', this)">
-        <span class="nav-icon">◈</span> Wallet
-      </div>
-
+      <div class="nav-item" onclick="navigate('emails', this)"><span class="nav-icon">✉</span> Emails<span class="nav-badge">4</span></div>
+      <div class="nav-item" onclick="navigate('calls', this)"><span class="nav-icon">☎</span> Calls</div>
+      <div class="nav-item" onclick="navigate('wallet', this)"><span class="nav-icon">◈</span> Wallet</div>
       <div class="nav-section-label">Finance</div>
-      <div class="nav-item" onclick="navigate('budget', this)">
-        <span class="nav-icon">◉</span> Budget
-      </div>
-      <div class="nav-item" onclick="navigate('bills', this)">
-        <span class="nav-icon">⚑</span> Bills
-        <span class="nav-badge" style="background:var(--red)">!</span>
-      </div>
-
+      <div class="nav-item" onclick="navigate('budget', this)"><span class="nav-icon">◉</span> Budget</div>
+      <div class="nav-item" onclick="navigate('bills', this)"><span class="nav-icon">⚑</span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
       <div class="nav-section-label">Lifestyle</div>
-      <div class="nav-item" onclick="navigate('inventory', this)">
-        <span class="nav-icon">⊟</span> Inventory
-      </div>
-      <div class="nav-item" onclick="navigate('meals', this)">
-        <span class="nav-icon">⊕</span> Meals
-      </div>
-      <div class="nav-item" onclick="navigate('trips', this)">
-        <span class="nav-icon">◎</span> Trips
-      </div>
-      <div class="nav-item" onclick="navigate('parcels', this)">
-        <span class="nav-icon">⊡</span> Parcels
-        <span class="nav-badge">2</span>
-      </div>
+      <div class="nav-item" onclick="navigate('inventory', this)"><span class="nav-icon">⊟</span> Inventory</div>
+      <div class="nav-item" onclick="navigate('meals', this)"><span class="nav-icon">⊕</span> Meals</div>
+      <div class="nav-item" onclick="navigate('trips', this)"><span class="nav-icon">◎</span> Trips</div>
+      <div class="nav-item" onclick="navigate('parcels', this)"><span class="nav-icon">⊡</span> Parcels<span class="nav-badge">2</span></div>
     </div>
-
     <div class="sidebar-profile">
       <div class="profile-avatar">O</div>
       <div>
@@ -1342,10 +684,7 @@ body::after {
     </div>
   </div>
 
-  <!-- Main -->
   <div class="main">
-
-    <!-- Topbar -->
     <div class="topbar">
       <div>
         <div class="topbar-title" id="topbar-title">Dashboard</div>
@@ -1354,14 +693,10 @@ body::after {
       <div class="topbar-actions">
         <button class="btn btn-ghost" onclick="showToast('🔄 Syncing all accounts...')">Sync</button>
         <button class="btn btn-primary" id="action-btn" onclick="handleAction()">+ Add Task</button>
-        <div class="notif-bell" onclick="toggleNotif()">
-          🔔
-          <div class="notif-dot"></div>
-        </div>
+        <div class="notif-bell" onclick="toggleNotif()">🔔<div class="notif-dot"></div></div>
       </div>
     </div>
 
-    <!-- Notification Panel -->
     <div class="notif-panel" id="notif-panel">
       <div class="notif-header">
         <div class="notif-title">Notifications</div>
@@ -1371,15 +706,13 @@ body::after {
         <div class="notif-item"><div class="notif-ico">⚑</div><div class="notif-body"><div class="notif-msg">Netflix price increased from £10.99 to £13.99/mo</div><div class="notif-time">2 hours ago</div></div></div>
         <div class="notif-item"><div class="notif-ico">📦</div><div class="notif-body"><div class="notif-msg">Your ASOS order is out for delivery today</div><div class="notif-time">9:14 AM</div></div></div>
         <div class="notif-item"><div class="notif-ico">✉</div><div class="notif-body"><div class="notif-msg">Email from HMRC — Tax return reminder added to tasks</div><div class="notif-time">Yesterday</div></div></div>
-        <div class="notif-item"><div class="notif-ico">🥛</div><div class="notif-body"><div class="notif-msg">Low stock: Milk (1 unit remaining)</div><div class="notif-time">Yesterday</div></div></div>
+        <div class="notif-item"><div class="notif-ico">🥛</div><div class="notif-body"><div class="notif-msg">Low stock: Milk (1 Jug remaining)</div><div class="notif-time">Yesterday</div></div></div>
         <div class="notif-item"><div class="notif-ico">📞</div><div class="notif-body"><div class="notif-msg">Voicemail from Dr. Smith summarised and added to tasks</div><div class="notif-time">2 days ago</div></div></div>
       </div>
     </div>
 
     <!-- DASHBOARD -->
     <div class="content active" id="view-dashboard">
-
-      <!-- What's New -->
       <div class="card whats-new" style="margin-bottom:16px;">
         <div class="card-header">
           <div class="card-icon" style="background:rgba(200,82,26,0.3); font-size:16px;">✦</div>
@@ -1403,114 +736,32 @@ body::after {
           </div>
         </div>
       </div>
-
       <div class="stat-row">
-        <div class="stat-card">
-          <div class="stat-value">5</div>
-          <div class="stat-label">Open Tasks</div>
-          <div class="stat-change change-down">↑ 2 from emails</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">£1,842</div>
-          <div class="stat-label">Spent This Month</div>
-          <div class="stat-change change-up">↓ 8% vs last month</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">2</div>
-          <div class="stat-label">Parcels En Route</div>
-          <div class="stat-change" style="color:var(--amber)">1 out for delivery</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">3</div>
-          <div class="stat-label">Events This Week</div>
-          <div class="stat-change" style="color:var(--ink3)">Next: Mon 9AM</div>
-        </div>
+        <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">Open Tasks</div><div class="stat-change change-down">↑ 2 from emails</div></div>
+        <div class="stat-card"><div class="stat-value">£1,842</div><div class="stat-label">Spent This Month</div><div class="stat-change change-up">↓ 8% vs last month</div></div>
+        <div class="stat-card"><div class="stat-value">2</div><div class="stat-label">Parcels En Route</div><div class="stat-change" style="color:var(--amber)">1 out for delivery</div></div>
+        <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Events This Week</div><div class="stat-change" style="color:var(--ink3)">Next: Mon 9AM</div></div>
       </div>
-
       <div class="dashboard-grid">
-
-        <!-- Tasks -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--green-light);">✓</div>
-            <div>
-              <div class="card-title">Tasks</div>
-              <div class="card-sub">5 pending</div>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--green-light);">✓</div><div><div class="card-title">Tasks</div><div class="card-sub">5 pending</div></div></div>
           <div class="card-body">
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-check"></div>
-              <div class="task-text">Submit self-assessment tax return to HMRC</div>
-              <div class="task-source">email</div>
-            </div>
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-check done">✓</div>
-              <div class="task-text done">Review Q4 management accounts</div>
-              <div class="task-source">manual</div>
-            </div>
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-check"></div>
-              <div class="task-text">Book dentist appointment — voicemail follow up</div>
-              <div class="task-source">call</div>
-            </div>
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-check"></div>
-              <div class="task-text">Renew car insurance — expires 15 March</div>
-              <div class="task-source">email</div>
-            </div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Submit self-assessment tax return to HMRC</div><div class="task-source">email</div></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Book dentist appointment — voicemail follow up</div><div class="task-source">call</div></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Renew car insurance — expires 15 March</div><div class="task-source">email</div></div>
           </div>
         </div>
-
-        <!-- Emails -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--blue-light);">✉</div>
-            <div>
-              <div class="card-title">Recent Emails</div>
-              <div class="card-sub">AI summarised</div>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">✉</div><div><div class="card-title">Recent Emails</div><div class="card-sub">AI summarised</div></div></div>
           <div class="card-body">
-            <div class="email-item">
-              <div class="email-avatar" style="background:#dc2626;">H</div>
-              <div class="email-content">
-                <div class="email-from">HMRC</div>
-                <div class="email-subject">Self Assessment — Action Required</div>
-                <div class="email-summary">→ Tax return deadline 31 Jan. File now to avoid penalty.</div>
-              </div>
-              <div class="email-time">9:02</div>
-            </div>
-            <div class="email-item">
-              <div class="email-avatar" style="background:#7c3aed;">N</div>
-              <div class="email-content">
-                <div class="email-from">Netflix</div>
-                <div class="email-subject">Your plan price is changing</div>
-                <div class="email-summary">→ Price rising £10.99 → £13.99 from 15 Mar.</div>
-              </div>
-              <div class="email-time">Fri</div>
-            </div>
-            <div class="email-item">
-              <div class="email-avatar" style="background:#059669;">A</div>
-              <div class="email-content">
-                <div class="email-from">ASOS</div>
-                <div class="email-subject">Your order is on its way 🎉</div>
-                <div class="email-summary">→ Tracking: EVR-28291. Est. delivery today.</div>
-              </div>
-              <div class="email-time">Thu</div>
-            </div>
+            <div class="email-item"><div class="email-avatar" style="background:#dc2626;">H</div><div class="email-content"><div class="email-from">HMRC</div><div class="email-subject">Self Assessment — Action Required</div><div class="email-summary">→ Tax return deadline 31 Jan. File now to avoid penalty.</div></div><div class="email-time">9:02</div></div>
+            <div class="email-item"><div class="email-avatar" style="background:#7c3aed;">N</div><div class="email-content"><div class="email-from">Netflix</div><div class="email-subject">Your plan price is changing</div><div class="email-summary">→ Price rising £10.99 → £13.99 from 15 Mar.</div></div><div class="email-time">Fri</div></div>
+            <div class="email-item"><div class="email-avatar" style="background:#059669;">A</div><div class="email-content"><div class="email-from">ASOS</div><div class="email-subject">Your order is on its way 🎉</div><div class="email-summary">→ Tracking: EVR-28291. Est. delivery today.</div></div><div class="email-time">Thu</div></div>
           </div>
         </div>
-
-        <!-- Budget -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--amber-light);">◉</div>
-            <div>
-              <div class="card-title">Budget — Feb</div>
-              <div class="card-sub">£1,842 of £2,500</div>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">◉</div><div><div class="card-title">Budget — Feb</div><div class="card-sub">£1,842 of £2,500</div></div></div>
           <div class="card-body">
             <div class="budget-chart-wrap">
               <div class="pie-wrap">
@@ -1522,10 +773,7 @@ body::after {
                   <circle cx="45" cy="45" r="38" fill="none" stroke="#ef4444" stroke-width="14" stroke-dasharray="28 182" stroke-dashoffset="-137"/>
                   <circle cx="45" cy="45" r="38" fill="none" stroke="#8b5cf6" stroke-width="14" stroke-dasharray="17 182" stroke-dashoffset="-165"/>
                 </svg>
-                <div class="pie-center">
-                  <div class="pie-total">74%</div>
-                  <div class="pie-label">used</div>
-                </div>
+                <div class="pie-center"><div class="pie-total">74%</div><div class="pie-label">used</div></div>
               </div>
               <div class="budget-legend">
                 <div class="budget-item"><div class="budget-dot" style="background:#3b82f6"></div><div class="budget-cat">Housing</div><div class="budget-amt">£780</div><div class="budget-pct">31%</div></div>
@@ -1537,119 +785,31 @@ body::after {
             </div>
           </div>
         </div>
-
-        <!-- Inventory -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--green-light);">⊟</div>
-            <div>
-              <div class="card-title">Inventory</div>
-              <div class="card-sub">1 item low</div>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--green-light);">⊟</div><div><div class="card-title">Inventory</div><div class="card-sub">1 item low</div></div></div>
           <div class="card-body">
-            <div class="inventory-item">
-              <div class="inv-emoji">🥛</div>
-              <div class="inv-name">Milk</div>
-              <div class="inv-qty">1 Jug</div>
-              <div class="stock-bar"><div class="stock-fill" style="width:12%; background:#ef4444;"></div></div>
-            </div>
-            <div class="inventory-item">
-              <div class="inv-emoji">🍞</div>
-              <div class="inv-name">Bread</div>
-              <div class="inv-qty">1 loaf</div>
-              <div class="stock-bar"><div class="stock-fill" style="width:35%; background:#f59e0b;"></div></div>
-            </div>
-            <div class="inventory-item">
-              <div class="inv-emoji">🥚</div>
-              <div class="inv-name">Eggs</div>
-              <div class="inv-qty">8</div>
-              <div class="stock-bar"><div class="stock-fill" style="width:65%; background:#10b981;"></div></div>
-            </div>
-            <div class="inventory-item">
-              <div class="inv-emoji">☕</div>
-              <div class="inv-name">Coffee</div>
-              <div class="inv-qty">250g</div>
-              <div class="stock-bar"><div class="stock-fill" style="width:80%; background:#10b981;"></div></div>
-            </div>
-            <div class="inventory-item">
-              <div class="inv-emoji">🍚</div>
-              <div class="inv-name">Rice</div>
-              <div class="inv-qty">500g</div>
-              <div class="stock-bar"><div class="stock-fill" style="width:50%; background:#3b82f6;"></div></div>
-            </div>
+            <div class="inventory-item"><div class="inv-emoji">🥛</div><div class="inv-name">Milk</div><div class="inv-qty">1 Jug</div><div class="stock-bar"><div class="stock-fill" style="width:12%; background:#ef4444;"></div></div></div>
+            <div class="inventory-item"><div class="inv-emoji">🍞</div><div class="inv-name">Bread</div><div class="inv-qty">1 loaf</div><div class="stock-bar"><div class="stock-fill" style="width:35%; background:#f59e0b;"></div></div></div>
+            <div class="inventory-item"><div class="inv-emoji">🥚</div><div class="inv-name">Eggs</div><div class="inv-qty">8</div><div class="stock-bar"><div class="stock-fill" style="width:65%; background:#10b981;"></div></div></div>
+            <div class="inventory-item"><div class="inv-emoji">☕</div><div class="inv-name">Coffee</div><div class="inv-qty">250g</div><div class="stock-bar"><div class="stock-fill" style="width:80%; background:#10b981;"></div></div></div>
+            <div class="inventory-item"><div class="inv-emoji">🍚</div><div class="inv-name">Rice</div><div class="inv-qty">500g</div><div class="stock-bar"><div class="stock-fill" style="width:50%; background:#3b82f6;"></div></div></div>
           </div>
         </div>
-
-        <!-- Parcels -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--amber-light);">⊡</div>
-            <div>
-              <div class="card-title">Parcels</div>
-              <div class="card-sub">2 active</div>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">⊡</div><div><div class="card-title">Parcels</div><div class="card-sub">2 active</div></div></div>
           <div class="card-body">
-            <div class="parcel-item">
-              <div class="parcel-icon">📦</div>
-              <div class="parcel-info">
-                <div class="parcel-name">ASOS Order #28291</div>
-                <div class="parcel-courier">Evri · EVR-28291-UK</div>
-              </div>
-              <div class="status-pill status-transit">Out for delivery</div>
-            </div>
-            <div class="parcel-item">
-              <div class="parcel-icon">📦</div>
-              <div class="parcel-info">
-                <div class="parcel-name">Amazon — GPU Cable</div>
-                <div class="parcel-courier">Royal Mail · RM-774821-GB</div>
-              </div>
-              <div class="status-pill status-processing">In transit</div>
-            </div>
+            <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">ASOS Order #28291</div><div class="parcel-courier">Evri · EVR-28291-UK</div></div><div class="status-pill status-transit">Out for delivery</div></div>
+            <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">Amazon — GPU Cable</div><div class="parcel-courier">Royal Mail · RM-774821-GB</div></div><div class="status-pill status-processing">In transit</div></div>
           </div>
         </div>
-
-        <!-- Bills alert -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--red-light);">⚑</div>
-            <div>
-              <div class="card-title">Bills & Subscriptions</div>
-              <div class="card-sub">1 price change detected</div>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--red-light);">⚑</div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">1 price change detected</div></div></div>
           <div class="card-body">
-            <div class="bill-item">
-              <div class="bill-icon" style="background:#e50914; color:white;">N</div>
-              <div class="bill-info">
-                <div class="bill-name">Netflix</div>
-                <div class="bill-freq">Monthly · 15th</div>
-              </div>
-              <div>
-                <div class="bill-amount">£13.99</div>
-                <div class="price-change">↑ was £10.99</div>
-              </div>
-            </div>
-            <div class="bill-item">
-              <div class="bill-icon" style="background:#1db954; color:white;">S</div>
-              <div class="bill-info">
-                <div class="bill-name">Spotify</div>
-                <div class="bill-freq">Monthly · 3rd</div>
-              </div>
-              <div class="bill-amount">£11.99</div>
-            </div>
-            <div class="bill-item">
-              <div class="bill-icon" style="background:#0078d4; color:white;">M</div>
-              <div class="bill-info">
-                <div class="bill-name">Microsoft 365</div>
-                <div class="bill-freq">Monthly · 1st</div>
-              </div>
-              <div class="bill-amount">£9.99</div>
-            </div>
+            <div class="bill-item"><div class="bill-icon" style="background:#e50914; color:white;">N</div><div class="bill-info"><div class="bill-name">Netflix</div><div class="bill-freq">Monthly · 15th</div></div><div><div class="bill-amount">£13.99</div><div class="price-change">↑ was £10.99</div></div></div>
+            <div class="bill-item"><div class="bill-icon" style="background:#1db954; color:white;">S</div><div class="bill-info"><div class="bill-name">Spotify</div><div class="bill-freq">Monthly · 3rd</div></div><div class="bill-amount">£11.99</div></div>
+            <div class="bill-item"><div class="bill-icon" style="background:#0078d4; color:white;">M</div><div class="bill-info"><div class="bill-name">Microsoft 365</div><div class="bill-freq">Monthly · 1st</div></div><div class="bill-amount">£9.99</div></div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -1660,10 +820,7 @@ body::after {
         <button class="btn btn-primary" onclick="addNewTask()">Add Task</button>
       </div>
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--green-light);">✓</div>
-          <div><div class="card-title">All Tasks</div><div class="card-sub">From emails, calls, and manual entries</div></div>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">✓</div><div><div class="card-title">All Tasks</div><div class="card-sub">From emails, calls, and manual entries</div></div></div>
         <div class="card-body" id="all-tasks-list">
           <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Submit self-assessment tax return to HMRC</div><div class="task-source">email</div></div>
           <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
@@ -1677,10 +834,7 @@ body::after {
     <!-- EMAILS VIEW -->
     <div class="content" id="view-emails">
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--blue-light);">✉</div>
-          <div><div class="card-title">Inbox — AI Summarised</div><div class="card-sub">All email providers · Nylas unified</div></div>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">✉</div><div><div class="card-title">Inbox — AI Summarised</div><div class="card-sub">All email providers · Nylas unified</div></div></div>
         <div class="card-body">
           <div class="email-item"><div class="email-avatar" style="background:#dc2626;">H</div><div class="email-content"><div class="email-from">HMRC</div><div class="email-subject">Self Assessment 2024/25 — Action Required</div><div class="email-summary">→ File your self assessment return by 31 Jan. Penalty of £100 if late. Task added.</div></div><div class="email-time">09:02</div></div>
           <div class="email-item"><div class="email-avatar" style="background:#7c3aed;">N</div><div class="email-content"><div class="email-from">Netflix</div><div class="email-subject">Your plan price is changing from 15 March</div><div class="email-summary">→ Standard plan rising from £10.99 to £13.99/month. Bill alert created.</div></div><div class="email-time">Fri</div></div>
@@ -1694,44 +848,11 @@ body::after {
     <!-- CALLS VIEW -->
     <div class="content" id="view-calls">
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--green-light);">☎</div>
-          <div><div class="card-title">Call Log — AI Summarised</div><div class="card-sub">Whisper transcription · Claude summary</div></div>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">☎</div><div><div class="card-title">Call Log — AI Summarised</div><div class="card-sub">Whisper transcription · Claude summary</div></div></div>
         <div class="card-body">
-          <div class="call-item">
-            <div class="call-avatar" style="background:#7c3aed;">D</div>
-            <div class="call-info">
-              <div class="call-name">Dr. Smith — GP Surgery</div>
-              <div class="call-summary">Voicemail: Appointment available Mon 2 Mar at 10:30AM. Call back to confirm. Task added to book.</div>
-            </div>
-            <div class="call-meta">
-              <div class="call-time">Yesterday</div>
-              <div class="call-duration">0:42</div>
-            </div>
-          </div>
-          <div class="call-item">
-            <div class="call-avatar" style="background:#0284c7;">M</div>
-            <div class="call-info">
-              <div class="call-name">Manager — Work</div>
-              <div class="call-summary">Discussion re: Q1 management accounts deadline moved to 10 March. Review meeting booked for 12 Mar. Event added.</div>
-            </div>
-            <div class="call-meta">
-              <div class="call-time">Thu</div>
-              <div class="call-duration">4:17</div>
-            </div>
-          </div>
-          <div class="call-item">
-            <div class="call-avatar" style="background:#059669;">I</div>
-            <div class="call-info">
-              <div class="call-name">Insurance — Admiral</div>
-              <div class="call-summary">Renewal quote provided: £642/year. Valid 14 days. Task created to compare and renew before expiry.</div>
-            </div>
-            <div class="call-meta">
-              <div class="call-time">Mon</div>
-              <div class="call-duration">6:54</div>
-            </div>
-          </div>
+          <div class="call-item"><div class="call-avatar" style="background:#7c3aed;">D</div><div class="call-info"><div class="call-name">Dr. Smith — GP Surgery</div><div class="call-summary">Voicemail: Appointment available Mon 2 Mar at 10:30AM. Call back to confirm. Task added to book.</div></div><div class="call-meta"><div class="call-time">Yesterday</div><div class="call-duration">0:42</div></div></div>
+          <div class="call-item"><div class="call-avatar" style="background:#0284c7;">M</div><div class="call-info"><div class="call-name">Manager — Work</div><div class="call-summary">Discussion re: Q1 management accounts deadline moved to 10 March. Review meeting booked for 12 Mar. Event added.</div></div><div class="call-meta"><div class="call-time">Thu</div><div class="call-duration">4:17</div></div></div>
+          <div class="call-item"><div class="call-avatar" style="background:#059669;">I</div><div class="call-info"><div class="call-name">Insurance — Admiral</div><div class="call-summary">Renewal quote provided: £642/year. Valid 14 days. Task created to compare and renew before expiry.</div></div><div class="call-meta"><div class="call-time">Mon</div><div class="call-duration">6:54</div></div></div>
         </div>
       </div>
     </div>
@@ -1756,7 +877,7 @@ body::after {
       </div>
     </div>
 
-    <!-- BUDGET VIEW -->
+    <!-- BUDGET VIEW — UPDATED WITH TRANSACTIONS -->
     <div class="content" id="view-budget">
       <div class="stat-row">
         <div class="stat-card"><div class="stat-value">£2,500</div><div class="stat-label">Monthly Budget</div></div>
@@ -1764,46 +885,168 @@ body::after {
         <div class="stat-card"><div class="stat-value">£658</div><div class="stat-label">Remaining</div><div class="stat-change" style="color:var(--green)">26% of budget</div></div>
         <div class="stat-card"><div class="stat-value">£61</div><div class="stat-label">Daily Average</div></div>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--amber-light);">◉</div>
-          <div><div class="card-title">February Breakdown</div><div class="card-sub">Linked via TrueLayer · Auto-categorised</div></div>
-        </div>
-        <div class="card-body">
-          <div class="budget-chart-wrap" style="gap:32px;">
-            <div class="pie-wrap" style="width:140px;height:140px;">
-              <svg width="140" height="140" viewBox="0 0 140 140">
-                <circle cx="70" cy="70" r="58" fill="none" stroke="#f5f2ed" stroke-width="20"/>
-                <circle cx="70" cy="70" r="58" fill="none" stroke="#3b82f6" stroke-width="20" stroke-dasharray="112 252" stroke-dashoffset="0"/>
-                <circle cx="70" cy="70" r="58" fill="none" stroke="#10b981" stroke-width="20" stroke-dasharray="86 252" stroke-dashoffset="-112"/>
-                <circle cx="70" cy="70" r="58" fill="none" stroke="#f59e0b" stroke-width="20" stroke-dasharray="53 252" stroke-dashoffset="-198"/>
-                <circle cx="70" cy="70" r="58" fill="none" stroke="#ef4444" stroke-width="20" stroke-dasharray="79 252" stroke-dashoffset="-251"/>
-                <circle cx="70" cy="70" r="58" fill="none" stroke="#8b5cf6" stroke-width="20" stroke-dasharray="43 252" stroke-dashoffset="-330"/>
-              </svg>
-              <div class="pie-center">
-                <div class="pie-total" style="font-size:18px;">£1,842</div>
-                <div class="pie-label">Feb 2026</div>
+
+      <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:16px;">
+
+        <!-- Pie chart card -->
+        <div class="card">
+          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">◉</div><div><div class="card-title">February Breakdown</div><div class="card-sub">Linked via TrueLayer · Auto-categorised</div></div></div>
+          <div class="card-body">
+            <div class="budget-chart-wrap" style="flex-direction:column; gap:20px; align-items:flex-start;">
+              <div class="pie-wrap" style="width:130px;height:130px; margin:0 auto;">
+                <svg width="130" height="130" viewBox="0 0 130 130">
+                  <circle cx="65" cy="65" r="54" fill="none" stroke="#f5f2ed" stroke-width="18"/>
+                  <circle cx="65" cy="65" r="54" fill="none" stroke="#3b82f6" stroke-width="18" stroke-dasharray="104 236" stroke-dashoffset="0"/>
+                  <circle cx="65" cy="65" r="54" fill="none" stroke="#10b981" stroke-width="18" stroke-dasharray="80 236" stroke-dashoffset="-104"/>
+                  <circle cx="65" cy="65" r="54" fill="none" stroke="#f59e0b" stroke-width="18" stroke-dasharray="50 236" stroke-dashoffset="-184"/>
+                  <circle cx="65" cy="65" r="54" fill="none" stroke="#ef4444" stroke-width="18" stroke-dasharray="74 236" stroke-dashoffset="-234"/>
+                  <circle cx="65" cy="65" r="54" fill="none" stroke="#8b5cf6" stroke-width="18" stroke-dasharray="40 236" stroke-dashoffset="-308"/>
+                </svg>
+                <div class="pie-center"><div class="pie-total" style="font-size:16px;">£1,842</div><div class="pie-label">Feb 2026</div></div>
               </div>
-            </div>
-            <div class="budget-legend" style="gap:12px;">
-              <div class="budget-item"><div class="budget-dot" style="background:#3b82f6; width:12px; height:12px;"></div><div class="budget-cat" style="font-size:13px;">Housing & Utilities</div><div class="budget-amt" style="font-size:13px;">£780</div><div class="budget-pct" style="font-size:12px;">31%</div></div>
-              <div class="budget-item"><div class="budget-dot" style="background:#10b981; width:12px; height:12px;"></div><div class="budget-cat" style="font-size:13px;">Food & Groceries</div><div class="budget-amt" style="font-size:13px;">£340</div><div class="budget-pct" style="font-size:12px;">18%</div></div>
-              <div class="budget-item"><div class="budget-dot" style="background:#f59e0b; width:12px; height:12px;"></div><div class="budget-cat" style="font-size:13px;">Transport</div><div class="budget-amt" style="font-size:13px;">£210</div><div class="budget-pct" style="font-size:12px;">11%</div></div>
-              <div class="budget-item"><div class="budget-dot" style="background:#ef4444; width:12px; height:12px;"></div><div class="budget-cat" style="font-size:13px;">Shopping</div><div class="budget-amt" style="font-size:13px;">£312</div><div class="budget-pct" style="font-size:12px;">17%</div></div>
-              <div class="budget-item"><div class="budget-dot" style="background:#8b5cf6; width:12px; height:12px;"></div><div class="budget-cat" style="font-size:13px;">Subscriptions</div><div class="budget-amt" style="font-size:13px;">£200</div><div class="budget-pct" style="font-size:12px;">11%</div></div>
+              <div class="budget-legend" style="width:100%; gap:10px;">
+                <div class="budget-item"><div class="budget-dot" style="background:#3b82f6;width:10px;height:10px;"></div><div class="budget-cat">Housing & Utilities</div><div class="budget-amt">£780</div><div class="budget-pct">31%</div></div>
+                <div class="budget-item"><div class="budget-dot" style="background:#10b981;width:10px;height:10px;"></div><div class="budget-cat">Food & Groceries</div><div class="budget-amt">£340</div><div class="budget-pct">18%</div></div>
+                <div class="budget-item"><div class="budget-dot" style="background:#f59e0b;width:10px;height:10px;"></div><div class="budget-cat">Transport</div><div class="budget-amt">£210</div><div class="budget-pct">11%</div></div>
+                <div class="budget-item"><div class="budget-dot" style="background:#ef4444;width:10px;height:10px;"></div><div class="budget-cat">Shopping</div><div class="budget-amt">£312</div><div class="budget-pct">17%</div></div>
+                <div class="budget-item"><div class="budget-dot" style="background:#8b5cf6;width:10px;height:10px;"></div><div class="budget-cat">Subscriptions</div><div class="budget-amt">£200</div><div class="budget-pct">11%</div></div>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Transactions card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--blue-light);">≡</div>
+            <div>
+              <div class="card-title">Transactions</div>
+              <div class="card-sub">February 2026 · Auto-categorised · TrueLayer</div>
+            </div>
+            <button class="btn btn-ghost" style="margin-left:auto; font-size:11px; padding:6px 12px;" onclick="showToast('🔍 Filtering transactions...')">Filter</button>
+          </div>
+          <div class="card-body" style="padding:10px 18px;">
+
+            <!-- Tesco — has receipt attached -->
+            <div class="tx-item" onclick="openReceipt()">
+              <div class="tx-logo tesco-logo" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;">T</div>
+              <div class="tx-info">
+                <div class="tx-merchant">
+                  Tesco Superstore
+                  <span class="receipt-badge" onclick="event.stopPropagation(); openReceipt()">📄 Receipt</span>
+                </div>
+                <div class="tx-meta">
+                  <span class="cat-pill cat-food">Food</span>
+                  &nbsp;· Lincoln, Tritton Rd · 27 Feb
+                </div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£47.83</div>
+                <div class="tx-date">Today</div>
+              </div>
+            </div>
+
+            <!-- Barclays salary -->
+            <div class="tx-item">
+              <div class="tx-logo" style="background:#00395d;color:white;font-size:10px;font-weight:800;">BAR</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Salary — Employer Ltd</div>
+                <div class="tx-meta"><span class="cat-pill cat-housing">Income</span> &nbsp;· Direct credit · 25 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount credit">+£1,650.00</div>
+                <div class="tx-date">25 Feb</div>
+              </div>
+            </div>
+
+            <!-- TfL -->
+            <div class="tx-item">
+              <div class="tx-logo" style="background:#e1251b;color:white;font-size:11px;font-weight:800;">TfL</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Transport for London</div>
+                <div class="tx-meta"><span class="cat-pill cat-transport">Transport</span> &nbsp;· Contactless · 24 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£4.80</div>
+                <div class="tx-date">24 Feb</div>
+              </div>
+            </div>
+
+            <!-- ASOS -->
+            <div class="tx-item">
+              <div class="tx-logo" style="background:#1a1a1a;color:white;font-size:10px;font-weight:800;">ASO</div>
+              <div class="tx-info">
+                <div class="tx-merchant">ASOS</div>
+                <div class="tx-meta"><span class="cat-pill cat-shopping">Shopping</span> &nbsp;· Online · 23 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£62.00</div>
+                <div class="tx-date">23 Feb</div>
+              </div>
+            </div>
+
+            <!-- Netflix -->
+            <div class="tx-item">
+              <div class="tx-logo" style="background:#e50914;color:white;font-size:11px;font-weight:800;">N</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Netflix</div>
+                <div class="tx-meta"><span class="cat-pill cat-subs">Subscription</span> &nbsp;· Recurring · 15 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£13.99</div>
+                <div class="tx-date">15 Feb</div>
+              </div>
+            </div>
+
+            <!-- Tesco Express — no receipt -->
+            <div class="tx-item">
+              <div class="tx-logo tesco-logo" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;">T</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Tesco Express</div>
+                <div class="tx-meta"><span class="cat-pill cat-food">Food</span> &nbsp;· Lincoln, High St · 14 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£8.42</div>
+                <div class="tx-date">14 Feb</div>
+              </div>
+            </div>
+
+            <!-- Amazon -->
+            <div class="tx-item">
+              <div class="tx-logo" style="background:#ff9900;color:#111;font-size:10px;font-weight:800;">AMZ</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Amazon</div>
+                <div class="tx-meta"><span class="cat-pill cat-shopping">Shopping</span> &nbsp;· Online · 12 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£24.99</div>
+                <div class="tx-date">12 Feb</div>
+              </div>
+            </div>
+
+            <!-- Spotify -->
+            <div class="tx-item">
+              <div class="tx-logo" style="background:#1db954;color:white;font-size:11px;font-weight:800;">S</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Spotify Premium</div>
+                <div class="tx-meta"><span class="cat-pill cat-subs">Subscription</span> &nbsp;· Recurring · 3 Feb</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-amount debit">−£11.99</div>
+                <div class="tx-date">3 Feb</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- BILLS VIEW -->
     <div class="content" id="view-bills">
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--red-light);">⚑</div>
-          <div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">Auto-detected from recurring transactions</div></div>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--red-light);">⚑</div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">Auto-detected from recurring transactions</div></div></div>
         <div class="card-body">
           <div class="bill-item"><div class="bill-icon" style="background:#e50914;color:white;">N</div><div class="bill-info"><div class="bill-name">Netflix</div><div class="bill-freq">Monthly · 15th · Standard Plan</div></div><div><div class="bill-amount">£13.99</div><div class="price-change">↑ was £10.99</div></div></div>
           <div class="bill-item"><div class="bill-icon" style="background:#1db954;color:white;">S</div><div class="bill-info"><div class="bill-name">Spotify Premium</div><div class="bill-freq">Monthly · 3rd</div></div><div class="bill-amount">£11.99</div></div>
@@ -1817,11 +1060,7 @@ body::after {
     <!-- INVENTORY VIEW -->
     <div class="content" id="view-inventory">
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--green-light);">⊟</div>
-          <div><div class="card-title">Food & Drink Inventory</div><div class="card-sub">Updated from receipt scans · 1 item low</div></div>
-          <button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('📄 Upload receipt to scan inventory')">Scan Receipt</button>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">⊟</div><div><div class="card-title">Food & Drink Inventory</div><div class="card-sub">Updated from receipt scans · 1 item low</div></div><button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('📄 Upload receipt to scan inventory')">Scan Receipt</button></div>
         <div class="card-body">
           <div class="inventory-item"><div class="inv-emoji">🥛</div><div class="inv-name">Milk</div><div class="inv-qty">1 jug</div><div class="stock-bar"><div class="stock-fill" style="width:12%;background:#ef4444;"></div></div><div class="status-pill status-alert" style="margin-left:8px;">Low</div></div>
           <div class="inventory-item"><div class="inv-emoji">🍞</div><div class="inv-name">Bread</div><div class="inv-qty">1 loaf</div><div class="stock-bar"><div class="stock-fill" style="width:35%;background:#f59e0b;"></div></div></div>
@@ -1837,11 +1076,7 @@ body::after {
     <!-- MEALS VIEW -->
     <div class="content" id="view-meals">
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--green-light);">⊕</div>
-          <div><div class="card-title">Meal Plan — This Week</div><div class="card-sub">Generated by Claude · Based on your inventory & taste profile</div></div>
-          <button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('🤖 Claude is generating a new meal plan...')">Regenerate</button>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">⊕</div><div><div class="card-title">Meal Plan — This Week</div><div class="card-sub">Generated by Claude · Based on your inventory & taste profile</div></div><button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('🤖 Claude is generating a new meal plan...')">Regenerate</button></div>
         <div class="card-body">
           <div class="meal-card"><div class="meal-emoji">🍜</div><div class="meal-info"><div class="meal-name">Garlic Egg Fried Rice</div><div class="meal-macros">Est. 520 kcal · Uses: rice, eggs, garlic, olive oil</div></div><div class="meal-day">Mon</div></div>
           <div class="meal-card"><div class="meal-emoji">🥗</div><div class="meal-info"><div class="meal-name">Avocado Toast with Eggs</div><div class="meal-macros">Est. 380 kcal · Uses: bread, eggs</div></div><div class="meal-day">Tue</div></div>
@@ -1859,23 +1094,11 @@ body::after {
         <div class="trip-card"><div class="trip-img">🌆</div><div class="trip-info"><div class="trip-name">New York, USA</div><div class="trip-dates">Suggested · Finance & culture</div></div></div>
       </div>
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--blue-light);">✈</div>
-          <div><div class="card-title">Upcoming — Glastonbury 2026</div><div class="card-sub">25–29 June 2026 · Somerset, UK</div></div>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">✈</div><div><div class="card-title">Upcoming — Glastonbury 2026</div><div class="card-sub">25–29 June 2026 · Somerset, UK</div></div></div>
         <div class="card-body">
-          <div class="event-item">
-            <div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#3b82f6;"></div></div>
-            <div class="event-info"><div class="event-name">Depart — LNER London to Somerset</div><div class="event-detail">08:45 · Kings Cross · Booked</div></div>
-          </div>
-          <div class="event-item">
-            <div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#10b981;"></div></div>
-            <div class="event-info"><div class="event-name">Check in — Worthy Farm Camping</div><div class="event-detail">From 12:00 · GA Ticket in Wallet</div></div>
-          </div>
-          <div class="event-item">
-            <div class="event-time-col"><div class="event-time">29 Jun</div><div class="event-bar" style="background:#f59e0b;"></div></div>
-            <div class="event-info"><div class="event-name">Depart — Return to London</div><div class="event-detail">16:00 · Castle Cary station</div></div>
-          </div>
+          <div class="event-item"><div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#3b82f6;"></div></div><div class="event-info"><div class="event-name">Depart — LNER London to Somerset</div><div class="event-detail">08:45 · Kings Cross · Booked</div></div></div>
+          <div class="event-item"><div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#10b981;"></div></div><div class="event-info"><div class="event-name">Check in — Worthy Farm Camping</div><div class="event-detail">From 12:00 · GA Ticket in Wallet</div></div></div>
+          <div class="event-item"><div class="event-time-col"><div class="event-time">29 Jun</div><div class="event-bar" style="background:#f59e0b;"></div></div><div class="event-info"><div class="event-name">Depart — Return to London</div><div class="event-detail">16:00 · Castle Cary station</div></div></div>
         </div>
       </div>
     </div>
@@ -1883,10 +1106,7 @@ body::after {
     <!-- PARCELS VIEW -->
     <div class="content" id="view-parcels">
       <div class="card">
-        <div class="card-header">
-          <div class="card-icon" style="background:var(--amber-light);">⊡</div>
-          <div><div class="card-title">Parcel Tracking</div><div class="card-sub">Auto-detected from emails · AfterShip</div></div>
-        </div>
+        <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">⊡</div><div><div class="card-title">Parcel Tracking</div><div class="card-sub">Auto-detected from emails · AfterShip</div></div></div>
         <div class="card-body">
           <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">ASOS Order #28291 — Clothing</div><div class="parcel-courier">Evri · EVR-28291-UK · Est. today by 6PM</div></div><div class="status-pill status-transit">Out for delivery</div></div>
           <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">Amazon — GPU Power Cable</div><div class="parcel-courier">Royal Mail · RM-774821-GB · Est. Mon 2 Mar</div></div><div class="status-pill status-processing">In transit</div></div>
@@ -1898,10 +1118,7 @@ body::after {
     <div class="content" id="view-calendar">
       <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:16px;">
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--blue-light);">◫</div>
-            <div><div class="card-title">February 2026</div></div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">◫</div><div><div class="card-title">February 2026</div></div></div>
           <div class="card-body">
             <div class="calendar-grid">
               <div class="cal-day-label">M</div><div class="cal-day-label">T</div><div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div><div class="cal-day-label">S</div>
@@ -1914,10 +1131,7 @@ body::after {
           </div>
         </div>
         <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background:var(--purple-light);">◫</div>
-            <div><div class="card-title">Upcoming Events</div><div class="card-sub">From emails, calls & manual</div></div>
-          </div>
+          <div class="card-header"><div class="card-icon" style="background:var(--purple-light);">◫</div><div><div class="card-title">Upcoming Events</div><div class="card-sub">From emails, calls & manual</div></div></div>
           <div class="card-body">
             <div class="event-item"><div class="event-time-col"><div class="event-time">Today</div><div class="event-bar" style="background:var(--accent);"></div></div><div class="event-info"><div class="event-name">ASOS Delivery Expected</div><div class="event-detail">Evri · by 6PM · No action needed</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">Mon 2</div><div class="event-bar" style="background:#7c3aed;"></div></div><div class="event-info"><div class="event-name">GP Appointment — Dr. Smith</div><div class="event-detail">10:30 AM · Booked from voicemail</div></div></div>
@@ -1928,14 +1142,77 @@ body::after {
       </div>
     </div>
 
-  </div><!-- end main -->
-</div><!-- end app -->
+  </div>
+</div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- Receipt Modal -->
+<div class="modal-overlay" id="receipt-modal" onclick="closeReceipt(event)">
+  <div class="receipt-modal" onclick="event.stopPropagation()">
+    <div class="receipt-modal-header">
+      <div class="tx-logo tesco-logo" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;">T</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);">Tesco Superstore</div>
+        <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Receipt · 27 Feb 2026 · £47.83</div>
+      </div>
+      <button class="receipt-modal-close" onclick="closeReceiptBtn()">✕</button>
+    </div>
+    <div class="receipt-body">
+      <div class="receipt-paper">
+        <div class="receipt-paper-header">
+          <div class="receipt-store-name">TESCO</div>
+          <div class="receipt-store-sub">Tritton Road, Lincoln, LN6 7QY</div>
+          <div class="receipt-store-sub" style="margin-top:6px;">27/02/2026 &nbsp;14:23 &nbsp;Till: 04 &nbsp;Op: 182</div>
+        </div>
+
+        <div class="receipt-line"><span class="receipt-line-name">Whole Milk 2L</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£1.35</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Medium Sliced Bread</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£1.20</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Free Range Eggs 12pk</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£2.85</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Tesco Coffee Beans 500g</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£5.50</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Basmati Rice 1kg</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£2.10</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Extra Virgin Olive Oil 500ml</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£4.20</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Garlic Bulb</span><span class="receipt-line-qty">x2</span><span class="receipt-line-price">£0.80</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Chicken Breast 500g</span><span class="receipt-line-qty">x2</span><span class="receipt-line-price">£7.00</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Broccoli</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£0.79</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Cheddar Cheese 400g</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£3.50</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Pasta Penne 500g</span><span class="receipt-line-qty">x2</span><span class="receipt-line-price">£1.80</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Tinned Tomatoes 400g</span><span class="receipt-line-qty">x3</span><span class="receipt-line-price">£1.50</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Orange Juice 1.5L</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£2.00</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Washing Up Liquid 500ml</span><span class="receipt-line-qty">x1</span><span class="receipt-line-price">£1.50</span></div>
+        <div class="receipt-line"><span class="receipt-line-name">Tesco Bag for Life</span><span class="receipt-line-qty">x2</span><span class="receipt-line-price">£0.30</span></div>
+
+        <hr class="receipt-divider"/>
+
+        <div class="receipt-total-row"><span>Subtotal</span><span>£36.39</span></div>
+        <div class="receipt-total-row"><span>Clubcard Savings</span><span style="color:#00539f;">−£2.56</span></div>
+        <div class="receipt-total-row"><span>VAT (5%)</span><span>£0.68</span></div>
+        <div class="receipt-total-row"><span>VAT (20%)</span><span>£2.32</span></div>
+        <div class="receipt-total-row grand"><span>TOTAL</span><span>£47.83</span></div>
+
+        <hr class="receipt-divider"/>
+
+        <div class="receipt-total-row"><span>Contactless Payment</span><span>£47.83</span></div>
+        <div class="receipt-total-row"><span>Change</span><span>£0.00</span></div>
+
+        <div class="receipt-footer">
+          Thank you for shopping at Tesco<br>
+          Clubcard Points Earned: 47<br>
+          Total Clubcard Points: 1,284<br><br>
+          Receipt No: 0427-2802-1423-8291
+          <div class="receipt-barcode-img"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; padding:10px 12px; background:var(--green-light); border:1px solid rgba(21,128,61,0.15); border-radius:8px; font-size:10px; font-family:'DM Mono',monospace; color:var(--green);">
+        ✓ Receipt matched to Barclays transaction · Inventory updated with 15 items · Linked 27 Feb 14:23
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-// Clock
 function updateClock() {
   const now = new Date();
   document.getElementById('clock').textContent =
@@ -1944,7 +1221,6 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// Navigation
 const views = {
   dashboard: { title: 'Dashboard', sub: 'Saturday, 28 February 2026', btn: '+ Add Task' },
   tasks: { title: 'Tasks', sub: 'All tasks from emails, calls & manual', btn: '+ Add Task' },
@@ -1961,25 +1237,17 @@ const views = {
 };
 
 function navigate(view, el) {
-  // Hide all
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
-  // Show target
   document.getElementById('view-' + view).classList.add('active');
   el.classList.add('active');
-
-  // Update topbar
   const v = views[view];
   document.getElementById('topbar-title').textContent = v.title;
   document.getElementById('topbar-sub').textContent = v.sub;
   document.getElementById('action-btn').textContent = v.btn;
-
-  // Close notif
   document.getElementById('notif-panel').classList.remove('open');
 }
 
-// Topbar action
 function handleAction() {
   const btn = document.getElementById('action-btn').textContent;
   const msgs = {
@@ -1995,64 +1263,48 @@ function handleAction() {
     'Add Tracking': '📦 Enter tracking number',
     '+ Add Event': '◫ Create a new calendar event',
   };
-  const msg = msgs[btn] || '✓ Done';
   if (btn === '+ Add Task') {
     navigate('tasks', document.querySelectorAll('.nav-item')[2]);
     setTimeout(() => document.getElementById('new-task-input').focus(), 100);
     return;
   }
-  showToast(msg);
+  showToast(msgs[btn] || '✓ Done');
 }
 
-// Toggle task
 function toggleTask(el) {
   const check = el.querySelector('.task-check');
   const text = el.querySelector('.task-text');
   if (check.classList.contains('done')) {
-    check.classList.remove('done');
-    check.textContent = '';
-    text.classList.remove('done');
+    check.classList.remove('done'); check.textContent = ''; text.classList.remove('done');
   } else {
-    check.classList.add('done');
-    check.textContent = '✓';
-    text.classList.add('done');
+    check.classList.add('done'); check.textContent = '✓'; text.classList.add('done');
     showToast('✓ Task completed');
   }
 }
 
-// Add new task
 function addNewTask() {
   const input = document.getElementById('new-task-input');
   const val = input.value.trim();
   if (!val) return;
-
   const list = document.getElementById('all-tasks-list');
   const item = document.createElement('div');
   item.className = 'task-item';
   item.onclick = function() { toggleTask(this); };
-  item.innerHTML = `
-    <div class="task-check"></div>
-    <div class="task-text">${val}</div>
-    <div class="task-source">manual</div>
-  `;
+  item.innerHTML = `<div class="task-check"></div><div class="task-text">${val}</div><div class="task-source">manual</div>`;
   list.appendChild(item);
   input.value = '';
   showToast('✓ Task added');
 }
 
-// Toggle profile tag
 function toggleTag(el) {
   if (el.classList.contains('tag-active')) {
-    el.classList.remove('tag-active');
-    el.classList.add('tag-inactive');
+    el.classList.remove('tag-active'); el.classList.add('tag-inactive');
   } else if (el.classList.contains('tag-inactive')) {
-    el.classList.remove('tag-inactive');
-    el.classList.add('tag-active');
+    el.classList.remove('tag-inactive'); el.classList.add('tag-active');
   }
   showToast('✦ Profile updated');
 }
 
-// Add tag
 function addTag() {
   const name = prompt('Add an interest or hobby:');
   if (!name) return;
@@ -2066,20 +1318,17 @@ function addTag() {
   showToast('✦ Interest added to profile');
 }
 
-// Notification panel
 function toggleNotif() {
-  const panel = document.getElementById('notif-panel');
-  panel.classList.toggle('open');
+  document.getElementById('notif-panel').classList.toggle('open');
 }
 
 function clearNotifs() {
   document.getElementById('notif-panel').querySelector('.notif-list').innerHTML =
-    '<div style="padding:24px; text-align:center; font-family:\'DM Mono\',monospace; font-size:11px; color:var(--ink3);">No new notifications</div>';
+    '<div style="padding:24px;text-align:center;font-family:\'DM Mono\',monospace;font-size:11px;color:var(--ink3);">No new notifications</div>';
   document.querySelector('.notif-dot').style.display = 'none';
   showToast('🔔 All notifications cleared');
 }
 
-// Toast
 let toastTimer;
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -2089,7 +1338,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
 }
 
-// Close notif on outside click
 document.addEventListener('click', e => {
   const panel = document.getElementById('notif-panel');
   const bell = document.querySelector('.notif-bell');
@@ -2097,6 +1345,21 @@ document.addEventListener('click', e => {
     panel.classList.remove('open');
   }
 });
+
+// Receipt modal
+function openReceipt() {
+  document.getElementById('receipt-modal').classList.add('open');
+}
+
+function closeReceipt(e) {
+  if (e.target === document.getElementById('receipt-modal')) {
+    document.getElementById('receipt-modal').classList.remove('open');
+  }
+}
+
+function closeReceiptBtn() {
+  document.getElementById('receipt-modal').classList.remove('open');
+}
 </script>
 
 </body>
