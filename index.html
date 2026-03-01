@@ -9,28 +9,28 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #f5f2ed;
-  --bg2: #ede9e2;
-  --surface: #ffffff;
-  --surface2: #faf8f5;
-  --border: #e2ddd6;
-  --border2: #d4cfc7;
-  --ink: #1a1714;
-  --ink2: #4a4540;
-  --ink3: #8a827a;
-  --accent: #c8521a;
-  --accent2: #e8721a;
-  --accent-light: #fdf0e8;
-  --blue: #1d4ed8;
-  --blue-light: #eff6ff;
-  --green: #15803d;
-  --green-light: #f0fdf4;
-  --amber: #b45309;
-  --amber-light: #fffbeb;
-  --red: #b91c1c;
-  --red-light: #fef2f2;
-  --purple: #7c3aed;
-  --purple-light: #f5f3ff;
+  --bg: #d4d6d9;
+  --bg2: #c8cacd;
+  --surface: #dcdee1;
+  --surface2: #d6d8db;
+  --border: #b8babe;
+  --border2: #acacb0;
+  --ink: #0d1117;
+  --ink2: #1e2a3a;
+  --ink3: #3d4a5c;
+  --accent: #000000;
+  --accent2: #1a1a2e;
+  --accent-light: #dce3ed;
+  --blue: #1a3260;
+  --blue-light: #d0ddf5;
+  --green: #166534;
+  --green-light: #dcfce7;
+  --amber: #92400e;
+  --amber-light: #fef3c7;
+  --red: #991b1b;
+  --red-light: #fee2e2;
+  --purple: #4c1d95;
+  --purple-light: #ede9fe;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,7 +56,7 @@ body::after {
 }
 
 .titlebar {
-  background: var(--ink);
+  background: #1e3560;
   height: 36px;
   display: flex;
   align-items: center;
@@ -93,7 +93,7 @@ body::after {
 .app { display: flex; flex: 1; overflow: hidden; }
 
 .sidebar {
-  width: 220px; background: var(--ink);
+  width: 220px; background: #2c4a7c;
   display: flex; flex-direction: column;
   flex-shrink: 0; padding: 20px 0;
 }
@@ -133,12 +133,12 @@ body::after {
   font-size: 13px; font-weight: 500; position: relative;
 }
 .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
-.nav-item.active { background: var(--accent); color: white; }
+.nav-item.active { background: #000000; color: white; }
 
 .nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
 
 .nav-badge {
-  margin-left: auto; background: var(--accent); color: white;
+  margin-left: auto; background: #2c4a7c; color: white;
   font-size: 9px; font-family: 'DM Mono', monospace;
   padding: 2px 6px; border-radius: 10px; min-width: 18px; text-align: center;
 }
@@ -151,7 +151,7 @@ body::after {
 
 .profile-avatar {
   width: 32px; height: 32px; border-radius: 50%;
-  background: var(--accent); display: flex; align-items: center;
+  background: #2c4a7c; display: flex; align-items: center;
   justify-content: center; font-weight: 700; font-size: 13px;
   color: white; flex-shrink: 0;
 }
@@ -176,8 +176,8 @@ body::after {
   font-weight: 600; font-family: 'Manrope', sans-serif;
   cursor: pointer; border: none; transition: all 0.15s ease;
 }
-.btn-primary { background: var(--accent); color: white; }
-.btn-primary:hover { background: var(--accent2); }
+.btn-primary { background: #000000; color: white; }
+.btn-primary:hover { background: #1a1a2e; }
 .btn-ghost { background: transparent; color: var(--ink2); border: 1px solid var(--border); }
 .btn-ghost:hover { background: var(--bg2); }
 
@@ -192,7 +192,7 @@ body::after {
 .notif-dot {
   position: absolute; top: 6px; right: 6px;
   width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent); border: 1px solid var(--surface);
+  background: #2c4a7c; border: 1px solid var(--surface);
 }
 
 .content { flex: 1; overflow-y: auto; padding: 24px 28px; display: none; }
@@ -220,7 +220,7 @@ body::after {
 .card-sub { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 1px; }
 .card-body { padding: 14px 18px; }
 
-.whats-new { grid-column: 1 / -1; background: var(--ink); border-color: transparent; }
+.whats-new { grid-column: 1 / -1; background: #2c4a7c; border-color: transparent; }
 .whats-new .card-header { border-bottom-color: rgba(255,255,255,0.08); }
 .whats-new .card-title { color: white; }
 .whats-new .card-sub { color: rgba(255,255,255,0.35); }
@@ -233,7 +233,7 @@ body::after {
   padding: 5px 12px; border-radius: 20px;
   font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s;
 }
-.tag-active { background: var(--accent); color: white; }
+.tag-active { background: #000000; color: white; }
 .tag-inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); }
 .tag-inactive:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
 .tag-add { background: transparent; color: rgba(255,255,255,0.3); border: 1px dashed rgba(255,255,255,0.15); }
@@ -338,7 +338,7 @@ body::after {
 
 .notif-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
 .notif-title { font-size: 13px; font-weight: 700; }
-.notif-clear { font-size: 11px; color: var(--accent); cursor: pointer; font-family: 'DM Mono', monospace; }
+.notif-clear { font-size: 11px; color: #2c4a7c; cursor: pointer; font-family: 'DM Mono', monospace; }
 .notif-list { max-height: 320px; overflow-y: auto; }
 .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; cursor: pointer; transition: background 0.15s; }
 .notif-item:last-child { border-bottom: none; }
@@ -352,8 +352,8 @@ body::after {
 .cal-day-label { text-align: center; font-size: 9px; font-family: 'DM Mono', monospace; color: var(--ink3); text-transform: uppercase; letter-spacing: 1px; padding: 4px 0; }
 .cal-day { aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.15s; position: relative; }
 .cal-day:hover { background: var(--bg2); }
-.cal-day.today { background: var(--accent); color: white; font-weight: 700; }
-.cal-day.has-event::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+.cal-day.today { background: #000000; color: white; font-weight: 700; }
+.cal-day.has-event::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: #2c4a7c; }
 .cal-day.today.has-event::after { background: white; }
 .cal-day.other-month { color: var(--border2); }
 
@@ -392,7 +392,7 @@ body::after {
 .wallet-barcode { margin-top: 14px; height: 36px; background: repeating-linear-gradient(90deg, rgba(255,255,255,0.8) 0px, rgba(255,255,255,0.8) 2px, transparent 2px, transparent 5px); border-radius: 3px; opacity: 0.6; }
 
 .trip-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; }
-.trip-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(200,82,26,0.08); }
+.trip-card:hover { border-color: #2c4a7c; box-shadow: 0 4px 16px rgba(44,74,124,0.15); }
 .trip-img { height: 80px; background: linear-gradient(135deg, var(--bg2) 0%, var(--border) 100%); display: flex; align-items: center; justify-content: center; font-size: 32px; }
 .trip-info { padding: 10px 12px; }
 .trip-name { font-size: 13px; font-weight: 700; color: var(--ink); }
@@ -427,7 +427,7 @@ body::after {
 
 .toast {
   position: fixed; bottom: 24px; right: 24px;
-  background: var(--ink); color: white; padding: 12px 18px;
+  background: #1e3560; color: white; padding: 12px 18px;
   border-radius: 10px; font-size: 12px; font-family: 'DM Mono', monospace;
   display: flex; align-items: center; gap: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 1000;
@@ -443,7 +443,7 @@ body::after {
   border-radius: 7px; font-size: 12px; font-family: 'Manrope', sans-serif;
   background: var(--surface); color: var(--ink); outline: none; transition: border-color 0.15s;
 }
-.task-input:focus { border-color: var(--accent); }
+.task-input:focus { border-color: #2c4a7c; }
 .task-input::placeholder { color: var(--ink3); }
 
 /* ── TRANSACTIONS ── */
@@ -487,13 +487,13 @@ body::after {
 .receipt-badge {
   display: inline-flex; align-items: center; gap: 3px;
   font-size: 9px; font-family: 'DM Mono', monospace;
-  background: var(--green-light); color: var(--green);
-  border: 1px solid rgba(21,128,61,0.15);
+  background: #dcfce7; color: #166534;
+  border: 1px solid rgba(22,101,52,0.2);
   padding: 2px 7px; border-radius: 4px;
   letter-spacing: 0.5px; text-transform: uppercase;
   cursor: pointer; transition: all 0.15s;
 }
-.receipt-badge:hover { background: #dcfce7; }
+.receipt-badge:hover { background: #bbf7d0; }
 
 .cat-pill {
   font-size: 9px; font-family: 'DM Mono', monospace;
@@ -669,6 +669,9 @@ body::after {
       <div class="nav-section-label">Finance</div>
       <div class="nav-item" onclick="navigate('budget', this)"><span class="nav-icon">◉</span> Budget</div>
       <div class="nav-item" onclick="navigate('bills', this)"><span class="nav-icon">⚑</span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
+      <div class="nav-item" onclick="navigate('categorisation', this)"><span class="nav-icon">⊛</span> Categorisation</div>
+      <div class="nav-item" onclick="navigate('vat', this)"><span class="nav-icon">◧</span> VAT Return</div>
+      <div class="nav-item" onclick="navigate('tax', this)"><span class="nav-icon">◨</span> Tax Return</div>
       <div class="nav-section-label">Lifestyle</div>
       <div class="nav-item" onclick="navigate('inventory', this)"><span class="nav-icon">⊟</span> Inventory</div>
       <div class="nav-item" onclick="navigate('meals', this)"><span class="nav-icon">⊕</span> Meals</div>
@@ -715,7 +718,7 @@ body::after {
     <div class="content active" id="view-dashboard">
       <div class="card whats-new" style="margin-bottom:16px;">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(200,82,26,0.3); font-size:16px;">✦</div>
+          <div class="card-icon" style="background:rgba(26,42,74,0.4); font-size:16px;">✦</div>
           <div>
             <div class="card-title">Your Taste Profile</div>
             <div class="card-sub">Click to toggle · Drag to reorder</div>
@@ -1057,10 +1060,495 @@ body::after {
       </div>
     </div>
 
+    <!-- CATEGORISATION VIEW -->
+    <div class="content" id="view-categorisation">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:#dbeafe;">⊛</div>
+            <div><div class="card-title">Auto-Categorisation Engine</div><div class="card-sub">AI rule-based · Learns from corrections</div></div>
+          </div>
+          <div class="card-body">
+            <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);margin-bottom:12px;">RECURRING PATTERNS DETECTED — FEBRUARY 2026</div>
+            <!-- Categorised transaction rows -->
+            <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+              <div class="tx-logo" style="background:#e50914;color:white;font-size:11px;font-weight:800;">N</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Netflix <span class="cat-pill cat-subs" style="margin-left:4px;">Subscription</span></div>
+                <div class="tx-meta">Recurring · Monthly · 15th · 12 months detected</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£13.99</div><div class="tx-date" style="color:var(--green);font-size:9px;">✓ Auto</div></div>
+            </div>
+            <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+              <div class="tx-logo" style="background:#1db954;color:white;font-size:11px;font-weight:800;">S</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Spotify <span class="cat-pill cat-subs" style="margin-left:4px;">Subscription</span></div>
+                <div class="tx-meta">Recurring · Monthly · 3rd · 18 months detected</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£11.99</div><div class="tx-date" style="color:var(--green);font-size:9px;">✓ Auto</div></div>
+            </div>
+            <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+              <div class="tx-logo" style="background:#00539f;color:white;font-size:11px;font-weight:800;">T</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Tesco <span class="cat-pill cat-food" style="margin-left:4px;">Groceries</span></div>
+                <div class="tx-meta">Recurring · Weekly · Avg £44.20 · 24 occurrences</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£47.83</div><div class="tx-date" style="color:var(--green);font-size:9px;">✓ Auto</div></div>
+            </div>
+            <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+              <div class="tx-logo" style="background:#0078d4;color:white;font-size:11px;font-weight:800;">M</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Microsoft 365 <span class="cat-pill cat-subs" style="margin-left:4px;">Subscription</span></div>
+                <div class="tx-meta">Recurring · Monthly · 1st · 8 months detected</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£9.99</div><div class="tx-date" style="color:var(--green);font-size:9px;">✓ Auto</div></div>
+            </div>
+            <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+              <div class="tx-logo" style="background:#e1251b;color:white;font-size:11px;font-weight:800;">TfL</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Transport for London <span class="cat-pill cat-transport" style="margin-left:4px;">Transport</span></div>
+                <div class="tx-meta">Recurring · Weekdays · Avg £5.20 · 48 occurrences</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£4.80</div><div class="tx-date" style="color:var(--green);font-size:9px;">✓ Auto</div></div>
+            </div>
+            <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+              <div class="tx-logo" style="background:#00539f;color:white;font-size:11px;font-weight:800;">T</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Tesco Express <span class="cat-pill cat-food" style="margin-left:4px;">Groceries</span></div>
+                <div class="tx-meta">Recurring · 2–3x weekly · Avg £7.80 · Top-up shops</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£8.42</div><div class="tx-date" style="color:var(--green);font-size:9px;">✓ Auto</div></div>
+            </div>
+            <div class="tx-item" style="padding:10px 0;">
+              <div class="tx-logo" style="background:#ff9900;color:#111;font-size:10px;font-weight:800;">AMZ</div>
+              <div class="tx-info">
+                <div class="tx-merchant">Amazon Prime <span class="cat-pill cat-subs" style="margin-left:4px;">Subscription</span></div>
+                <div class="tx-meta">Recurring · Monthly · 8th · Price increase detected</div>
+              </div>
+              <div class="tx-right"><div class="tx-amount debit">−£8.99</div><div class="tx-date" style="color:var(--red);font-size:9px;">↑ Price</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:#fef3c7;">⊙</div>
+            <div><div class="card-title">Category Breakdown</div><div class="card-sub">Monthly recurring spend by category</div></div>
+          </div>
+          <div class="card-body">
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <div style="font-size:12px;font-weight:700;color:var(--ink);">Subscriptions</div>
+                <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;">£62.96 / mo</div>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="height:100%;width:68%;background:#8b5cf6;border-radius:3px;"></div></div>
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:4px;">Netflix · Spotify · M365 · Claude · Amazon · 5 services</div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <div style="font-size:12px;font-weight:700;color:var(--ink);">Groceries</div>
+                <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;">£196.40 / mo</div>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="height:100%;width:85%;background:#10b981;border-radius:3px;"></div></div>
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:4px;">Tesco Superstore · Tesco Express · Weekly avg £44.20</div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <div style="font-size:12px;font-weight:700;color:var(--ink);">Transport</div>
+                <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;">£114.40 / mo</div>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="height:100%;width:52%;background:#3b82f6;border-radius:3px;"></div></div>
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:4px;">TfL contactless · 22 journeys avg detected</div>
+            </div>
+            <div style="padding:12px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);margin-top:8px;">
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);margin-bottom:6px;">AI INSIGHT</div>
+              <div style="font-size:12px;color:var(--ink2);line-height:1.5;">Subscription spend has increased <strong>£5.99/mo</strong> since October due to Netflix and Amazon price rises. Grocery spend is <strong>12% above</strong> your 6-month average.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--amber-light);">⚠</div>
+          <div><div class="card-title">Uncategorised Transactions</div><div class="card-sub">2 transactions need review</div></div>
+        </div>
+        <div class="card-body">
+          <div class="tx-item" style="border-bottom:1px solid var(--border);padding:10px 0;">
+            <div class="tx-logo" style="background:#6b7280;color:white;font-size:10px;font-weight:800;">?</div>
+            <div class="tx-info">
+              <div class="tx-merchant">SUMUP*THECOFFEEHOUSE <span style="font-size:9px;font-family:'DM Mono',monospace;background:var(--amber-light);color:var(--amber);padding:2px 6px;border-radius:4px;margin-left:4px;">Unclassified</span></div>
+              <div class="tx-meta">25 Feb · Card payment · Possible: Food & Drink</div>
+            </div>
+            <div class="tx-right">
+              <div class="tx-amount debit">−£4.20</div>
+              <div style="display:flex;gap:4px;margin-top:4px;">
+                <button class="btn btn-ghost" style="padding:2px 8px;font-size:9px;" onclick="showToast('✓ Categorised as Food & Drink')">Food</button>
+                <button class="btn btn-ghost" style="padding:2px 8px;font-size:9px;" onclick="showToast('✓ Category saved')">Other</button>
+              </div>
+            </div>
+          </div>
+          <div class="tx-item" style="padding:10px 0;">
+            <div class="tx-logo" style="background:#6b7280;color:white;font-size:10px;font-weight:800;">?</div>
+            <div class="tx-info">
+              <div class="tx-merchant">PAYPAL*EBAY_SELLER <span style="font-size:9px;font-family:'DM Mono',monospace;background:var(--amber-light);color:var(--amber);padding:2px 6px;border-radius:4px;margin-left:4px;">Unclassified</span></div>
+              <div class="tx-meta">18 Feb · Card payment · Possible: Shopping</div>
+            </div>
+            <div class="tx-right">
+              <div class="tx-amount debit">−£32.00</div>
+              <div style="display:flex;gap:4px;margin-top:4px;">
+                <button class="btn btn-ghost" style="padding:2px 8px;font-size:9px;" onclick="showToast('✓ Categorised as Shopping')">Shopping</button>
+                <button class="btn btn-ghost" style="padding:2px 8px;font-size:9px;" onclick="showToast('✓ Category saved')">Other</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VAT RETURN VIEW -->
+    <div class="content" id="view-vat">
+      <!-- Header stats -->
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr);">
+        <div class="stat-card" style="border-left:3px solid #2c4a7c;">
+          <div class="stat-label">VAT on Sales (Box 1)</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£4,820.00</div>
+          <div class="stat-change" style="color:var(--ink3);">Output VAT @ 20%</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid #10b981;">
+          <div class="stat-label">VAT Reclaimed (Box 4)</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£1,243.60</div>
+          <div class="stat-change" style="color:var(--green);">Input VAT reclaimable</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid #ef4444;">
+          <div class="stat-label">VAT Owed to HMRC</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£3,576.40</div>
+          <div class="stat-change" style="color:var(--red);">Box 1 minus Box 4</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--amber);">
+          <div class="stat-label">Due Date</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">7 Feb 26</div>
+          <div class="stat-change" style="color:var(--amber);">Overdue — submit now</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-bottom:16px;">
+        <!-- VAT Return Form -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:#d0ddf5;">◧</div>
+            <div><div class="card-title">VAT Return — Q4 Oct–Dec 2025</div><div class="card-sub">MTD compliant · Auto-populated from transactions</div></div>
+            <span style="font-size:9px;font-family:'DM Mono',monospace;background:var(--amber-light);color:var(--amber);padding:3px 8px;border-radius:4px;margin-left:auto;">DRAFT</span>
+          </div>
+          <div class="card-body">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+              <thead>
+                <tr style="border-bottom:2px solid var(--border);">
+                  <th style="text-align:left;padding:6px 4px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);font-weight:500;letter-spacing:1px;">BOX</th>
+                  <th style="text-align:left;padding:6px 4px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);font-weight:500;letter-spacing:1px;">DESCRIPTION</th>
+                  <th style="text-align:right;padding:6px 4px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);font-weight:500;letter-spacing:1px;">AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">1</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">VAT due on sales and other outputs</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£4,820.00</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">2</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">VAT due on acquisitions from EU</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£0.00</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">3</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">Total VAT due (Box 1 + Box 2)</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£4,820.00</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);background:rgba(16,185,129,0.04);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#166534;">4</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">VAT reclaimed on purchases and inputs</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£1,243.60</td>
+                </tr>
+                <tr style="border-bottom:2px solid var(--border);background:rgba(239,68,68,0.04);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#991b1b;">5</td>
+                  <td style="padding:8px 4px;color:var(--ink);font-weight:700;">Net VAT to pay to HMRC</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:700;color:#991b1b;">£3,576.40</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">6</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">Total value of sales excl. VAT</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£24,100.00</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">7</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">Total value of purchases excl. VAT</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£6,218.00</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">8</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">Total supplies to EU excl. VAT</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£0.00</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 4px;font-family:'DM Mono',monospace;font-weight:700;color:#2c4a7c;">9</td>
+                  <td style="padding:8px 4px;color:var(--ink2);">Total acquisitions from EU excl. VAT</td>
+                  <td style="padding:8px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£0.00</td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="margin-top:14px;display:flex;gap:8px;">
+              <button class="btn btn-primary" style="flex:1;" onclick="showToast('📤 Submitting VAT return to HMRC via MTD...')">Submit to HMRC (MTD)</button>
+              <button class="btn btn-ghost" onclick="showToast('📄 VAT return exported as PDF')">Export PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAT breakdown detail -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--blue-light);">▦</div>
+              <div><div class="card-title">Output VAT Detail</div><div class="card-sub">Sales by VAT rate — Q4 2025</div></div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div style="color:var(--ink2);">Standard Rate (20%)</div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;">£24,100.00 → <span style="color:#2c4a7c;">£4,820.00</span></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div style="color:var(--ink2);">Reduced Rate (5%)</div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;">£0.00 → <span style="color:#2c4a7c;">£0.00</span></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:12px;">
+                <div style="color:var(--ink2);">Zero Rated (0%)</div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;">£0.00 → <span style="color:#2c4a7c;">£0.00</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--green-light);">▦</div>
+              <div><div class="card-title">Input VAT Detail</div><div class="card-sub">Reclaimable purchases — Q4 2025</div></div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Software & Subscriptions</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">M365, Claude, Adobe</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£87.40</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Office & Equipment</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Hardware, peripherals</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£624.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Professional Services</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Accountancy, legal</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£360.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Travel & Transport</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Rail, fuel, parking</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£172.20</div>
+              </div>
+              <div style="border-top:2px solid var(--border);margin-top:6px;padding-top:8px;display:flex;justify-content:space-between;font-size:13px;font-weight:700;">
+                <div>Total Input VAT</div>
+                <div style="font-family:'DM Mono',monospace;color:#166534;">£1,243.60</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAX RETURN VIEW -->
+    <div class="content" id="view-tax">
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr);">
+        <div class="stat-card" style="border-left:3px solid #2c4a7c;">
+          <div class="stat-label">Total Income</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£42,800.00</div>
+          <div class="stat-change" style="color:var(--ink3);">All sources 2024/25</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid #10b981;">
+          <div class="stat-label">Allowable Expenses</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£8,340.00</div>
+          <div class="stat-change" style="color:var(--green);">Deducted from income</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid #ef4444;">
+          <div class="stat-label">Tax Owed</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£6,182.40</div>
+          <div class="stat-change" style="color:var(--red);">Inc. NI contributions</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--amber);">
+          <div class="stat-label">Payments on Account</div>
+          <div class="stat-value" style="font-size:20px;margin-top:6px;">£3,091.20</div>
+          <div class="stat-change" style="color:var(--amber);">Due 31 Jan + 31 Jul</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;">
+
+        <!-- SA100 Form -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:#d0ddf5;">◨</div>
+            <div><div class="card-title">Self Assessment — SA100</div><div class="card-sub">Tax year 6 Apr 2024 – 5 Apr 2025 · HMRC reference: UTR 1234567890</div></div>
+            <span style="font-size:9px;font-family:'DM Mono',monospace;background:var(--amber-light);color:var(--amber);padding:3px 8px;border-radius:4px;margin-left:auto;">DRAFT</span>
+          </div>
+          <div class="card-body">
+            <!-- Income section -->
+            <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">INCOME</div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Employment income (P60)</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£28,500.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Self-employment / freelance income</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£12,300.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Dividends received</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£1,200.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Savings interest</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£800.00</td>
+              </tr>
+              <tr style="border-bottom:2px solid var(--border);">
+                <td style="padding:7px 4px;font-weight:700;color:var(--ink);">Total Income</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:700;">£42,800.00</td>
+              </tr>
+            </table>
+            <!-- Deductions -->
+            <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">ALLOWABLE DEDUCTIONS</div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Personal allowance</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">−£12,570.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Business expenses (SE income)</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">−£4,200.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Pension contributions</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">−£2,400.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Gift Aid donations</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">−£480.00</td>
+              </tr>
+              <tr style="border-bottom:2px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Dividend allowance</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">−£500.00</td>
+              </tr>
+              <tr>
+                <td style="padding:7px 4px;font-weight:700;color:var(--ink);">Taxable Income</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:700;">£22,650.00</td>
+              </tr>
+            </table>
+            <!-- Tax Calculation -->
+            <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">TAX CALCULATION</div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Basic rate tax (20%) on £22,650</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£4,530.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Tax deducted at source (PAYE)</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;color:#166534;">−£2,340.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Class 4 NI (9% on £12,300 SE profit)</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£1,107.00</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Class 2 NI contributions</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£179.40</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Dividend tax (8.75% on £700)</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£61.25</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 4px;color:var(--ink2);">Savings income tax (20%)</td>
+                <td style="padding:7px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:600;">£0.00</td>
+              </tr>
+              <tr style="border-top:2px solid var(--border);background:rgba(239,68,68,0.04);">
+                <td style="padding:9px 4px;font-weight:700;color:var(--ink);font-size:13px;">Total Tax &amp; NI Owed</td>
+                <td style="padding:9px 4px;text-align:right;font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#991b1b;">£6,182.40</td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;display:flex;gap:8px;">
+              <button class="btn btn-primary" style="flex:1;" onclick="showToast('📤 Submitting Self Assessment to HMRC...')">Submit to HMRC</button>
+              <button class="btn btn-ghost" onclick="showToast('📄 SA100 exported as PDF')">Export PDF</button>
+              <button class="btn btn-ghost" onclick="showToast('📊 Report exported to Excel')">Export XLS</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <!-- Tax timeline -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--amber-light);">⏱</div>
+              <div><div class="card-title">Key Deadlines</div><div class="card-sub">2024/25 tax year</div></div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);">
+                <div style="width:3px;height:36px;background:#991b1b;border-radius:2px;flex-shrink:0;margin-top:2px;"></div>
+                <div><div style="font-size:12px;font-weight:700;color:#991b1b;">31 Jan 2026 — OVERDUE</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Online SA submission + balancing payment</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);">
+                <div style="width:3px;height:36px;background:var(--amber);border-radius:2px;flex-shrink:0;margin-top:2px;"></div>
+                <div><div style="font-size:12px;font-weight:700;color:var(--amber);">31 Jan 2026 — OVERDUE</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">1st payment on account: £3,091.20</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0;">
+                <div style="width:3px;height:36px;background:#2c4a7c;border-radius:2px;flex-shrink:0;margin-top:2px;"></div>
+                <div><div style="font-size:12px;font-weight:700;color:#2c4a7c;">31 Jul 2026</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">2nd payment on account: £3,091.20</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expenses breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--green-light);">£</div>
+              <div><div class="card-title">Allowable Expenses</div><div class="card-sub">Auto-matched from transactions</div></div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Software & Tools</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Claude, VS Code, M365</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£648.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Home Office (25%)</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Utilities, broadband</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£960.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Professional Development</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">AAT course, books</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£1,200.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Travel (business)</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Rail, LNER receipts</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£892.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:12px;">
+                <div><div style="font-weight:600;color:var(--ink);">Equipment & Hardware</div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">GPU cable, peripherals</div></div>
+                <div style="font-family:'DM Mono',monospace;font-weight:600;color:#166534;">£500.00</div>
+              </div>
+              <div style="border-top:2px solid var(--border);margin-top:6px;padding-top:8px;display:flex;justify-content:space-between;font-size:13px;font-weight:700;">
+                <div>Total Expenses</div>
+                <div style="font-family:'DM Mono',monospace;color:#166534;">£4,200.00</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- INVENTORY VIEW -->
     <div class="content" id="view-inventory">
-      <div class="card">
-        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">⊟</div><div><div class="card-title">Food & Drink Inventory</div><div class="card-sub">Updated from receipt scans · 1 item low</div></div><button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('📄 Upload receipt to scan inventory')">Scan Receipt</button></div>
+      <div class="card"><div><div class="card-title">Food & Drink Inventory</div><div class="card-sub">Updated from receipt scans · 1 item low</div></div><button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('📄 Upload receipt to scan inventory')">Scan Receipt</button></div>
         <div class="card-body">
           <div class="inventory-item"><div class="inv-emoji">🥛</div><div class="inv-name">Milk</div><div class="inv-qty">1 jug</div><div class="stock-bar"><div class="stock-fill" style="width:12%;background:#ef4444;"></div></div><div class="status-pill status-alert" style="margin-left:8px;">Low</div></div>
           <div class="inventory-item"><div class="inv-emoji">🍞</div><div class="inv-name">Bread</div><div class="inv-qty">1 loaf</div><div class="stock-bar"><div class="stock-fill" style="width:35%;background:#f59e0b;"></div></div></div>
@@ -1133,7 +1621,7 @@ body::after {
         <div class="card">
           <div class="card-header"><div class="card-icon" style="background:var(--purple-light);">◫</div><div><div class="card-title">Upcoming Events</div><div class="card-sub">From emails, calls & manual</div></div></div>
           <div class="card-body">
-            <div class="event-item"><div class="event-time-col"><div class="event-time">Today</div><div class="event-bar" style="background:var(--accent);"></div></div><div class="event-info"><div class="event-name">ASOS Delivery Expected</div><div class="event-detail">Evri · by 6PM · No action needed</div></div></div>
+            <div class="event-item"><div class="event-time-col"><div class="event-time">Today</div><div class="event-bar" style="background:#2c4a7c;"></div></div><div class="event-info"><div class="event-name">ASOS Delivery Expected</div><div class="event-detail">Evri · by 6PM · No action needed</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">Mon 2</div><div class="event-bar" style="background:#7c3aed;"></div></div><div class="event-info"><div class="event-name">GP Appointment — Dr. Smith</div><div class="event-detail">10:30 AM · Booked from voicemail</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">15 Mar</div><div class="event-bar" style="background:#0284c7;"></div></div><div class="event-info"><div class="event-name">LNER — London to Somerset</div><div class="event-detail">08:45 · Ticket in Wallet</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#10b981;"></div></div><div class="event-info"><div class="event-name">Glastonbury Festival 2026</div><div class="event-detail">Worthy Farm · Ticket in Wallet · 5 days</div></div></div>
@@ -1229,6 +1717,9 @@ const views = {
   wallet: { title: 'Wallet', sub: 'Tickets & passes from emails', btn: 'Add Pass' },
   budget: { title: 'Budget', sub: 'February 2026 · TrueLayer connected', btn: 'Sync Bank' },
   bills: { title: 'Bills & Subscriptions', sub: 'Auto-detected recurring transactions', btn: 'Add Manual' },
+  categorisation: { title: 'Categorisation', sub: 'Auto-categorised from bank transactions · TrueLayer', btn: 'Re-categorise' },
+  vat: { title: 'VAT Return', sub: 'Quarter 4 · Oct–Dec 2025 · Due 7 Feb 2026', btn: 'Submit to HMRC' },
+  tax: { title: 'Self Assessment Tax Return', sub: 'Tax Year 2024/25 · Due 31 Jan 2026', btn: 'Submit to HMRC' },
   inventory: { title: 'Inventory', sub: 'Food & drink · Updated from receipts', btn: 'Scan Receipt' },
   meals: { title: 'Meal Planner', sub: 'AI generated · Based on inventory & taste profile', btn: 'Regenerate' },
   trips: { title: 'Trip Planning', sub: 'Suggestions based on your interests', btn: 'Plan New Trip' },
