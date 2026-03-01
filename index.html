@@ -638,6 +638,471 @@ body::after {
   letter-spacing: 1px;
 }
 
+.tesco-logo {
+  background: #00539f;
+  color: white;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* ── TRIP PLANNER MODAL ── */
+.trip-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(13,17,23,0.7);
+  z-index: 250;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.trip-modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+
+.trip-modal {
+  background: var(--surface);
+  border-radius: 16px;
+  width: min(780px, calc(100vw - 24px));
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.trip-modal-hero {
+  height: 140px;
+  background: linear-gradient(135deg, #1e3560 0%, #2c4a7c 50%, #3a6099 100%);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 24px;
+}
+
+.trip-modal-hero::before {
+  content: '🗽';
+  position: absolute;
+  top: -10px; right: 20px;
+  font-size: 100px;
+  opacity: 0.18;
+  transform: rotate(-5deg);
+}
+
+.trip-modal-hero-text { position: relative; z-index: 1; }
+
+.trip-modal-hero h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.trip-modal-hero p {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.trip-modal-close-btn {
+  position: absolute;
+  top: 14px; right: 16px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+  transition: background 0.15s;
+}
+.trip-modal-close-btn:hover { background: rgba(255,255,255,0.25); }
+
+/* Step indicator */
+.trip-steps {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.trip-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.trip-step-dot {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  color: var(--ink3);
+  flex-shrink: 0;
+  transition: all 0.25s;
+}
+
+.trip-step-dot.active {
+  background: #2c4a7c;
+  color: white;
+}
+
+.trip-step-dot.done {
+  background: #166534;
+  color: white;
+}
+
+.trip-step-label {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.25s;
+}
+
+.trip-step-label.active { color: #2c4a7c; font-weight: 700; }
+.trip-step-label.done { color: #166534; }
+
+.trip-step-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin: 0 8px;
+}
+
+.trip-step-line.done { background: #166534; }
+
+/* Step panels */
+.trip-panel { display: none; padding: 20px 24px; flex: 1; }
+.trip-panel.active { display: block; }
+
+/* Date grid */
+.date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.date-field label {
+  display: block;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.date-field input,
+.date-field select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Manrope', sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.date-field input:focus,
+.date-field select:focus { border-color: #2c4a7c; }
+
+/* Preference chips */
+.pref-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.pref-chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink2);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.pref-chip.selected {
+  background: #2c4a7c;
+  border-color: #2c4a7c;
+  color: white;
+}
+
+/* Flight cards */
+.flight-option {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.flight-option:hover { border-color: #2c4a7c; background: var(--surface2); }
+.flight-option.selected { border-color: #2c4a7c; background: var(--blue-light); }
+
+.flight-airline {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.flight-times {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.flight-time {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+}
+
+.flight-route-line {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.flight-duration {
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink3);
+}
+
+.flight-line {
+  width: 100%;
+  height: 1px;
+  background: var(--border2);
+  position: relative;
+}
+
+.flight-line::after {
+  content: '✈';
+  position: absolute;
+  right: -4px;
+  top: -7px;
+  font-size: 12px;
+}
+
+.flight-price {
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink);
+  text-align: right;
+}
+
+.flight-price-sub {
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink3);
+  text-align: right;
+}
+
+/* Hotel cards */
+.hotel-option {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.hotel-option:hover { border-color: #2c4a7c; background: var(--surface2); }
+.hotel-option.selected { border-color: #2c4a7c; background: var(--blue-light); }
+
+.hotel-img {
+  width: 56px; height: 56px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--bg2), var(--border));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.hotel-info { flex: 1; }
+.hotel-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+.hotel-location { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
+.hotel-stars { font-size: 11px; color: #f59e0b; margin-top: 3px; }
+.hotel-price { font-size: 14px; font-weight: 800; font-family: 'DM Mono', monospace; color: var(--ink); text-align: right; }
+.hotel-price-sub { font-size: 9px; font-family: 'DM Mono', monospace; color: var(--ink3); text-align: right; }
+
+/* Itinerary day */
+.itin-day {
+  margin-bottom: 18px;
+}
+
+.itin-day-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.itin-day-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #2c4a7c;
+  color: white;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.itin-day-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+.itin-day-sub { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); }
+
+.itin-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.itin-item:last-child { border-bottom: none; }
+
+.itin-time {
+  width: 48px;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink3);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.itin-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.itin-info { flex: 1; }
+.itin-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.itin-detail { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 1px; }
+.itin-tag {
+  font-size: 9px; font-family: 'DM Mono', monospace;
+  padding: 1px 6px; border-radius: 3px;
+  text-transform: uppercase; display: inline-block; margin-top: 3px;
+}
+.itin-tag-food { background: #fef3c7; color: #92400e; }
+.itin-tag-culture { background: var(--purple-light); color: #4c1d95; }
+.itin-tag-transit { background: var(--blue-light); color: #1a3260; }
+.itin-tag-hotel { background: var(--green-light); color: #166534; }
+
+/* Summary box */
+.trip-summary-box {
+  background: #1e3560;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.trip-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.trip-summary-item { }
+.trip-summary-label { font-size: 9px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+.trip-summary-val { font-size: 14px; font-weight: 700; color: white; margin-top: 3px; }
+
+/* Modal footer */
+.trip-modal-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--surface2);
+  border-radius: 0 0 16px 16px;
+}
+
+/* AI thinking animation */
+.ai-thinking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ai-dots {
+  display: flex; gap: 6px;
+}
+
+.ai-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #2c4a7c;
+  animation: aiPulse 1.2s infinite ease-in-out;
+}
+
+.ai-dot:nth-child(2) { animation-delay: 0.2s; }
+.ai-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes aiPulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .trip-modal-hero { height: 110px; }
+  .trip-modal-hero h2 { font-size: 18px; }
+  .trip-steps { padding: 12px 14px; gap: 0; }
+  .trip-step-label { display: none; }
+  .trip-panel { padding: 14px 16px; }
+  .date-grid { grid-template-columns: 1fr; }
+  .flight-time { font-size: 15px; }
+  .trip-summary-grid { grid-template-columns: 1fr 1fr; }
+  .trip-modal-footer { padding: 10px 16px; }
+}
+
 /* ── MOBILE BOTTOM NAV ── */
 .mobile-nav {
   display: none;
@@ -1910,13 +2375,19 @@ body::after {
             <div class="card-title">Suggested Destinations</div>
             <div class="card-sub">Based on your taste profile & interests</div>
           </div>
-          <button class="btn btn-primary" style="margin-left:auto;" onclick="showToast('✈ Starting trip planner...')">Plan New Trip</button>
+          <button class="btn btn-primary" style="margin-left:auto;" onclick="openTripPlanner()">Plan New Trip</button>
         </div>
         <div class="card-body">
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
             <div class="trip-card" style="margin-bottom:0;"><div class="trip-img">🗼</div><div class="trip-info"><div class="trip-name">Paris, France</div><div class="trip-dates">Suggested · Based on your travel profile</div></div></div>
             <div class="trip-card" style="margin-bottom:0;"><div class="trip-img">🗾</div><div class="trip-info"><div class="trip-name">Tokyo, Japan</div><div class="trip-dates">Suggested · Asian cuisine interest</div></div></div>
-            <div class="trip-card" style="margin-bottom:0;"><div class="trip-img">🌆</div><div class="trip-info"><div class="trip-name">New York, USA</div><div class="trip-dates">Suggested · Finance & culture</div></div></div>
+            <div class="trip-card" style="margin-bottom:0;cursor:pointer;" onclick="openTripPlanner()">
+              <div class="trip-img">🌆</div>
+              <div class="trip-info">
+                <div class="trip-name">New York, USA</div>
+                <div class="trip-dates" style="color:#2c4a7c;font-weight:700;">✦ Click to plan this trip</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2054,6 +2525,353 @@ body::after {
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
+
+<!-- Trip Planner Modal -->
+<div class="trip-modal-overlay" id="trip-modal-overlay" onclick="closeTripPlannerOverlay(event)">
+  <div class="trip-modal" onclick="event.stopPropagation()">
+
+    <!-- Hero -->
+    <div class="trip-modal-hero">
+      <button class="trip-modal-close-btn" onclick="closeTripPlanner()">✕</button>
+      <div class="trip-modal-hero-text">
+        <h2>New York City</h2>
+        <p>TRIP PLANNER · POWERED BY ANN AI</p>
+      </div>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="trip-steps" id="trip-steps">
+      <div class="trip-step">
+        <div class="trip-step-dot active" id="step-dot-1">1</div>
+        <div class="trip-step-label active" id="step-label-1">Dates</div>
+      </div>
+      <div class="trip-step-line" id="step-line-1"></div>
+      <div class="trip-step">
+        <div class="trip-step-dot" id="step-dot-2">2</div>
+        <div class="trip-step-label" id="step-label-2">Flights</div>
+      </div>
+      <div class="trip-step-line" id="step-line-2"></div>
+      <div class="trip-step">
+        <div class="trip-step-dot" id="step-dot-3">3</div>
+        <div class="trip-step-label" id="step-label-3">Hotel</div>
+      </div>
+      <div class="trip-step-line" id="step-line-3"></div>
+      <div class="trip-step">
+        <div class="trip-step-dot" id="step-dot-4">4</div>
+        <div class="trip-step-label" id="step-label-4">Itinerary</div>
+      </div>
+      <div class="trip-step-line" id="step-line-4"></div>
+      <div class="trip-step">
+        <div class="trip-step-dot" id="step-dot-5">5</div>
+        <div class="trip-step-label" id="step-label-5">Confirm</div>
+      </div>
+    </div>
+
+    <!-- Panel 1: Dates & Preferences -->
+    <div class="trip-panel active" id="trip-panel-1">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:12px;">TRAVEL DATES</div>
+      <div class="date-grid">
+        <div class="date-field">
+          <label>Departure</label>
+          <input type="date" id="trip-depart" value="2026-06-10">
+        </div>
+        <div class="date-field">
+          <label>Return</label>
+          <input type="date" id="trip-return" value="2026-06-15">
+        </div>
+        <div class="date-field">
+          <label>Travellers</label>
+          <select id="trip-travellers">
+            <option>1 Adult</option>
+            <option>2 Adults</option>
+            <option>3 Adults</option>
+          </select>
+        </div>
+        <div class="date-field">
+          <label>Class</label>
+          <select id="trip-class">
+            <option>Economy</option>
+            <option>Premium Economy</option>
+            <option>Business</option>
+          </select>
+        </div>
+      </div>
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:10px;margin-top:4px;">INTERESTS (from your profile)</div>
+      <div class="pref-chips" id="pref-chips">
+        <div class="pref-chip selected" onclick="toggleChip(this)">📈 Finance & Business</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">🍜 Asian Cuisine</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">☕ Coffee Shops</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">💻 Tech Culture</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🎨 Art & Museums</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🏙 Architecture</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🎭 Broadway</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🏋️ Fitness</div>
+      </div>
+      <div style="padding:12px 14px;background:var(--blue-light);border-radius:8px;font-size:11px;color:#1a3260;font-family:'DM Mono',monospace;line-height:1.5;">
+        ✦ ANN will generate a personalised itinerary, flight options, and hotel suggestions based on your selections and taste profile.
+      </div>
+    </div>
+
+    <!-- Panel 2: Flights -->
+    <div class="trip-panel" id="trip-panel-2">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:14px;">AVAILABLE FLIGHTS · LHR → JFK · 10 JUN 2026</div>
+
+      <div class="flight-option selected" id="flight-1" onclick="selectFlight('flight-1')">
+        <div>
+          <div class="flight-airline">British Airways</div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:2px;">BA 177 · Non-stop</div>
+        </div>
+        <div class="flight-times">
+          <div class="flight-time">09:15</div>
+          <div class="flight-route-line">
+            <div class="flight-duration">7h 45m</div>
+            <div class="flight-line"></div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">LHR → JFK</div>
+          </div>
+          <div class="flight-time">12:00</div>
+        </div>
+        <div>
+          <div class="flight-price">£389</div>
+          <div class="flight-price-sub">per person</div>
+        </div>
+      </div>
+
+      <div class="flight-option" id="flight-2" onclick="selectFlight('flight-2')">
+        <div>
+          <div class="flight-airline">Virgin Atlantic</div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:2px;">VS 3 · Non-stop</div>
+        </div>
+        <div class="flight-times">
+          <div class="flight-time">11:30</div>
+          <div class="flight-route-line">
+            <div class="flight-duration">8h 05m</div>
+            <div class="flight-line"></div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">LHR → JFK</div>
+          </div>
+          <div class="flight-time">14:35</div>
+        </div>
+        <div>
+          <div class="flight-price">£342</div>
+          <div class="flight-price-sub">per person</div>
+        </div>
+      </div>
+
+      <div class="flight-option" id="flight-3" onclick="selectFlight('flight-3')">
+        <div>
+          <div class="flight-airline">American Airlines</div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:2px;">AA 106 · 1 stop · ORD</div>
+        </div>
+        <div class="flight-times">
+          <div class="flight-time">07:45</div>
+          <div class="flight-route-line">
+            <div class="flight-duration">11h 20m</div>
+            <div class="flight-line"></div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">LHR → ORD → JFK</div>
+          </div>
+          <div class="flight-time">13:05</div>
+        </div>
+        <div>
+          <div class="flight-price">£274</div>
+          <div class="flight-price-sub">per person</div>
+        </div>
+      </div>
+
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:4px;">RETURN FLIGHT · JFK → LHR · 15 JUN 2026</div>
+      <div class="flight-option selected" style="margin-top:10px;" id="flight-r1" onclick="selectFlight('flight-r1')">
+        <div>
+          <div class="flight-airline">British Airways</div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);margin-top:2px;">BA 178 · Non-stop</div>
+        </div>
+        <div class="flight-times">
+          <div class="flight-time">18:30</div>
+          <div class="flight-route-line">
+            <div class="flight-duration">6h 45m</div>
+            <div class="flight-line"></div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">JFK → LHR</div>
+          </div>
+          <div class="flight-time">06:15+1</div>
+        </div>
+        <div>
+          <div class="flight-price">£349</div>
+          <div class="flight-price-sub">per person</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Hotels -->
+    <div class="trip-panel" id="trip-panel-3">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:14px;">HOTELS · NEW YORK CITY · 5 NIGHTS</div>
+
+      <div class="hotel-option selected" id="hotel-1" onclick="selectHotel('hotel-1')">
+        <div class="hotel-img">🏨</div>
+        <div class="hotel-info">
+          <div class="hotel-name">The Manhattan at Times Square</div>
+          <div class="hotel-location">Midtown · 0.3mi to Central Park · Free WiFi</div>
+          <div class="hotel-stars">★★★★☆ 4.2 · 1,840 reviews</div>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--green);margin-top:3px;">✓ Gym · Rooftop bar · Business centre</div>
+        </div>
+        <div>
+          <div class="hotel-price">£189</div>
+          <div class="hotel-price-sub">per night</div>
+          <div class="hotel-price-sub" style="color:var(--ink);font-weight:600;margin-top:4px;">£945 total</div>
+        </div>
+      </div>
+
+      <div class="hotel-option" id="hotel-2" onclick="selectHotel('hotel-2')">
+        <div class="hotel-img">🏩</div>
+        <div class="hotel-info">
+          <div class="hotel-name">Ace Hotel Brooklyn</div>
+          <div class="hotel-location">Williamsburg · Hip district · Near subway</div>
+          <div class="hotel-stars">★★★★★ 4.7 · 920 reviews</div>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--green);margin-top:3px;">✓ Rooftop pool · Coffee shop · Coworking</div>
+        </div>
+        <div>
+          <div class="hotel-price">£224</div>
+          <div class="hotel-price-sub">per night</div>
+          <div class="hotel-price-sub" style="color:var(--ink);font-weight:600;margin-top:4px;">£1,120 total</div>
+        </div>
+      </div>
+
+      <div class="hotel-option" id="hotel-3" onclick="selectHotel('hotel-3')">
+        <div class="hotel-img">🏦</div>
+        <div class="hotel-info">
+          <div class="hotel-name">Wall Street Inn</div>
+          <div class="hotel-location">Financial District · Near NYSE · Business hub</div>
+          <div class="hotel-stars">★★★★☆ 4.0 · 2,110 reviews</div>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--green);margin-top:3px;">✓ Conference rooms · Express check-in · Bar</div>
+        </div>
+        <div>
+          <div class="hotel-price">£155</div>
+          <div class="hotel-price-sub">per night</div>
+          <div class="hotel-price-sub" style="color:var(--ink);font-weight:600;margin-top:4px;">£775 total</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 4: AI Itinerary (with loading state) -->
+    <div class="trip-panel" id="trip-panel-4">
+      <div id="itin-loading" class="ai-thinking" style="display:none;">
+        <div class="ai-dots">
+          <div class="ai-dot"></div>
+          <div class="ai-dot"></div>
+          <div class="ai-dot"></div>
+        </div>
+        <div style="font-size:12px;font-family:'DM Mono',monospace;color:var(--ink3);">ANN is generating your personalised itinerary...</div>
+      </div>
+
+      <div id="itin-content">
+        <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:16px;">AI-GENERATED ITINERARY · NEW YORK CITY · 5 DAYS</div>
+
+        <!-- Day 1 -->
+        <div class="itin-day">
+          <div class="itin-day-header">
+            <div class="itin-day-num">1</div>
+            <div><div class="itin-day-title">Arrival & Midtown</div><div class="itin-day-sub">Wed 10 Jun · JFK arrival ~12:00pm</div></div>
+          </div>
+          <div class="itin-item"><div class="itin-time">12:30</div><div class="itin-dot" style="background:#3b82f6;"></div><div class="itin-info"><div class="itin-name">JFK → Manhattan · AirTrain + Subway</div><div class="itin-detail">45 min · $10.75 · E train to 5th Ave</div><span class="itin-tag itin-tag-transit">Transit</span></div></div>
+          <div class="itin-item"><div class="itin-time">13:30</div><div class="itin-dot" style="background:#10b981;"></div><div class="itin-info"><div class="itin-name">Check-in · The Manhattan at Times Square</div><div class="itin-detail">Request early check-in · Store luggage if unavailable</div><span class="itin-tag itin-tag-hotel">Hotel</span></div></div>
+          <div class="itin-item"><div class="itin-time">15:00</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Stumptown Coffee Roasters</div><div class="itin-detail">18 W 29th St · Specialty coffee · Matches your ☕ profile</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+          <div class="itin-item"><div class="itin-time">16:00</div><div class="itin-dot" style="background:#8b5cf6;"></div><div class="itin-info"><div class="itin-name">High Line Walking Tour</div><div class="itin-detail">Elevated park · 1.45 miles · Hudson Yards views · Free</div><span class="itin-tag itin-tag-culture">Culture</span></div></div>
+          <div class="itin-item"><div class="itin-time">19:00</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Momofuku Noodle Bar</div><div class="itin-detail">171 1st Ave · Asian ramen · Matches your 🍜 taste profile</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="itin-day">
+          <div class="itin-day-header">
+            <div class="itin-day-num">2</div>
+            <div><div class="itin-day-title">Finance District & Wall Street</div><div class="itin-day-sub">Thu 11 Jun · Matched to your 📈 finance interest</div></div>
+          </div>
+          <div class="itin-item"><div class="itin-time">08:30</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Gregory's Coffee · Breakfast</div><div class="itin-detail">Ground floor of 1 WTC · NYC speciality chain</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+          <div class="itin-item"><div class="itin-time">09:30</div><div class="itin-dot" style="background:#8b5cf6;"></div><div class="itin-info"><div class="itin-name">NYSE & Wall Street Walking Tour</div><div class="itin-detail">11 Wall St · See trading floor exterior · Charging Bull sculpture</div><span class="itin-tag itin-tag-culture">Culture</span></div></div>
+          <div class="itin-item"><div class="itin-time">11:00</div><div class="itin-dot" style="background:#8b5cf6;"></div><div class="itin-info"><div class="itin-name">Museum of American Finance</div><div class="itin-detail">48 Wall St · Historic stock certificates, trading history · £15</div><span class="itin-tag itin-tag-culture">Culture</span></div></div>
+          <div class="itin-item"><div class="itin-time">13:00</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Xi'an Famous Foods · Lunch</div><div class="itin-detail">FiDi location · Hand-pulled noodles · Matches 🍜 profile</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+          <div class="itin-item"><div class="itin-time">15:00</div><div class="itin-dot" style="background:#8b5cf6;"></div><div class="itin-info"><div class="itin-name">One World Observatory</div><div class="itin-detail">1 World Trade Center · 100th floor · 360° views · £28</div><span class="itin-tag itin-tag-culture">Culture</span></div></div>
+          <div class="itin-item"><div class="itin-time">19:30</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Nobu Downtown · Dinner</div><div class="itin-detail">195 Broadway · Japanese fusion · Reserve ahead</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="itin-day">
+          <div class="itin-day-header">
+            <div class="itin-day-num">3</div>
+            <div><div class="itin-day-title">Tech & Brooklyn</div><div class="itin-day-sub">Fri 12 Jun · Matched to your 💻 tech interest</div></div>
+          </div>
+          <div class="itin-item"><div class="itin-time">09:00</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Blank Street Coffee · Williamsburg</div><div class="itin-detail">NYC-born specialty chain · Pour-over bar</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+          <div class="itin-item"><div class="itin-time">10:30</div><div class="itin-dot" style="background:#8b5cf6;"></div><div class="itin-info"><div class="itin-name">DUMBO & Brooklyn Bridge Walk</div><div class="itin-detail">Tech startup district · Manhattan skyline views · Free</div><span class="itin-tag itin-tag-culture">Culture</span></div></div>
+          <div class="itin-item"><div class="itin-time">14:00</div><div class="itin-dot" style="background:#8b5cf6;"></div><div class="itin-info"><div class="itin-name">NYC Tech Hub Tour · Hudson Yards</div><div class="itin-detail">Google NYC campus exterior · Shed cultural centre</div><span class="itin-tag itin-tag-culture">Culture</span></div></div>
+          <div class="itin-item"><div class="itin-time">18:00</div><div class="itin-dot" style="background:#3b82f6;"></div><div class="itin-info"><div class="itin-name">Equinox Gym · Day Pass</div><div class="itin-detail">31st St · Premium gym · Matches 🏋️ interest · $35</div><span class="itin-tag itin-tag-transit">Fitness</span></div></div>
+          <div class="itin-item"><div class="itin-time">20:00</div><div class="itin-dot" style="background:#f59e0b;"></div><div class="itin-info"><div class="itin-name">Ugly Baby · Thai · Brooklyn</div><div class="itin-detail">407 Smith St · Authentic Thai street food</div><span class="itin-tag itin-tag-food">Food</span></div></div>
+        </div>
+
+        <div style="padding:10px 12px;background:var(--blue-light);border-radius:8px;font-size:10px;font-family:'DM Mono',monospace;color:#1a3260;line-height:1.6;">
+          ✦ Days 4–5 (Sat–Sun) include Central Park, MoMA, Chelsea Market, and departure to JFK.<br>Full itinerary saved to calendar on confirmation.
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 5: Confirmation -->
+    <div class="trip-panel" id="trip-panel-5">
+      <div class="trip-summary-box">
+        <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,0.4);letter-spacing:1px;">TRIP SUMMARY · NEW YORK CITY</div>
+        <div class="trip-summary-grid">
+          <div class="trip-summary-item"><div class="trip-summary-label">Dates</div><div class="trip-summary-val">10–15 Jun</div></div>
+          <div class="trip-summary-item"><div class="trip-summary-label">Duration</div><div class="trip-summary-val">5 nights</div></div>
+          <div class="trip-summary-item"><div class="trip-summary-label">Flight</div><div class="trip-summary-val">BA 177/178</div></div>
+          <div class="trip-summary-item"><div class="trip-summary-label">Hotel</div><div class="trip-summary-val">Manhattan TS</div></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);font-size:13px;">
+          <span style="font-weight:600;">✈ Outbound · BA 177</span>
+          <span style="font-family:'DM Mono',monospace;font-weight:700;">£389</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);font-size:13px;">
+          <span style="font-weight:600;">✈ Return · BA 178</span>
+          <span style="font-family:'DM Mono',monospace;font-weight:700;">£349</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);font-size:13px;">
+          <span style="font-weight:600;">🏨 Hotel · 5 nights</span>
+          <span style="font-family:'DM Mono',monospace;font-weight:700;">£945</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);font-size:13px;">
+          <span style="font-weight:600;">🗺 Est. activities & food</span>
+          <span style="font-family:'DM Mono',monospace;font-weight:700;">~£420</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:12px 14px;background:#1e3560;border-radius:8px;font-size:14px;color:white;">
+          <span style="font-weight:700;">Total Estimated Cost</span>
+          <span style="font-family:'DM Mono',monospace;font-weight:800;">£2,103</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;cursor:pointer;">
+          <input type="checkbox" checked style="width:14px;height:14px;accent-color:#2c4a7c;">
+          Add all 5 days to Calendar
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;cursor:pointer;">
+          <input type="checkbox" checked style="width:14px;height:14px;accent-color:#2c4a7c;">
+          Set budget alert at £2,200 total spend
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;cursor:pointer;">
+          <input type="checkbox" style="width:14px;height:14px;accent-color:#2c4a7c;">
+          Add restaurant reservations to tasks
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;cursor:pointer;">
+          <input type="checkbox" checked style="width:14px;height:14px;accent-color:#2c4a7c;">
+          Save itinerary to Trips
+        </label>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="trip-modal-footer">
+      <button class="btn btn-ghost" id="trip-back-btn" onclick="tripStep(-1)" style="display:none;">← Back</button>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);" id="trip-step-counter">Step 1 of 5</div>
+      <button class="btn btn-primary" id="trip-next-btn" onclick="tripStep(1)">Next →</button>
+    </div>
+
+  </div>
+</div>
 
 <!-- Receipt Modal -->
 <div class="modal-overlay" id="receipt-modal" onclick="closeReceipt(event)">
@@ -2271,7 +3089,123 @@ function closeReceiptBtn() {
   document.getElementById('receipt-modal').classList.remove('open');
 }
 
-// ── MOBILE FUNCTIONS ──
+// ── TRIP PLANNER ──
+let currentTripStep = 1;
+const totalTripSteps = 5;
+const stepLabels = ['Dates', 'Flights', 'Hotel', 'Itinerary', 'Confirm'];
+
+function openTripPlanner() {
+  currentTripStep = 1;
+  renderTripStep(1);
+  document.getElementById('trip-modal-overlay').classList.add('open');
+}
+
+function closeTripPlanner() {
+  document.getElementById('trip-modal-overlay').classList.remove('open');
+}
+
+function closeTripPlannerOverlay(e) {
+  if (e.target === document.getElementById('trip-modal-overlay')) closeTripPlanner();
+}
+
+function tripStep(dir) {
+  const next = currentTripStep + dir;
+  if (next < 1 || next > totalTripSteps) return;
+
+  // On step 3→4 show AI loading animation
+  if (currentTripStep === 3 && dir === 1) {
+    currentTripStep = 4;
+    renderTripStep(4, true); // true = show loading
+    return;
+  }
+
+  currentTripStep = next;
+  renderTripStep(currentTripStep);
+}
+
+function renderTripStep(step, showLoading) {
+  // Hide all panels
+  for (let i = 1; i <= totalTripSteps; i++) {
+    document.getElementById('trip-panel-' + i).classList.remove('active');
+    const dot = document.getElementById('step-dot-' + i);
+    const lbl = document.getElementById('step-label-' + i);
+    if (i < step) {
+      dot.className = 'trip-step-dot done'; dot.textContent = '✓';
+      lbl.className = 'trip-step-label done';
+    } else if (i === step) {
+      dot.className = 'trip-step-dot active'; dot.textContent = i;
+      lbl.className = 'trip-step-label active';
+    } else {
+      dot.className = 'trip-step-dot'; dot.textContent = i;
+      lbl.className = 'trip-step-label';
+    }
+    if (i < totalTripSteps) {
+      const line = document.getElementById('step-line-' + i);
+      line.className = 'trip-step-line' + (i < step ? ' done' : '');
+    }
+  }
+
+  // Show current panel
+  document.getElementById('trip-panel-' + step).classList.add('active');
+
+  // Back/Next buttons
+  const backBtn = document.getElementById('trip-back-btn');
+  const nextBtn = document.getElementById('trip-next-btn');
+  backBtn.style.display = step > 1 ? 'inline-flex' : 'none';
+
+  if (step === totalTripSteps) {
+    nextBtn.textContent = '✓ Confirm & Save Trip';
+    nextBtn.onclick = confirmTrip;
+  } else {
+    nextBtn.textContent = 'Next →';
+    nextBtn.onclick = () => tripStep(1);
+  }
+
+  document.getElementById('trip-step-counter').textContent = 'Step ' + step + ' of ' + totalTripSteps;
+
+  // Itinerary loading animation
+  if (step === 4) {
+    if (showLoading) {
+      document.getElementById('itin-loading').style.display = 'flex';
+      document.getElementById('itin-content').style.display = 'none';
+      document.getElementById('trip-next-btn').disabled = true;
+      setTimeout(() => {
+        document.getElementById('itin-loading').style.display = 'none';
+        document.getElementById('itin-content').style.display = 'block';
+        document.getElementById('trip-next-btn').disabled = false;
+        showToast('✦ Itinerary generated — 5 days, 20 activities');
+      }, 2200);
+    } else {
+      document.getElementById('itin-loading').style.display = 'none';
+      document.getElementById('itin-content').style.display = 'block';
+    }
+  }
+}
+
+function selectFlight(id) {
+  // Only deselect flights in same direction
+  const isReturn = id.startsWith('flight-r');
+  document.querySelectorAll('.flight-option').forEach(f => {
+    const fIsReturn = f.id.startsWith('flight-r');
+    if (fIsReturn === isReturn) f.classList.remove('selected');
+  });
+  document.getElementById(id).classList.add('selected');
+}
+
+function selectHotel(id) {
+  document.querySelectorAll('.hotel-option').forEach(h => h.classList.remove('selected'));
+  document.getElementById(id).classList.add('selected');
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+}
+
+function confirmTrip() {
+  closeTripPlanner();
+  showToast('✈ New York trip saved · Calendar & tasks updated');
+}
+
 const mobileBottomMap = {
   dashboard: 'mnav-dashboard',
   emails: 'mnav-emails',
