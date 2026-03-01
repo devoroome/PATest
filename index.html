@@ -1727,6 +1727,299 @@ body::after {
 @media (min-width: 769px) and (max-width: 1200px) {
   .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── Chat ───────────────────────────────────────────── */
+#view-chat { padding: 0 !important; display: none; height: 100%; }
+#view-chat.active { display: flex; flex-direction: column; }
+.chat-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  height: 100%;
+  overflow: hidden;
+}
+.chat-sidebar {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+}
+.chat-sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.chat-search {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--ink);
+  font-family: inherit;
+  outline: none;
+}
+.chat-search::placeholder { color: var(--ink3); }
+.chat-tabs {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.chat-tab-btn {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink2);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+}
+.chat-tab-btn.active {
+  background: #2c4a7c;
+  color: #fff;
+  border-color: #2c4a7c;
+}
+.conv-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+.conv-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background .12s;
+  border-radius: 0;
+  position: relative;
+}
+.conv-item:hover { background: var(--bg); }
+.conv-item.active { background: #eef2f9; }
+.conv-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+  font-weight: 700; color: #2c4a7c;
+}
+.conv-avatar.group {
+  border-radius: 12px;
+  font-size: 14px;
+}
+.conv-meta { flex: 1; min-width: 0; }
+.conv-name {
+  font-size: 13px; font-weight: 600;
+  color: var(--ink); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.conv-preview {
+  font-size: 11.5px; color: var(--ink3);
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; margin-top: 2px;
+}
+.conv-time { font-size: 10.5px; color: var(--ink3); flex-shrink: 0; }
+.conv-badge {
+  background: #2c4a7c; color: #fff;
+  border-radius: 10px; font-size: 10px;
+  padding: 2px 6px; font-weight: 700;
+  position: absolute; right: 14px; top: 11px;
+}
+/* Main chat panel */
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+.chat-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+}
+.chat-header-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: #2c4a7c; font-weight: 700;
+  flex-shrink: 0;
+}
+.chat-header-avatar.group { border-radius: 10px; }
+.chat-header-info { flex: 1; }
+.chat-header-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+.chat-header-sub { font-size: 11.5px; color: var(--ink3); }
+.chat-header-actions { display: flex; gap: 8px; }
+.chat-hdr-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: var(--ink2);
+  transition: background .12s;
+}
+.chat-hdr-btn:hover { background: var(--border); }
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.chat-date-sep {
+  text-align: center;
+  font-size: 11px; color: var(--ink3);
+  margin: 10px 0;
+  position: relative;
+}
+.chat-date-sep::before, .chat-date-sep::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: var(--border);
+}
+.chat-date-sep::before { left: 0; }
+.chat-date-sep::after { right: 0; }
+.chat-bubble-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.chat-bubble-row.own { flex-direction: row-reverse; }
+.msg-avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #2c4a7c;
+  flex-shrink: 0; margin-bottom: 2px;
+}
+.chat-bubble {
+  max-width: 62%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  position: relative;
+}
+.chat-bubble.other {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+  color: var(--ink);
+}
+.chat-bubble.own {
+  background: #2c4a7c;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.bubble-sender {
+  font-size: 10.5px; font-weight: 700;
+  color: #2c4a7c; margin-bottom: 3px;
+}
+.bubble-time {
+  font-size: 10px;
+  opacity: .55;
+  margin-top: 3px;
+  text-align: right;
+}
+/* ANN summary / calendar card */
+.chat-ann-card {
+  margin: 8px 0;
+  background: #f0f4ff;
+  border: 1px solid #c5d3ef;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.chat-ann-icon {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: #2c4a7c;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px; flex-shrink: 0;
+}
+.chat-ann-body { flex: 1; }
+.chat-ann-label {
+  font-size: 10.5px; font-weight: 700;
+  color: #2c4a7c; text-transform: uppercase;
+  letter-spacing: .5px; margin-bottom: 4px;
+}
+.chat-ann-text { font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+.chat-ann-actions { display: flex; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
+.chat-ann-btn {
+  background: #2c4a7c; color: #fff;
+  border: none; border-radius: 7px;
+  padding: 6px 13px; font-size: 12px;
+  cursor: pointer; font-family: inherit;
+  font-weight: 600; display: flex; align-items: center; gap: 5px;
+  transition: opacity .15s;
+}
+.chat-ann-btn:hover { opacity: .85; }
+.chat-ann-btn.added {
+  background: #1a7a4a;
+  cursor: default;
+}
+.chat-ann-dismiss {
+  background: transparent; color: var(--ink3);
+  border: 1px solid var(--border); border-radius: 7px;
+  padding: 6px 13px; font-size: 12px;
+  cursor: pointer; font-family: inherit;
+}
+/* Input bar */
+.chat-input-bar {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex; align-items: center; gap: 8px;
+  flex-shrink: 0;
+}
+.chat-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: var(--ink);
+  font-family: inherit;
+  outline: none;
+  resize: none;
+}
+.chat-input::placeholder { color: var(--ink3); }
+.chat-send-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #2c4a7c;
+  color: #fff;
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; cursor: pointer; flex-shrink: 0;
+  transition: opacity .15s;
+}
+.chat-send-btn:hover { opacity: .85; }
+/* Mobile: stack chat panels */
+@media (max-width: 768px) {
+  .chat-layout { grid-template-columns: 1fr; }
+  .chat-sidebar { display: none; }
+  .chat-layout.conv-open .chat-sidebar { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1756,6 +2049,7 @@ body::after {
       <div class="nav-item" onclick="navigate('meetings', this)"><span class="nav-icon"><i class="bi bi-camera-video-fill"></i></span> Meetings<span class="nav-badge">2</span></div>
       <div class="nav-section-label">Communications</div>
       <div class="nav-item" onclick="navigate('emails', this)"><span class="nav-icon"><i class="bi bi-envelope-fill"></i></span> Emails<span class="nav-badge">4</span></div>
+      <div class="nav-item" onclick="navigate('chat', this)"><span class="nav-icon"><i class="bi bi-chat-dots-fill"></i></span> Chat<span class="nav-badge">3</span></div>
       <div class="nav-item" onclick="navigate('calls', this)"><span class="nav-icon"><i class="bi bi-telephone-fill"></i></span> Calls</div>
       <div class="nav-item" onclick="navigate('wallet', this)"><span class="nav-icon"><i class="bi bi-wallet2"></i></span> Wallet</div>
       <div class="nav-section-label">Finance</div>
@@ -3299,6 +3593,328 @@ body::after {
       </div>
     </div>
 
+    <!-- CHAT VIEW -->
+    <div class="content" id="view-chat">
+      <div class="chat-layout" id="chat-layout">
+
+        <!-- Conversation sidebar -->
+        <div class="chat-sidebar">
+          <div class="chat-sidebar-header">
+            <input class="chat-search" type="text" placeholder="Search conversations…" oninput="filterChats(this.value)">
+            <div class="chat-tabs">
+              <button class="chat-tab-btn active" onclick="filterChatTab('all', this)">All</button>
+              <button class="chat-tab-btn" onclick="filterChatTab('groups', this)">Groups</button>
+              <button class="chat-tab-btn" onclick="filterChatTab('dms', this)">DMs</button>
+            </div>
+          </div>
+          <div class="conv-list" id="conv-list">
+            <!-- Group: Work Team -->
+            <div class="conv-item active" data-chat="work-team" data-type="group" onclick="selectChat('work-team', this)">
+              <div class="conv-avatar group"><i class="bi bi-people-fill" style="font-size:16px;"></i></div>
+              <div class="conv-meta">
+                <div class="conv-name">Work Team</div>
+                <div class="conv-preview">James: Team lunch confirmed for Friday!</div>
+              </div>
+              <div class="conv-time">12:41</div>
+              <div class="conv-badge">3</div>
+            </div>
+            <!-- Group: Glastonbury 2026 -->
+            <div class="conv-item" data-chat="glastonbury" data-type="group" onclick="selectChat('glastonbury', this)">
+              <div class="conv-avatar group" style="background:var(--purple-light);color:#7c3aed;"><i class="bi bi-music-note-beamed" style="font-size:16px;"></i></div>
+              <div class="conv-meta">
+                <div class="conv-name">Glastonbury 2026 🎪</div>
+                <div class="conv-preview">You: Anyone want to carpool from London?</div>
+              </div>
+              <div class="conv-time">10:15</div>
+            </div>
+            <!-- DM: Sarah Mitchell -->
+            <div class="conv-item" data-chat="sarah" data-type="dm" onclick="selectChat('sarah', this)">
+              <div class="conv-avatar" style="background:var(--pink-light, #fce7f3);color:#be185d;">SM</div>
+              <div class="conv-meta">
+                <div class="conv-name">Sarah Mitchell</div>
+                <div class="conv-preview">See you tomorrow at 9!</div>
+              </div>
+              <div class="conv-time">09:53</div>
+            </div>
+            <!-- DM: James K. -->
+            <div class="conv-item" data-chat="james" data-type="dm" onclick="selectChat('james', this)">
+              <div class="conv-avatar" style="background:var(--green-light);color:var(--green);">JK</div>
+              <div class="conv-meta">
+                <div class="conv-name">James K.</div>
+                <div class="conv-preview">Did you get a chance to look at the brief?</div>
+              </div>
+              <div class="conv-time">Fri</div>
+            </div>
+            <!-- DM: Rachel T. -->
+            <div class="conv-item" data-chat="rachel" data-type="dm" onclick="selectChat('rachel', this)">
+              <div class="conv-avatar" style="background:var(--amber-light);color:var(--amber);">RT</div>
+              <div class="conv-meta">
+                <div class="conv-name">Rachel T.</div>
+                <div class="conv-preview">The Figma file is ready to review</div>
+              </div>
+              <div class="conv-time">Thu</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active chat: Work Team (shown by default) -->
+        <div class="chat-main" id="chat-main-work-team">
+          <div class="chat-header">
+            <div class="chat-header-avatar group"><i class="bi bi-people-fill"></i></div>
+            <div class="chat-header-info">
+              <div class="chat-header-name">Work Team</div>
+              <div class="chat-header-sub">Microsoft Teams · 6 members · James K., Sarah M., Rachel T. +3</div>
+            </div>
+            <div class="chat-header-actions">
+              <div class="chat-hdr-btn" title="Search"><i class="bi bi-search"></i></div>
+              <div class="chat-hdr-btn" title="Video call"><i class="bi bi-camera-video"></i></div>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-date-sep">Monday, 2 March 2026</div>
+
+            <!-- James -->
+            <div class="chat-bubble-row">
+              <div class="msg-avatar">JK</div>
+              <div>
+                <div class="bubble-sender">James K.</div>
+                <div class="chat-bubble other">Morning everyone — quick update on the Q1 deck. I've added the new slides. Can someone proof before EOD?</div>
+                <div class="bubble-time">09:14</div>
+              </div>
+            </div>
+
+            <!-- Rachel -->
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--amber-light);color:var(--amber);">RT</div>
+              <div>
+                <div class="bubble-sender">Rachel T.</div>
+                <div class="chat-bubble other">On it! Will send feedback by 3pm.</div>
+                <div class="bubble-time">09:21</div>
+              </div>
+            </div>
+
+            <!-- Own -->
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Looks great James. Slide 8 might need a chart update with the latest numbers — I'll do that now.</div>
+                <div class="bubble-time">09:34</div>
+              </div>
+            </div>
+
+            <!-- ANN Summary Card — calendar detection -->
+            <div class="chat-ann-card" id="ann-lunch-card">
+              <div class="chat-ann-icon"><i class="bi bi-stars"></i></div>
+              <div class="chat-ann-body">
+                <div class="chat-ann-label">ANN detected an event</div>
+                <div class="chat-ann-text">James mentioned a <strong>team lunch on Friday 6 March, 12:30 at Carluccio's</strong>. Would you like to add this to your calendar?</div>
+                <div class="chat-ann-actions">
+                  <button class="chat-ann-btn" id="ann-add-cal-btn" onclick="addChatEventToCalendar()">
+                    <i class="bi bi-calendar-plus"></i> Add to Calendar
+                  </button>
+                  <button class="chat-ann-dismiss" onclick="this.closest('.chat-ann-card').style.display='none'">Dismiss</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- James follow-up -->
+            <div class="chat-bubble-row">
+              <div class="msg-avatar">JK</div>
+              <div>
+                <div class="bubble-sender">James K.</div>
+                <div class="chat-bubble other">Also — team lunch confirmed for <strong>Friday 6 March, 12:30 at Carluccio's</strong>. Everyone in? 🍝</div>
+                <div class="bubble-time">12:41</div>
+              </div>
+            </div>
+
+            <!-- Sarah -->
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--pink-light,#fce7f3);color:#be185d;">SM</div>
+              <div>
+                <div class="bubble-sender">Sarah M.</div>
+                <div class="chat-bubble other">I'm in! 🙋</div>
+                <div class="bubble-time">12:43</div>
+              </div>
+            </div>
+
+            <!-- Own reply -->
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Count me in too!</div>
+                <div class="bubble-time">12:45</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="chat-input-work-team" placeholder="Message Work Team…" onkeydown="if(event.key==='Enter')sendMainChat('work-team')">
+            <button class="chat-send-btn" onclick="sendMainChat('work-team')"><i class="bi bi-arrow-up"></i></button>
+          </div>
+        </div>
+
+        <!-- Active chat: Glastonbury -->
+        <div class="chat-main" id="chat-main-glastonbury" style="display:none;">
+          <div class="chat-header">
+            <div class="chat-header-avatar group" style="background:var(--purple-light);color:#7c3aed;"><i class="bi bi-music-note-beamed"></i></div>
+            <div class="chat-header-info">
+              <div class="chat-header-name">Glastonbury 2026 🎪</div>
+              <div class="chat-header-sub">WhatsApp · 8 members</div>
+            </div>
+            <div class="chat-header-actions">
+              <div class="chat-hdr-btn"><i class="bi bi-search"></i></div>
+              <div class="chat-hdr-btn"><i class="bi bi-telephone"></i></div>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-date-sep">Friday, 27 February 2026</div>
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--purple-light);color:#7c3aed;">LK</div>
+              <div>
+                <div class="bubble-sender">Liam K.</div>
+                <div class="chat-bubble other">Tickets arrived in the post today! Who's camping Wednesday night?</div>
+                <div class="bubble-time">18:02</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Wednesday for me! Anyone want to carpool from London?</div>
+                <div class="bubble-time">18:15</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--pink-light,#fce7f3);color:#be185d;">SM</div>
+              <div>
+                <div class="bubble-sender">Sarah M.</div>
+                <div class="chat-bubble other">Yes please! Pick me up from Waterloo?</div>
+                <div class="bubble-time">18:20</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Done ✅</div>
+                <div class="bubble-time">18:21</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="chat-input-glastonbury" placeholder="Message Glastonbury 2026 🎪…" onkeydown="if(event.key==='Enter')sendMainChat('glastonbury')">
+            <button class="chat-send-btn" onclick="sendMainChat('glastonbury')"><i class="bi bi-arrow-up"></i></button>
+          </div>
+        </div>
+
+        <!-- Active chat: Sarah Mitchell (DM) -->
+        <div class="chat-main" id="chat-main-sarah" style="display:none;">
+          <div class="chat-header">
+            <div class="chat-header-avatar" style="background:var(--pink-light,#fce7f3);color:#be185d;">SM</div>
+            <div class="chat-header-info">
+              <div class="chat-header-name">Sarah Mitchell</div>
+              <div class="chat-header-sub">Direct message · iMessage</div>
+            </div>
+            <div class="chat-header-actions">
+              <div class="chat-hdr-btn"><i class="bi bi-telephone"></i></div>
+              <div class="chat-hdr-btn"><i class="bi bi-camera-video"></i></div>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-date-sep">Sunday, 1 March 2026</div>
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--pink-light,#fce7f3);color:#be185d;">SM</div>
+              <div>
+                <div class="chat-bubble other">Hey! Are we still on for the client call tomorrow at 9?</div>
+                <div class="bubble-time">09:45</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Yes, I've got it in my calendar. I'll send the Zoom link in the morning.</div>
+                <div class="bubble-time">09:50</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--pink-light,#fce7f3);color:#be185d;">SM</div>
+              <div>
+                <div class="chat-bubble other">Perfect. See you tomorrow at 9! 👍</div>
+                <div class="bubble-time">09:53</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="chat-input-sarah" placeholder="Message Sarah Mitchell…" onkeydown="if(event.key==='Enter')sendMainChat('sarah')">
+            <button class="chat-send-btn" onclick="sendMainChat('sarah')"><i class="bi bi-arrow-up"></i></button>
+          </div>
+        </div>
+
+        <!-- Active chat: James K. (DM) -->
+        <div class="chat-main" id="chat-main-james" style="display:none;">
+          <div class="chat-header">
+            <div class="chat-header-avatar" style="background:var(--green-light);color:var(--green);">JK</div>
+            <div class="chat-header-info">
+              <div class="chat-header-name">James K.</div>
+              <div class="chat-header-sub">Direct message · Slack</div>
+            </div>
+            <div class="chat-header-actions">
+              <div class="chat-hdr-btn"><i class="bi bi-telephone"></i></div>
+              <div class="chat-hdr-btn"><i class="bi bi-camera-video"></i></div>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-date-sep">Friday, 27 February 2026</div>
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--green-light);color:var(--green);">JK</div>
+              <div>
+                <div class="chat-bubble other">Hey, did you get a chance to look at the project brief I sent over?</div>
+                <div class="bubble-time">14:10</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Just reading through it now — looks solid. I have a couple of questions on scope, will send them over shortly.</div>
+                <div class="bubble-time">14:22</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="chat-input-james" placeholder="Message James K.…" onkeydown="if(event.key==='Enter')sendMainChat('james')">
+            <button class="chat-send-btn" onclick="sendMainChat('james')"><i class="bi bi-arrow-up"></i></button>
+          </div>
+        </div>
+
+        <!-- Active chat: Rachel T. (DM) -->
+        <div class="chat-main" id="chat-main-rachel" style="display:none;">
+          <div class="chat-header">
+            <div class="chat-header-avatar" style="background:var(--amber-light);color:var(--amber);">RT</div>
+            <div class="chat-header-info">
+              <div class="chat-header-name">Rachel T.</div>
+              <div class="chat-header-sub">Direct message · Slack</div>
+            </div>
+            <div class="chat-header-actions">
+              <div class="chat-hdr-btn"><i class="bi bi-telephone"></i></div>
+              <div class="chat-hdr-btn"><i class="bi bi-camera-video"></i></div>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-date-sep">Thursday, 26 February 2026</div>
+            <div class="chat-bubble-row">
+              <div class="msg-avatar" style="background:var(--amber-light);color:var(--amber);">RT</div>
+              <div>
+                <div class="chat-bubble other">The Figma file is ready to review — I've left comments on the tricky sections. Let me know what you think!</div>
+                <div class="bubble-time">16:45</div>
+              </div>
+            </div>
+            <div class="chat-bubble-row own">
+              <div>
+                <div class="chat-bubble own">Will look at it first thing tomorrow, thanks Rachel!</div>
+                <div class="bubble-time">16:58</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="chat-input-rachel" placeholder="Message Rachel T.…" onkeydown="if(event.key==='Enter')sendMainChat('rachel')">
+            <button class="chat-send-btn" onclick="sendMainChat('rachel')"><i class="bi bi-arrow-up"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -3319,6 +3935,7 @@ body::after {
     <div class="nav-item" onclick="navigateMobile('meetings', this)"><span class="nav-icon"><i class="bi bi-camera-video-fill"></i></span> Meetings<span class="nav-badge">2</span></div>
     <div class="nav-section-label">Communications</div>
     <div class="nav-item" onclick="navigateMobile('emails', this)"><span class="nav-icon"><i class="bi bi-envelope-fill"></i></span> Emails<span class="nav-badge">4</span></div>
+    <div class="nav-item" onclick="navigateMobile('chat', this)"><span class="nav-icon"><i class="bi bi-chat-dots-fill"></i></span> Chat<span class="nav-badge">3</span></div>
     <div class="nav-item" onclick="navigateMobile('calls', this)"><span class="nav-icon"><i class="bi bi-telephone-fill"></i></span> Calls</div>
     <div class="nav-item" onclick="navigateMobile('wallet', this)"><span class="nav-icon"><i class="bi bi-wallet2"></i></span> Wallet</div>
     <div class="nav-section-label">Finance</div>
@@ -3364,9 +3981,10 @@ body::after {
       <span>Tasks</span>
       <div class="mobile-nav-badge">5</div>
     </div>
-    <div class="mobile-nav-btn" id="mnav-profile" onclick="navigateMobileBottom('profile', this)">
-      <span class="mobile-nav-icon"><i class="bi bi-person-fill"></i></span>
-      <span>Profile</span>
+    <div class="mobile-nav-btn" id="mnav-chat" onclick="navigateMobileBottom('chat', this)">
+      <span class="mobile-nav-icon"><i class="bi bi-chat-dots-fill"></i></span>
+      <span>Chat</span>
+      <div class="mobile-nav-badge">3</div>
     </div>
     <div class="mobile-nav-btn" id="mnav-more" onclick="toggleDrawer()">
       <span class="mobile-nav-icon"><i class="bi bi-list"></i></span>
@@ -3816,6 +4434,7 @@ const views = {
   calendar: { title: 'Calendar', sub: 'Events from emails & calls', btn: '+ Add Event' },
   meetings: { title: 'Meetings', sub: 'Synced from Calendar · Mon 2 Mar 2026', btn: '+ Schedule' },
   profile: { title: 'Taste Profile', sub: 'Interests, hobbies & food preferences', btn: 'Edit Profile' },
+  chat: { title: 'Chat', sub: 'Messages from Teams, WhatsApp & Slack', btn: 'New Message' },
 };
 
 function navigate(view, el) {
@@ -4073,7 +4692,7 @@ const mobileBottomMap = {
   emails: 'mnav-emails',
   budget: 'mnav-budget',
   tasks: 'mnav-tasks',
-  profile: 'mnav-profile',
+  chat: 'mnav-chat',
 };
 
 function navigateMobile(view, el) {
@@ -4651,6 +5270,73 @@ function sendChatMsg() {
 
 function sendReaction() {
   showToast('✋ Reaction sent');
+}
+
+// ── Chat ──────────────────────────────────────────────
+let activeChatId = 'work-team';
+
+function selectChat(chatId, convEl) {
+  // Update sidebar highlight
+  document.querySelectorAll('.conv-item').forEach(el => el.classList.remove('active'));
+  if (convEl) convEl.classList.add('active');
+  // Remove badge from selected conv
+  const badge = convEl ? convEl.querySelector('.conv-badge') : null;
+  if (badge) badge.remove();
+  // Hide all chat mains, show selected
+  document.querySelectorAll('.chat-main').forEach(m => m.style.display = 'none');
+  const main = document.getElementById('chat-main-' + chatId);
+  if (main) main.style.display = 'flex';
+  activeChatId = chatId;
+  // Scroll to bottom of messages
+  const msgs = main ? main.querySelector('.chat-messages') : null;
+  if (msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+
+function filterChats(query) {
+  const q = query.toLowerCase();
+  document.querySelectorAll('.conv-item').forEach(item => {
+    const name = item.querySelector('.conv-name')?.textContent.toLowerCase() || '';
+    const preview = item.querySelector('.conv-preview')?.textContent.toLowerCase() || '';
+    item.style.display = (name.includes(q) || preview.includes(q)) ? '' : 'none';
+  });
+}
+
+function filterChatTab(type, btn) {
+  document.querySelectorAll('.chat-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.conv-item').forEach(item => {
+    if (type === 'all') {
+      item.style.display = '';
+    } else {
+      item.style.display = item.dataset.type === type ? '' : 'none';
+    }
+  });
+}
+
+function sendMainChat(chatId) {
+  const inp = document.getElementById('chat-input-' + chatId);
+  if (!inp || !inp.value.trim()) return;
+  const text = inp.value.trim();
+  const msgs = document.querySelector('#chat-main-' + chatId + ' .chat-messages');
+  if (!msgs) return;
+  const row = document.createElement('div');
+  row.className = 'chat-bubble-row own';
+  row.innerHTML = `<div><div class="chat-bubble own">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div><div class="bubble-time">Just now</div></div>`;
+  msgs.appendChild(row);
+  msgs.scrollTop = msgs.scrollHeight;
+  inp.value = '';
+  // Update sidebar preview
+  const conv = document.querySelector(`.conv-item[data-chat="${chatId}"] .conv-preview`);
+  if (conv) conv.textContent = 'You: ' + text.substring(0, 40);
+}
+
+function addChatEventToCalendar() {
+  const btn = document.getElementById('ann-add-cal-btn');
+  if (!btn) return;
+  btn.innerHTML = '<i class="bi bi-check-lg"></i> Added to Calendar';
+  btn.classList.add('added');
+  btn.disabled = true;
+  showToast('Team Lunch · Fri 6 Mar 12:30 added to Calendar');
 }
 </script>
 
