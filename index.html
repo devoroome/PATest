@@ -637,11 +637,323 @@ body::after {
   font-weight: 800;
   letter-spacing: 1px;
 }
+
+/* ── MOBILE BOTTOM NAV ── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #2c4a7c;
+  height: 60px;
+  z-index: 300;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 0 4px;
+}
+
+.mobile-nav-inner {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mobile-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+  min-width: 52px;
+  position: relative;
+}
+
+.mobile-nav-btn.active {
+  color: white;
+  background: rgba(255,255,255,0.12);
+}
+
+.mobile-nav-icon { font-size: 18px; line-height: 1; }
+
+.mobile-nav-badge {
+  position: absolute;
+  top: 2px; right: 6px;
+  background: #ef4444;
+  color: white;
+  font-size: 8px;
+  font-family: 'DM Mono', monospace;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Mobile drawer for full nav */
+.mobile-drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 400;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-drawer-overlay.open { display: block; }
+
+.mobile-drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 260px;
+  background: #2c4a7c;
+  z-index: 500;
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+.mobile-drawer .sidebar-brand {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 8px;
+}
+
+.mobile-drawer .sidebar-nav {
+  padding: 8px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-drawer .nav-item { font-size: 14px; padding: 11px 12px; }
+
+.mobile-drawer .sidebar-profile {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ── RESPONSIVE BREAKPOINTS ── */
+@media (max-width: 768px) {
+
+  body { overflow: hidden; }
+
+  /* Hide desktop sidebar and titlebar dots */
+  .sidebar { display: none; }
+  .titlebar-dots { display: none; }
+
+  /* Titlebar becomes mobile header */
+  .titlebar {
+    height: 48px;
+    padding: 0 16px;
+    justify-content: space-between;
+  }
+
+  .titlebar-title {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.7);
+    flex: unset;
+    text-align: left;
+  }
+
+  .titlebar-time {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* Show hamburger menu button */
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Main area fills screen */
+  .main { width: 100%; }
+
+  /* Topbar compact */
+  .topbar {
+    height: 50px;
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .topbar-title { font-size: 14px; }
+  .topbar-sub { display: none; }
+
+  .topbar-actions { gap: 6px; }
+
+  /* Hide Sync button on mobile */
+  .topbar-actions .btn-ghost:first-child { display: none; }
+
+  .btn { padding: 7px 12px; font-size: 11px; }
+
+  /* Content padding */
+  .content { padding: 14px 12px 80px; }
+
+  /* Dashboard grid → single column */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  /* Stat row → 2 columns */
+  .stat-row {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .stat-card { padding: 10px 12px; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 9px; }
+  .stat-change { font-size: 9px; }
+
+  /* Cards */
+  .card { border-radius: 10px; }
+  .card-header { padding: 12px 14px 10px; gap: 8px; }
+  .card-title { font-size: 12px; }
+  .card-sub { font-size: 9px; }
+  .card-body { padding: 10px 14px; }
+
+  /* Whats new card */
+  .whats-new-body { padding: 10px 14px; }
+  .profile-tag { font-size: 10px; padding: 4px 10px; }
+
+  /* Budget chart wraps vertically on small screens */
+  .budget-chart-wrap { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .pie-wrap { margin: 0 auto; }
+
+  /* Task items */
+  .task-text { font-size: 11px; }
+  .task-source { font-size: 8px; }
+
+  /* Email items */
+  .email-from { font-size: 11px; }
+  .email-subject { font-size: 10px; }
+  .email-summary { font-size: 9px; }
+
+  /* Inventory */
+  .inv-name { font-size: 11px; }
+  .inv-qty { font-size: 10px; }
+
+  /* Bill items */
+  .bill-name { font-size: 11px; }
+  .bill-freq { font-size: 9px; }
+  .bill-amount { font-size: 12px; }
+
+  /* Parcel items */
+  .parcel-name { font-size: 11px; }
+  .parcel-courier { font-size: 9px; }
+  .status-pill { font-size: 8px; padding: 2px 6px; }
+
+  /* Transaction items */
+  .tx-merchant { font-size: 11px; }
+  .tx-meta { font-size: 9px; }
+  .tx-amount { font-size: 12px; }
+  .cat-pill { font-size: 8px; padding: 1px 5px; }
+
+  /* Wallet cards */
+  .wallet-card { padding: 16px; }
+  .wallet-event { font-size: 14px; }
+
+  /* Trip cards grid → 1 col */
+  .dashboard-grid > .card,
+  [style*="grid-template-columns:1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Multi-col layouts → single col */
+  [style*="grid-template-columns:1fr 1.6fr"],
+  [style*="grid-template-columns:1fr 1.4fr"],
+  [style*="grid-template-columns:1.2fr 1fr"],
+  [style*="grid-template-columns:1.3fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Notification panel */
+  .notif-panel {
+    top: 98px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+
+  /* Receipt modal full width on mobile */
+  .receipt-modal { width: calc(100vw - 32px); max-height: 85vh; }
+
+  /* Mobile nav visible */
+  .mobile-nav { display: flex; }
+
+  /* Calendar grid text */
+  .cal-day { font-size: 11px; }
+  .cal-day-label { font-size: 8px; }
+
+  /* Event items */
+  .event-name { font-size: 11px; }
+  .event-detail { font-size: 9px; }
+
+  /* Call items */
+  .call-name { font-size: 11px; }
+  .call-summary { font-size: 9px; }
+
+  /* Meal cards */
+  .meal-name { font-size: 11px; }
+  .meal-macros { font-size: 9px; }
+
+  /* VAT/Tax tables */
+  table { font-size: 11px !important; }
+
+  /* Buttons in headers */
+  .card-header .btn { font-size: 10px; padding: 5px 10px; }
+
+  /* Add task row */
+  .add-task-row { gap: 6px; }
+  .task-input { font-size: 11px; padding: 7px 10px; }
+
+  /* Hide topbar sub text */
+  #topbar-sub { display: none; }
+}
+
+@media (max-width: 400px) {
+  .stat-row { grid-template-columns: 1fr 1fr !important; }
+  .stat-value { font-size: 16px; }
+  .content { padding: 10px 10px 80px; }
+  .card-header { padding: 10px 12px 8px; }
+  .card-body { padding: 8px 12px; }
+  .topbar { height: 46px; padding: 0 12px; }
+  .topbar-title { font-size: 13px; }
+  .profile-tag { font-size: 9px; padding: 3px 8px; }
+  .mobile-nav-btn { min-width: 44px; font-size: 8px; }
+  .mobile-nav-icon { font-size: 16px; }
+}
 </style>
 </head>
 <body>
 
 <div class="titlebar">
+  <button class="mobile-menu-btn" style="display:none;" onclick="toggleDrawer()" id="mobile-menu-btn">☰</button>
   <div class="titlebar-dots">
     <div class="dot dot-red"></div>
     <div class="dot dot-yellow"></div>
@@ -709,7 +1021,7 @@ body::after {
         <div class="notif-item"><div class="notif-ico">⚑</div><div class="notif-body"><div class="notif-msg">Netflix price increased from £10.99 to £13.99/mo</div><div class="notif-time">2 hours ago</div></div></div>
         <div class="notif-item"><div class="notif-ico">📦</div><div class="notif-body"><div class="notif-msg">Your ASOS order is out for delivery today</div><div class="notif-time">9:14 AM</div></div></div>
         <div class="notif-item"><div class="notif-ico">✉</div><div class="notif-body"><div class="notif-msg">Email from HMRC — Tax return reminder added to tasks</div><div class="notif-time">Yesterday</div></div></div>
-        <div class="notif-item"><div class="notif-ico">🥛</div><div class="notif-body"><div class="notif-msg">Low stock: Milk (1 Jug remaining)</div><div class="notif-time">Yesterday</div></div></div>
+        <div class="notif-item"><div class="notif-ico">🥛</div><div class="notif-body"><div class="notif-msg">Low stock: Milk (1 unit remaining)</div><div class="notif-time">Yesterday</div></div></div>
         <div class="notif-item"><div class="notif-ico">📞</div><div class="notif-body"><div class="notif-msg">Voicemail from Dr. Smith summarised and added to tasks</div><div class="notif-time">2 days ago</div></div></div>
       </div>
     </div>
@@ -1673,6 +1985,73 @@ body::after {
   </div>
 </div>
 
+<!-- Mobile Drawer Overlay -->
+<div class="mobile-drawer-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
+
+<!-- Mobile Drawer (full nav) -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="sidebar-brand">
+    <div class="brand-name">ANN</div>
+    <div class="brand-sub">Personal Assistant</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <div class="nav-item" onclick="navigateMobile('dashboard', this)"><span class="nav-icon">⊞</span> Dashboard</div>
+    <div class="nav-item" onclick="navigateMobile('calendar', this)"><span class="nav-icon">◫</span> Calendar<span class="nav-badge">3</span></div>
+    <div class="nav-item" onclick="navigateMobile('tasks', this)"><span class="nav-icon">✓</span> Tasks<span class="nav-badge">5</span></div>
+    <div class="nav-section-label">Communications</div>
+    <div class="nav-item" onclick="navigateMobile('emails', this)"><span class="nav-icon">✉</span> Emails<span class="nav-badge">4</span></div>
+    <div class="nav-item" onclick="navigateMobile('calls', this)"><span class="nav-icon">☎</span> Calls</div>
+    <div class="nav-item" onclick="navigateMobile('wallet', this)"><span class="nav-icon">◈</span> Wallet</div>
+    <div class="nav-section-label">Finance</div>
+    <div class="nav-item" onclick="navigateMobile('budget', this)"><span class="nav-icon">◉</span> Budget</div>
+    <div class="nav-item" onclick="navigateMobile('bills', this)"><span class="nav-icon">⚑</span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
+    <div class="nav-item" onclick="navigateMobile('categorisation', this)"><span class="nav-icon">⊛</span> Categorisation</div>
+    <div class="nav-item" onclick="navigateMobile('vat', this)"><span class="nav-icon">◧</span> VAT Return</div>
+    <div class="nav-item" onclick="navigateMobile('tax', this)"><span class="nav-icon">◨</span> Tax Return</div>
+    <div class="nav-section-label">Lifestyle</div>
+    <div class="nav-item" onclick="navigateMobile('inventory', this)"><span class="nav-icon">⊟</span> Inventory</div>
+    <div class="nav-item" onclick="navigateMobile('meals', this)"><span class="nav-icon">⊕</span> Meals</div>
+    <div class="nav-item" onclick="navigateMobile('trips', this)"><span class="nav-icon">◎</span> Trips</div>
+    <div class="nav-item" onclick="navigateMobile('parcels', this)"><span class="nav-icon">⊡</span> Parcels<span class="nav-badge">2</span></div>
+  </div>
+  <div class="sidebar-profile">
+    <div class="profile-avatar">O</div>
+    <div>
+      <div class="profile-name">Overwatch</div>
+      <div class="profile-role">Personal · Work</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Bottom Nav -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <div class="mobile-nav-btn active" id="mnav-dashboard" onclick="navigateMobileBottom('dashboard', this)">
+      <span class="mobile-nav-icon">⊞</span>
+      <span>Home</span>
+    </div>
+    <div class="mobile-nav-btn" id="mnav-emails" onclick="navigateMobileBottom('emails', this)">
+      <span class="mobile-nav-icon">✉</span>
+      <span>Emails</span>
+      <div class="mobile-nav-badge">4</div>
+    </div>
+    <div class="mobile-nav-btn" id="mnav-budget" onclick="navigateMobileBottom('budget', this)">
+      <span class="mobile-nav-icon">◉</span>
+      <span>Budget</span>
+    </div>
+    <div class="mobile-nav-btn" id="mnav-tasks" onclick="navigateMobileBottom('tasks', this)">
+      <span class="mobile-nav-icon">✓</span>
+      <span>Tasks</span>
+      <div class="mobile-nav-badge">5</div>
+    </div>
+    <div class="mobile-nav-btn" id="mnav-more" onclick="toggleDrawer()">
+      <span class="mobile-nav-icon">☰</span>
+      <span>More</span>
+    </div>
+  </div>
+</nav>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
@@ -1891,6 +2270,76 @@ function closeReceipt(e) {
 function closeReceiptBtn() {
   document.getElementById('receipt-modal').classList.remove('open');
 }
+
+// ── MOBILE FUNCTIONS ──
+const mobileBottomMap = {
+  dashboard: 'mnav-dashboard',
+  emails: 'mnav-emails',
+  budget: 'mnav-budget',
+  tasks: 'mnav-tasks',
+};
+
+function navigateMobile(view, el) {
+  // Navigate using desktop nav logic
+  const fakeDesktopEl = document.querySelector(`[onclick="navigate('${view}', this)"]`);
+  if (fakeDesktopEl) {
+    navigate(view, fakeDesktopEl);
+  } else {
+    // Manually update view for drawer items
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    const v = views[view];
+    if (v) {
+      document.getElementById('topbar-title').textContent = v.title;
+      document.getElementById('action-btn').textContent = v.btn;
+    }
+  }
+  // Highlight drawer item
+  document.querySelectorAll('.mobile-drawer .nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  // Sync bottom nav if applicable
+  Object.keys(mobileBottomMap).forEach(k => {
+    document.getElementById(mobileBottomMap[k])?.classList.remove('active');
+  });
+  if (mobileBottomMap[view]) {
+    document.getElementById(mobileBottomMap[view])?.classList.add('active');
+  }
+  closeDrawer();
+}
+
+function navigateMobileBottom(view, el) {
+  // Navigate
+  const desktopEl = document.querySelector(`[onclick="navigate('${view}', this)"]`);
+  if (desktopEl) navigate(view, desktopEl);
+  // Highlight bottom nav
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function toggleDrawer() {
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function closeDrawer() {
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+// Show/hide mobile menu btn based on viewport
+function checkViewport() {
+  const btn = document.getElementById('mobile-menu-btn');
+  if (window.innerWidth <= 768) {
+    btn.style.display = 'flex';
+  } else {
+    btn.style.display = 'none';
+    closeDrawer();
+  }
+}
+checkViewport();
+window.addEventListener('resize', checkViewport);
 </script>
 
 </body>
