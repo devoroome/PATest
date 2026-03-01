@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANN — Full Stack Architecture</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Epilogue:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:       #080b12;
+  --bg1:      #0c1018;
+  --bg2:      #101520;
+  --surface:  #141b28;
+  --surface2: #1a2235;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.11);
+  --ink:      #e8edf5;
+  --ink2:     #8899bb;
+  --ink3:     #445577;
+
+  /* platform colours */
+  --web:  #3b7ef8;
+  --ios:  #b06ef3;
+  --mac:  #f06d9e;
+  --win:  #22d3ee;
+  --and:  #34d399;
+
+  /* layer colours */
+  --firebase: #f59e0b;
+  --fn:       #fb923c;
+  --ext:      #6366f1;
+
+  /* api accent colours */
+  --nylas:      #6366f1;
+  --claude:     #b06ef3;
+  --truelayer:  #10b981;
+  --twilio:     #ef4444;
+  --whisper:    #8b5cf6;
+  --vision:     #3b7ef8;
+  --amadeus:    #f06d9e;
+  --aftership:  #f59e0b;
+  --places:     #22d3ee;
+  --hmrc:       #f97316;
+  --alphav:     #34d399;
+  --secret:     #64748b;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Epilogue', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── animated grid backdrop ── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0;
+  background-image:
+    linear-gradient(rgba(59,126,248,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,126,248,0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events:none;
+}
+
+/* faint radial glow top-centre */
+body::after {
+  content:'';
+  position:fixed; top:-20%; left:50%; transform:translateX(-50%);
+  width:900px; height:500px;
+  background: radial-gradient(ellipse at center, rgba(59,126,248,0.07) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+
+.page { position:relative; z-index:1; max-width:1480px; margin:0 auto; padding:48px 32px 100px; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   HEADER
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hdr {
+  text-align:center;
+  padding-bottom: 64px;
+}
+.hdr-chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono', monospace; font-size:10px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--ink3); background:var(--surface);
+  border:1px solid var(--border2); border-radius:20px;
+  padding:6px 18px; margin-bottom:24px;
+}
+.hdr-chip-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:#34d399;
+  box-shadow: 0 0 8px #34d399;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hdr h1 {
+  font-size: clamp(40px,5.5vw,76px);
+  font-weight:900; letter-spacing:-3px; line-height:1;
+  background: linear-gradient(135deg,#fff 20%,var(--ink2) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:14px;
+}
+.hdr-sub {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--ink3); letter-spacing:1px;
+  display:flex; align-items:center; justify-content:center; gap:16px;
+  flex-wrap:wrap;
+}
+.hdr-sub span { display:flex; align-items:center; gap:6px; }
+.hdr-sub-dot { width:8px; height:8px; border-radius:2px; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   SECTION HEADING
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.section-head {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:20px;
+}
+.section-num {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--ink3); width:24px; flex-shrink:0;
+}
+.section-label {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  letter-spacing:3px; text-transform:uppercase; color:var(--ink3);
+}
+.section-line { flex:1; height:1px; background:var(--border); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   LAYER WRAPPER
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.layer { margin-bottom:56px; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   PLATFORM CARDS ROW
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.platform-row {
+  display:grid;
+  grid-template-columns: repeat(5,1fr);
+  gap:10px;
+}
+
+.plat-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px 18px 18px;
+  position:relative;
+  transition:transform .2s,border-color .2s;
+}
+.plat-card:hover { transform:translateY(-3px); border-color:var(--border2); }
+
+.plat-card::before {
+  content:'';
+  position:absolute; inset:0;
+  border-radius:16px;
+  background: linear-gradient(135deg, var(--plat-c,transparent) 0%, transparent 60%);
+  opacity:.06; pointer-events:none;
+}
+
+.plat-phase {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  letter-spacing:1.5px; text-transform:uppercase;
+  padding:3px 8px; border-radius:4px;
+  display:inline-flex; margin-bottom:14px;
+  color:var(--plat-c); background:color-mix(in srgb, var(--plat-c) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--plat-c) 25%, transparent);
+}
+.plat-icon {
+  font-size:26px; margin-bottom:10px; display:block;
+}
+.plat-name {
+  font-size:15px; font-weight:800; color:var(--ink);
+  margin-bottom:4px; letter-spacing:-0.5px;
+}
+.plat-stack {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  color:var(--ink3); margin-bottom:14px; line-height:1.6;
+}
+.plat-tags { display:flex; flex-wrap:wrap; gap:5px; }
+.plat-tag {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  padding:3px 7px; border-radius:4px;
+  color:var(--plat-c);
+  background:color-mix(in srgb, var(--plat-c) 10%, transparent);
+  border:1px solid color-mix(in srgb, var(--plat-c) 20%, transparent);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONNECTOR
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.connector-row {
+  display:flex; justify-content:center; align-items:center;
+  gap:8px; margin:0 0 36px; flex-wrap:wrap;
+}
+.connector-label {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  color:var(--ink3); letter-spacing:1px;
+  padding:4px 12px;
+  border:1px solid var(--border);
+  border-radius:20px;
+}
+.connector-arr {
+  display:flex; flex-direction:column; align-items:center;
+  gap:0;
+}
+.connector-line-v {
+  width:1px; height:28px;
+  background:linear-gradient(to bottom,rgba(255,255,255,.12),rgba(255,255,255,.02));
+}
+.connector-arr-head { color:var(--ink3); font-size:11px; line-height:1; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   FIREBASE ROW
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.firebase-row {
+  display:grid;
+  grid-template-columns: repeat(5,1fr);
+  gap:10px;
+}
+
+.fb-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left: 3px solid var(--firebase);
+  border-radius:12px;
+  padding:16px 18px;
+  transition:transform .2s;
+}
+.fb-card:hover { transform:translateY(-2px); }
+
+.fb-icon { font-size:20px; margin-bottom:10px; }
+.fb-name { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+.fb-type {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  color:var(--firebase); letter-spacing:1px; text-transform:uppercase;
+  margin-bottom:10px;
+}
+.fb-desc { font-size:11px; color:var(--ink2); line-height:1.5; margin-bottom:10px; }
+.fb-tags { display:flex; flex-wrap:wrap; gap:4px; }
+.fb-tag {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  padding:2px 7px; border-radius:3px;
+  color:var(--firebase);
+  background:rgba(245,158,11,0.1);
+  border:1px solid rgba(245,158,11,0.2);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   CLOUD FUNCTIONS GRID
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.fn-grid {
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  gap:10px;
+}
+
+.fn-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--fn);
+  border-radius:12px;
+  padding:16px 18px;
+  transition:transform .2s;
+}
+.fn-card:hover { transform:translateY(-2px); }
+
+.fn-trigger {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  color:var(--fn); letter-spacing:1px; text-transform:uppercase;
+  margin-bottom:6px;
+}
+.fn-name { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:8px; letter-spacing:-0.3px; }
+.fn-desc { font-size:11px; color:var(--ink2); line-height:1.5; margin-bottom:10px; }
+
+.fn-apis { display:flex; flex-wrap:wrap; gap:4px; }
+.fn-api {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  padding:2px 7px; border-radius:3px;
+  border:1px solid transparent;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   API GRID
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.api-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap:10px;
+}
+
+.api-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px 20px;
+  position:relative;
+  transition:transform .2s, border-color .2s;
+}
+.api-card:hover { transform:translateY(-2px); border-color:var(--border2); }
+
+.api-card::before {
+  content:'';
+  position:absolute; left:0; top:16px; bottom:16px;
+  width:3px; border-radius:0 2px 2px 0;
+  background:var(--ac);
+}
+
+.api-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.api-name { font-size:14px; font-weight:800; color:var(--ink); letter-spacing:-0.3px; }
+.api-badge {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  padding:2px 8px; border-radius:3px;
+  color:var(--ac);
+  background:color-mix(in srgb, var(--ac) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--ac) 25%, transparent);
+  text-transform:uppercase; letter-spacing:0.5px;
+}
+.api-use { font-size:11px; color:var(--ink2); line-height:1.5; margin-bottom:12px; }
+.api-features { display:flex; flex-direction:column; gap:5px; }
+.api-feat {
+  display:flex; gap:8px; align-items:flex-start;
+  font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--ink3);
+}
+.api-feat::before { content:'▸'; color:var(--ac); flex-shrink:0; margin-top:1px; }
+.api-note {
+  margin-top:10px; padding:8px 10px;
+  background:color-mix(in srgb, var(--ac) 8%, transparent);
+  border:1px solid color-mix(in srgb, var(--ac) 18%, transparent);
+  border-radius:6px;
+  font-family:'JetBrains Mono',monospace; font-size:8px; color:var(--ink3);
+  line-height:1.5;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   FEATURES MAP
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.feat-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px,1fr));
+  gap:10px;
+}
+
+.feat-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 16px;
+  transition:transform .15s;
+}
+.feat-card:hover { transform:translateY(-2px); border-color:var(--border2); }
+
+.feat-head {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:10px;
+}
+.feat-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.feat-title { font-size:12px; font-weight:700; color:var(--ink); line-height:1.2; }
+.feat-category {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  color:var(--ink3); text-transform:uppercase; letter-spacing:0.5px;
+}
+
+.feat-apis { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+.feat-api-tag {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  padding:2px 7px; border-radius:3px; border:1px solid transparent;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   DATA FLOW CARDS
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.flow-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.flow-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px 22px;
+}
+.flow-card-head {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:18px;
+}
+.flow-card-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.flow-card-title { font-size:13px; font-weight:700; color:var(--ink); }
+
+.flow-steps { display:flex; flex-direction:column; gap:0; }
+
+.flow-step {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.flow-step:last-child { border-bottom:none; }
+
+.flow-num {
+  width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700;
+  flex-shrink:0; margin-top:1px;
+}
+.flow-right {}
+.flow-action { font-size:11px; color:var(--ink); line-height:1.4; font-weight:500; }
+.flow-tech {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  color:var(--ink3); margin-top:3px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   FIRESTORE SCHEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.schema-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill,minmax(190px,1fr));
+  gap:10px;
+}
+.schema-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-top:2px solid rgba(245,158,11,0.4);
+  border-radius:10px;
+  padding:14px 16px;
+}
+.schema-coll {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  font-weight:700; color:var(--firebase);
+  margin-bottom:10px;
+}
+.schema-fields { display:flex; flex-direction:column; gap:4px; }
+.schema-f {
+  display:flex; justify-content:space-between; gap:4px;
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+}
+.schema-f-name { color:var(--ink2); }
+.schema-f-type { color:var(--ink3); text-align:right; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   PLATFORM FEATURE MATRIX
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.matrix {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+}
+.matrix-head, .matrix-row {
+  display:grid;
+  grid-template-columns: 220px repeat(5,1fr);
+}
+.matrix-head { background:var(--surface2); border-bottom:1px solid var(--border); }
+.matrix-cell {
+  padding:11px 14px;
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  border-right:1px solid var(--border);
+  letter-spacing:0.3px;
+}
+.matrix-cell:last-child { border-right:none; }
+.matrix-row { border-bottom:1px solid var(--border); }
+.matrix-row:last-child { border-bottom:none; }
+.matrix-row:hover { background:rgba(255,255,255,0.015); }
+.matrix-row .matrix-cell:first-child { color:var(--ink2); font-size:10px; }
+.matrix-row .matrix-cell { color:var(--ink3); }
+.ok { color:#34d399; }
+.half { color:#f59e0b; }
+.no { color:#ef4444; }
+
+.matrix-plat { display:flex; align-items:center; gap:6px; }
+.matrix-dot { width:8px; height:8px; border-radius:2px; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   PHASE TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.timeline-row {
+  display:grid;
+  grid-template-columns: repeat(7,1fr);
+  gap:10px;
+}
+.phase-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px 16px;
+  position:relative;
+}
+.phase-num {
+  font-family:'JetBrains Mono',monospace; font-size:42px; font-weight:700;
+  color:rgba(255,255,255,0.03);
+  position:absolute; top:6px; right:12px; line-height:1;
+  pointer-events:none;
+}
+.phase-tag {
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  letter-spacing:1px; text-transform:uppercase;
+  padding:3px 8px; border-radius:4px;
+  display:inline-block; margin-bottom:10px;
+}
+.phase-title { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:4px; letter-spacing:-.3px; }
+.phase-dur { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--ink3); margin-bottom:12px; }
+.phase-items { display:flex; flex-direction:column; gap:5px; }
+.phase-item {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  color:var(--ink2); display:flex; gap:6px; align-items:flex-start; line-height:1.4;
+}
+.phase-item::before { content:'→'; flex-shrink:0; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   SECURITY + COMPLIANCE PANEL
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.security-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+}
+.sec-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px 20px;
+}
+.sec-title {
+  font-size:13px; font-weight:700; color:var(--ink);
+  margin-bottom:12px; display:flex; align-items:center; gap:8px;
+}
+.sec-items { display:flex; flex-direction:column; gap:6px; }
+.sec-item {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  color:var(--ink2); display:flex; gap:8px; align-items:flex-start; line-height:1.5;
+}
+.sec-bullet { color:#34d399; flex-shrink:0; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.footer {
+  text-align:center; margin-top:80px;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--ink3); line-height:2; letter-spacing:0.5px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width:1100px) {
+  .platform-row { grid-template-columns: repeat(3,1fr); }
+  .firebase-row { grid-template-columns: repeat(3,1fr); }
+  .fn-grid      { grid-template-columns: repeat(2,1fr); }
+  .timeline-row { grid-template-columns: repeat(4,1fr); }
+}
+@media (max-width:768px) {
+  .page { padding:28px 16px 80px; }
+  .platform-row { grid-template-columns:1fr 1fr; }
+  .firebase-row { grid-template-columns:1fr 1fr; }
+  .fn-grid      { grid-template-columns:1fr; }
+  .flow-grid    { grid-template-columns:1fr; }
+  .timeline-row { grid-template-columns:1fr 1fr; }
+  .security-grid{ grid-template-columns:1fr; }
+  .matrix-head, .matrix-row { grid-template-columns:140px repeat(5,1fr); }
+  .matrix-cell  { padding:8px 6px; font-size:8px; }
+  h1 { letter-spacing:-1px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ─────────────────────────────────
+     HEADER
+───────────────────────────────── -->
+<div class="hdr">
+  <div class="hdr-chip">
+    <span class="hdr-chip-dot"></span>
+    ANN Personal Assistant — Architecture Document v1.0
+  </div>
+  <h1>Full Stack Architecture</h1>
+  <div class="hdr-sub" style="margin-top:16px;">
+    <span><div class="hdr-sub-dot" style="background:var(--web)"></div>Web / PWA</span>
+    <span><div class="hdr-sub-dot" style="background:var(--ios)"></div>iOS</span>
+    <span><div class="hdr-sub-dot" style="background:var(--mac)"></div>macOS</span>
+    <span><div class="hdr-sub-dot" style="background:var(--win)"></div>Windows</span>
+    <span><div class="hdr-sub-dot" style="background:var(--and)"></div>Android</span>
+    <span style="color:var(--ink3);">·</span>
+    <span><div class="hdr-sub-dot" style="background:var(--firebase)"></div>Firebase</span>
+    <span><div class="hdr-sub-dot" style="background:var(--fn)"></div>Cloud Functions</span>
+    <span><div class="hdr-sub-dot" style="background:var(--ext)"></div>External APIs</span>
+    <span style="color:var(--ink3);">·</span>
+    <span>28 Features · 10 APIs · 5 Platforms</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     1. CLIENT PLATFORMS
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">01</div>
+    <div class="section-label">Layer 1 — Client Platforms (Frontend)</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="platform-row">
+
+    <div class="plat-card" style="--plat-c:var(--web)">
+      <div class="plat-phase">Phase 1 · Ship First</div>
+      <span class="plat-icon">🌐</span>
+      <div class="plat-name">Web / PWA</div>
+      <div class="plat-stack">
+        HTML · CSS · Vanilla JS<br>
+        Firebase JS SDK v9<br>
+        Service Workers<br>
+        Firebase Hosting / Vercel
+      </div>
+      <div class="plat-tags">
+        <div class="plat-tag">Service Worker</div>
+        <div class="plat-tag">Web Push / FCM</div>
+        <div class="plat-tag">PWA Manifest</div>
+        <div class="plat-tag">Offline Cache</div>
+        <div class="plat-tag">MediaDevices</div>
+      </div>
+    </div>
+
+    <div class="plat-card" style="--plat-c:var(--ios)">
+      <div class="plat-phase">Phase 4 · Native</div>
+      <span class="plat-icon">📱</span>
+      <div class="plat-name">iOS</div>
+      <div class="plat-stack">
+        Swift 6 + SwiftUI<br>
+        Firebase iOS SDK<br>
+        Xcode 16 on M4<br>
+        App Store distribution
+      </div>
+      <div class="plat-tags">
+        <div class="plat-tag">APNs</div>
+        <div class="plat-tag">PassKit</div>
+        <div class="plat-tag">AVFoundation</div>
+        <div class="plat-tag">BGTaskScheduler</div>
+        <div class="plat-tag">Face ID</div>
+        <div class="plat-tag">Dynamic Island</div>
+      </div>
+    </div>
+
+    <div class="plat-card" style="--plat-c:var(--mac)">
+      <div class="plat-phase">Phase 5 · Shared Swift</div>
+      <span class="plat-icon">💻</span>
+      <div class="plat-name">macOS</div>
+      <div class="plat-stack">
+        SwiftUI via Catalyst<br>
+        Shared iOS codebase<br>
+        NSStatusBar menu bar<br>
+        Mac App Store
+      </div>
+      <div class="plat-tags">
+        <div class="plat-tag">NSStatusBar</div>
+        <div class="plat-tag">Touch ID</div>
+        <div class="plat-tag">Catalyst</div>
+        <div class="plat-tag">Notifications</div>
+      </div>
+    </div>
+
+    <div class="plat-card" style="--plat-c:var(--win)">
+      <div class="plat-phase">Phase 6 · Desktop</div>
+      <span class="plat-icon">🪟</span>
+      <div class="plat-name">Windows</div>
+      <div class="plat-stack">
+        WinUI 3 or Electron<br>
+        Firebase REST API<br>
+        (no official Windows SDK)<br>
+        Microsoft Store
+      </div>
+      <div class="plat-tags">
+        <div class="plat-tag">WNS Push</div>
+        <div class="plat-tag">Firebase REST</div>
+        <div class="plat-tag">System Tray</div>
+        <div class="plat-tag">Windows Hello</div>
+      </div>
+    </div>
+
+    <div class="plat-card" style="--plat-c:var(--and)">
+      <div class="plat-phase">Phase 7 · Mobile</div>
+      <span class="plat-icon">🤖</span>
+      <div class="plat-name">Android</div>
+      <div class="plat-stack">
+        Kotlin + Jetpack Compose<br>
+        Firebase Android SDK<br>
+        WorkManager<br>
+        Google Play
+      </div>
+      <div class="plat-tags">
+        <div class="plat-tag">FCM Native</div>
+        <div class="plat-tag">Camera2</div>
+        <div class="plat-tag">Google Wallet</div>
+        <div class="plat-tag">WorkManager</div>
+        <div class="plat-tag">Fingerprint</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- connector -->
+<div class="connector-row">
+  <div class="connector-label">All platforms authenticate via Firebase Auth JWT and read/write Firestore in real-time</div>
+</div>
+<div style="display:flex;justify-content:center;margin-bottom:32px;">
+  <div class="connector-arr">
+    <div class="connector-line-v"></div>
+    <div class="connector-arr-head">▼</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     2. FIREBASE BACKEND
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">02</div>
+    <div class="section-label">Layer 2 — Firebase Backend (BaaS)</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="firebase-row">
+
+    <div class="fb-card">
+      <div class="fb-icon">🔐</div>
+      <div class="fb-name">Firebase Auth</div>
+      <div class="fb-type">Identity · Single Account</div>
+      <div class="fb-desc">Unified sign-in across all 5 platforms. Issues JWT tokens. All Firestore security rules validate against user UID.</div>
+      <div class="fb-tags">
+        <div class="fb-tag">Email / Password</div>
+        <div class="fb-tag">Google OAuth</div>
+        <div class="fb-tag">Apple Sign In</div>
+        <div class="fb-tag">Microsoft Account</div>
+      </div>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-icon">🗄️</div>
+      <div class="fb-name">Firestore</div>
+      <div class="fb-type">NoSQL · Real-time Sync</div>
+      <div class="fb-desc">All 28 feature datasets. Users/{uid}/... subcollections. Real-time listeners push updates to every connected device simultaneously.</div>
+      <div class="fb-tags">
+        <div class="fb-tag">Security Rules</div>
+        <div class="fb-tag">Offline Persistence</div>
+        <div class="fb-tag">Real-time Listeners</div>
+        <div class="fb-tag">Composite Indexes</div>
+      </div>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-icon">📁</div>
+      <div class="fb-name">Firebase Storage</div>
+      <div class="fb-type">File Store · CDN</div>
+      <div class="fb-desc">Receipt images, payslip PDFs, call recordings, document vault files. Download URLs stored as strings in Firestore documents.</div>
+      <div class="fb-tags">
+        <div class="fb-tag">Receipt Images</div>
+        <div class="fb-tag">Payslip PDFs</div>
+        <div class="fb-tag">Call Audio</div>
+        <div class="fb-tag">Doc Vault Files</div>
+      </div>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-icon">🔔</div>
+      <div class="fb-name">FCM</div>
+      <div class="fb-type">Push · All Platforms</div>
+      <div class="fb-desc">Firebase Cloud Messaging delivers to all platforms from a single API call in Cloud Functions. Handles APNs (iOS/Mac), WNS (Windows), and native Android.</div>
+      <div class="fb-tags">
+        <div class="fb-tag">APNs (iOS/Mac)</div>
+        <div class="fb-tag">WNS (Windows)</div>
+        <div class="fb-tag">FCM Android</div>
+        <div class="fb-tag">Web Push</div>
+      </div>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-icon">⏰</div>
+      <div class="fb-name">Cloud Scheduler</div>
+      <div class="fb-type">Cron · Automated Jobs</div>
+      <div class="fb-desc">Triggers scheduled Cloud Functions at fixed intervals. Drives all autonomous background operations without user interaction.</div>
+      <div class="fb-tags">
+        <div class="fb-tag">Daily 07:30 Briefing</div>
+        <div class="fb-tag">Daily 08:00 Bank Sync</div>
+        <div class="fb-tag">Parcel Poll Hourly</div>
+        <div class="fb-tag">Monthly Tax Calc</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- connector -->
+<div style="display:flex;justify-content:center;margin-bottom:8px;">
+  <div class="connector-row">
+    <div class="connector-label">HTTP webhooks · Firestore onWrite triggers · Storage onFinalize triggers · Pub/Sub · Callable functions</div>
+  </div>
+</div>
+<div style="display:flex;justify-content:center;margin-bottom:32px;">
+  <div class="connector-arr">
+    <div class="connector-line-v"></div>
+    <div class="connector-arr-head">▼</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     3. CLOUD FUNCTIONS
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">03</div>
+    <div class="section-label">Layer 3 — Cloud Functions (Business Logic · Node.js)</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="fn-grid">
+
+    <div class="fn-card">
+      <div class="fn-trigger">HTTP Webhook · Nylas</div>
+      <div class="fn-name">emailProcessor</div>
+      <div class="fn-desc">Receives Nylas message.created webhook. Verifies HMAC. Fetches full email body. Sends to Claude for classification (task / event / ignore). Extracts attachments. Creates tasks, events, or parcel tracking entries.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas</div>
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--aftership);border-color:rgba(245,158,11,0.2);">AfterShip</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">HTTP Webhook · Twilio</div>
+      <div class="fn-name">callProcessor</div>
+      <div class="fn-desc">Fires on call completion. Fetches recording audio from Twilio. Sends MP3 to Whisper for transcription. Sends transcript to Claude for structured summary + action items. Writes call log. Creates tasks for any action items.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(239,68,68,0.1);color:var(--twilio);border-color:rgba(239,68,68,0.2);">Twilio</div>
+        <div class="fn-api" style="background:rgba(139,92,246,0.1);color:var(--whisper);border-color:rgba(139,92,246,0.2);">Whisper</div>
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Scheduled · Daily 08:00</div>
+      <div class="fn-name">bankSync</div>
+      <div class="fn-desc">Fetches latest transactions from TrueLayer. Runs rule-based categorisation first; ambiguous merchants sent to Claude. Detects recurring patterns (subscriptions). Updates budget, bills, cash-flow forecast. Alerts on price changes.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer</div>
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Storage Trigger · onFinalize</div>
+      <div class="fn-name">receiptScanner</div>
+      <div class="fn-desc">Fires when image uploaded to Firebase Storage. Sends to Google Vision DOCUMENT_TEXT_DETECTION. Parses line items, prices, merchant, date. Updates inventory quantities. Matches to bank transaction by amount + merchant + date.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(59,126,248,0.1);color:var(--vision);border-color:rgba(59,126,248,0.2);">Vision API</div>
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">HTTP Webhook · AfterShip</div>
+      <div class="fn-name">parcelUpdater</div>
+      <div class="fn-desc">Receives AfterShip webhook on tracking status change. Updates parcel document in Firestore. Sends FCM push to all user devices with delivery status. Auto-registers new tracking numbers extracted from emails.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--aftership);border-color:rgba(245,158,11,0.2);">AfterShip</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Callable · Client Invoked</div>
+      <div class="fn-name">mealPlanner</div>
+      <div class="fn-desc">Client triggers when user taps Regenerate. Reads inventory and taste profile from Firestore. Sends structured context to Claude with dietary preferences. Returns 7-day meal plan JSON. Writes back to meals collection.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Callable · Client Invoked</div>
+      <div class="fn-name">tripPlanner</div>
+      <div class="fn-desc">Reads taste profile and hobby preferences. Calls Claude for destination ideas. Queries Amadeus for real flight and hotel pricing. Calls Google Places for restaurant and activity suggestions filtered by cuisine type.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(240,109,158,0.1);color:var(--amadeus);border-color:rgba(240,109,158,0.2);">Amadeus</div>
+        <div class="fn-api" style="background:rgba(34,211,238,0.1);color:var(--places);border-color:rgba(34,211,238,0.2);">Google Places</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Scheduled · Daily 07:30</div>
+      <div class="fn-name">dailyBriefing</div>
+      <div class="fn-desc">Aggregates today's calendar events, pending tasks, bank balance, parcels arriving, bills due today, stock movements, and overdue HMRC deadlines. Sends compiled context to Claude for narrative generation. Fires FCM briefing notification.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(52,211,153,0.1);color:var(--alphav);border-color:rgba(52,211,153,0.2);">Alpha Vantage</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Callable · Client Invoked</div>
+      <div class="fn-name">invoiceGenerator</div>
+      <div class="fn-desc">Receives invoice data from client. Generates PDF via Puppeteer or PDFKit. Stores in Firebase Storage. Returns download URL. Optionally sends via Nylas email API directly from function.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas Send</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Storage</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Storage Trigger · onFinalize</div>
+      <div class="fn-name">payslipReader</div>
+      <div class="fn-desc">Fires when payslip PDF uploaded. Sends to Google Vision Document AI for structured data extraction. Parses gross pay, tax, NI, employer name, pay period. Updates income records and feeds cash-flow forecast.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(59,126,248,0.1);color:var(--vision);border-color:rgba(59,126,248,0.2);">Vision API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Scheduled · Tax Cycle</div>
+      <div class="fn-name">taxCalculator</div>
+      <div class="fn-desc">Calculates Self Assessment and VAT return totals from categorised transactions. Identifies allowable expenses. Calculates Capital Gains from stock trades. Pre-fills tax return fields for user review. Alerts on HMRC deadlines.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(249,115,22,0.1);color:var(--hmrc);border-color:rgba(249,115,22,0.2);">HMRC MTD API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="fn-card">
+      <div class="fn-trigger">Callable · annAsk</div>
+      <div class="fn-name">askANN</div>
+      <div class="fn-desc">Powers the Ask ANN chat widget. Receives query, assembles live context from all Firestore collections (budget, tasks, emails, meals, parcels, calendar, stocks), then sends rich system prompt + user query to Claude API. Returns conversational answer.</div>
+      <div class="fn-apis">
+        <div class="fn-api" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API</div>
+        <div class="fn-api" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore (all)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- connector -->
+<div style="display:flex;justify-content:center;margin-bottom:8px;">
+  <div class="connector-row">
+    <div class="connector-label">REST calls · SDK calls · OAuth tokens fetched from Secret Manager at runtime</div>
+  </div>
+</div>
+<div style="display:flex;justify-content:center;margin-bottom:32px;">
+  <div class="connector-arr">
+    <div class="connector-line-v"></div>
+    <div class="connector-arr-head">▼</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     4. EXTERNAL APIs
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">04</div>
+    <div class="section-label">Layer 4 — External APIs & Third-Party Services</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="api-grid">
+
+    <div class="api-card" style="--ac:var(--nylas)">
+      <div class="api-head">
+        <div class="api-name">Nylas</div>
+        <div class="api-badge">Email · Calendar</div>
+      </div>
+      <div class="api-use">Universal email + calendar connector. Single API covers Gmail, Outlook, iCloud, Yahoo and any IMAP in one integration. Used by Emails, Tasks, Wallet, Calendar, and Meetings features.</div>
+      <div class="api-features">
+        <div class="api-feat">Hosted OAuth — user connects their own email provider</div>
+        <div class="api-feat">Webhook on message.created → emailProcessor fires instantly</div>
+        <div class="api-feat">Attachment download via /attachments/{id}/download</div>
+        <div class="api-feat">Calendar event sync for Meetings view</div>
+        <div class="api-feat">Send emails (invoices, bill-split reminders) via /messages/send</div>
+        <div class="api-feat">HMAC signature verification on all incoming webhooks</div>
+      </div>
+      <div class="api-note">Features powered: Emails · Tasks · Calendar · Meetings · Wallet · Invoice sending · Bill Splitter reminders</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--claude)">
+      <div class="api-head">
+        <div class="api-name">Claude API</div>
+        <div class="api-badge">AI Core</div>
+      </div>
+      <div class="api-use">The AI brain across all 28 features. All Claude calls go through Cloud Functions — never directly from the client. Model: claude-sonnet-4-6. Context assembled in functions before each call.</div>
+      <div class="api-features">
+        <div class="api-feat">Email classification → task / event / parcel / ignore (JSON)</div>
+        <div class="api-feat">Call transcript → structured summary + action items</div>
+        <div class="api-feat">Transaction categorisation for ambiguous merchant names</div>
+        <div class="api-feat">Meal plan generation from inventory + taste profile JSON</div>
+        <div class="api-feat">Trip destination ideas based on hobbies / interests</div>
+        <div class="api-feat">Daily briefing narrative from aggregated daily data</div>
+        <div class="api-feat">Ask ANN conversational answers with full Firestore context</div>
+        <div class="api-feat">Cash-flow and budget narrative summaries</div>
+      </div>
+      <div class="api-note">Features powered: Ask ANN · Emails · Calls · Budget · Categorisation · Meals · Trips · Briefing · Cash Flow</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--truelayer)">
+      <div class="api-head">
+        <div class="api-name">TrueLayer</div>
+        <div class="api-badge">Open Banking · PSD2</div>
+      </div>
+      <div class="api-use">UK Open Banking connection. PSD2 regulated. Covers Barclays, HSBC, Monzo, Starling, Lloyds, NatWest and all major UK banks. Powers Budget, Bills, Categorisation, VAT, Tax, Cash Flow, Payslips, and Invoice features.</div>
+      <div class="api-features">
+        <div class="api-feat">OAuth 2.0 authorisation — user grants bank access in-app</div>
+        <div class="api-feat">GET /transactions → full transaction history</div>
+        <div class="api-feat">GET /balance → current balance for budget display</div>
+        <div class="api-feat">Access token refresh every 90 days (PSD2 requirement)</div>
+        <div class="api-feat">Webhook on new transactions (some banks)</div>
+      </div>
+      <div class="api-note">Regulatory: FCA registration required to distribute to public. Free for personal use via TrueLayer sandbox.</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--twilio)">
+      <div class="api-head">
+        <div class="api-name">Twilio Voice</div>
+        <div class="api-badge">VOIP · Calls</div>
+      </div>
+      <div class="api-use">Inbound and outbound VOIP calls with automatic recording. UK legal compliance via TwiML announcement. Twilio Voice SDK available for Web, iOS, Android.</div>
+      <div class="api-features">
+        <div class="api-feat">Voice SDK for Web (WebRTC), iOS, Android native</div>
+        <div class="api-feat">TwiML IVR — "This call is being recorded for your records"</div>
+        <div class="api-feat">Recording stored in Twilio cloud temporarily</div>
+        <div class="api-feat">Webhook on RecordingStatus=completed → callProcessor</div>
+        <div class="api-feat">Programmable numbers for inbound call routing</div>
+      </div>
+      <div class="api-note">Legal: RIPA 2000 — both parties must be notified. TwiML announcement handles this automatically.</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--whisper)">
+      <div class="api-head">
+        <div class="api-name">OpenAI Whisper</div>
+        <div class="api-badge">Transcription</div>
+      </div>
+      <div class="api-use">Speech-to-text transcription of call recordings. Converts Twilio MP3 audio to plain text for Claude to summarise. Can be self-hosted on Nvidia GPU to eliminate per-call cost at scale.</div>
+      <div class="api-features">
+        <div class="api-feat">POST /audio/transcriptions with MP3 attachment</div>
+        <div class="api-feat">Multi-language support with auto-detection</div>
+        <div class="api-feat">Word-level timestamps available for playback sync</div>
+        <div class="api-feat">Self-hosted: whisper.cpp runs on Nvidia GPU (local)</div>
+        <div class="api-feat">Output: plain text transcript → passed to Claude</div>
+      </div>
+      <div class="api-note">Features powered: Call Log · Daily Briefing (call summaries)</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--vision)">
+      <div class="api-head">
+        <div class="api-name">Google Vision</div>
+        <div class="api-badge">OCR · Document AI</div>
+      </div>
+      <div class="api-use">Optical character recognition for receipts and payslips. DOCUMENT_TEXT_DETECTION mode returns structured layout with bounding boxes, enabling precise item/price extraction.</div>
+      <div class="api-features">
+        <div class="api-feat">DOCUMENT_TEXT_DETECTION for receipts → line items + prices</div>
+        <div class="api-feat">Document AI for payslips → gross, tax, NI structured fields</div>
+        <div class="api-feat">Merchant name + date from receipt header</div>
+        <div class="api-feat">Bounding box data to distinguish item name from price column</div>
+        <div class="api-feat">Self-hosted alt: Tesseract OCR (lower accuracy)</div>
+      </div>
+      <div class="api-note">Features powered: Inventory (receipt scan) · Payslips · Warranty Tracker · Doc Vault</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--amadeus)">
+      <div class="api-head">
+        <div class="api-name">Amadeus</div>
+        <div class="api-badge">Travel · GDS</div>
+      </div>
+      <div class="api-use">Global Distribution System for real, bookable flight and hotel pricing. Powers the Trip Planner wizard — returns actual fares the user can click through to book.</div>
+      <div class="api-features">
+        <div class="api-feat">Flight Offers Search — origin, destination, dates, cabin class</div>
+        <div class="api-feat">Hotel List Search — city code, star rating, radius</div>
+        <div class="api-feat">Hotel Offers — real pricing per night, room type</div>
+        <div class="api-feat">Free test/sandbox environment for development</div>
+        <div class="api-feat">Production requires Amadeus partnership approval</div>
+      </div>
+      <div class="api-note">Features powered: Trip Planning (5-step wizard — flights · hotels)</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--places)">
+      <div class="api-head">
+        <div class="api-name">Google Places</div>
+        <div class="api-badge">Discovery · Maps</div>
+      </div>
+      <div class="api-use">Restaurant and activity discovery for Trip Planner. Cuisine type from user taste profile passed as filter. Also powers map view in Trip Planner and Car Maintenance nearest garage search.</div>
+      <div class="api-features">
+        <div class="api-feat">Nearby Search — type=restaurant, radius, keyword (cuisine)</div>
+        <div class="api-feat">Place Details — opening hours, photos, rating, price level</div>
+        <div class="api-feat">Text Search for specific venue types and cuisines</div>
+        <div class="api-feat">Maps JavaScript API for trip map display</div>
+        <div class="api-feat">Geocoding for trip destination co-ordinates</div>
+      </div>
+      <div class="api-note">Features powered: Trip Planning (food spots · map) · Car Maintenance (nearest garage)</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--aftership)">
+      <div class="api-head">
+        <div class="api-name">AfterShip</div>
+        <div class="api-badge">Parcel Tracking</div>
+      </div>
+      <div class="api-use">Multi-courier tracking across 900+ couriers. Royal Mail, Evri, DPD, DHL, Hermes, Amazon Logistics — all in one webhook. Tracking numbers auto-extracted from emails by emailProcessor.</div>
+      <div class="api-features">
+        <div class="api-feat">POST /trackings to register a new tracking number</div>
+        <div class="api-feat">Courier auto-detection from tracking number format</div>
+        <div class="api-feat">Webhook per tracking on each status change</div>
+        <div class="api-feat">Status stages: InfoReceived → InTransit → OutForDelivery → Delivered</div>
+        <div class="api-feat">Free tier: 50 shipments/month</div>
+      </div>
+      <div class="api-note">Features powered: Parcels · Dashboard briefing (arriving today)</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--hmrc)">
+      <div class="api-head">
+        <div class="api-name">HMRC MTD API</div>
+        <div class="api-badge">Tax · VAT · Self Assess</div>
+      </div>
+      <div class="api-use">HMRC Making Tax Digital API. Submits VAT returns and Self Assessment data directly from ANN. OAuth 2.0 with Government Gateway. Sandbox available for development and testing.</div>
+      <div class="api-features">
+        <div class="api-feat">VAT Returns — submit quarterly VAT via /organisations/vat</div>
+        <div class="api-feat">Self Assessment — income and expenses submission</div>
+        <div class="api-feat">Obligations endpoint — check what returns are due</div>
+        <div class="api-feat">Government Gateway OAuth 2.0 authorisation</div>
+        <div class="api-feat">Sandbox environment: test.api.service.hmrc.gov.uk</div>
+      </div>
+      <div class="api-note">Features powered: VAT Return · Tax Return (Self Assessment)</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--alphav)">
+      <div class="api-head">
+        <div class="api-name">Alpha Vantage</div>
+        <div class="api-badge">Stocks · Markets</div>
+      </div>
+      <div class="api-use">Real-time and historical stock prices for the Stocks watchlist and Dashboard market strip. Powers P&L calculation, portfolio valuation, and daily briefing market summary.</div>
+      <div class="api-features">
+        <div class="api-feat">GLOBAL_QUOTE — real-time price, change %, volume</div>
+        <div class="api-feat">TIME_SERIES_DAILY — historical data for chart rendering</div>
+        <div class="api-feat">OVERVIEW — company fundamentals (P/E, market cap)</div>
+        <div class="api-feat">NEWS_SENTIMENT — relevant news articles per ticker</div>
+        <div class="api-feat">Free tier: 25 requests/day · Premium: 75/min</div>
+      </div>
+      <div class="api-note">Features powered: Stocks watchlist · Dashboard market strip · Daily Briefing (market summary) · Cash Flow</div>
+    </div>
+
+    <div class="api-card" style="--ac:var(--secret)">
+      <div class="api-head">
+        <div class="api-name">Secret Manager</div>
+        <div class="api-badge">Security · Secrets</div>
+      </div>
+      <div class="api-use">Google Cloud Secret Manager stores all API keys, OAuth tokens, and credentials. No secrets in code, environment variables, or Firestore. Cloud Functions access secrets at runtime only.</div>
+      <div class="api-features">
+        <div class="api-feat">Stores: Nylas API key · Nylas webhook secret</div>
+        <div class="api-feat">Stores: Claude API key · Amadeus credentials</div>
+        <div class="api-feat">Stores: TrueLayer tokens · Twilio auth token</div>
+        <div class="api-feat">Stores: Alpha Vantage key · HMRC client secret</div>
+        <div class="api-feat">Versioned secrets with audit log of every access</div>
+      </div>
+      <div class="api-note">All 10 third-party API credentials stored here. Never in source code or Firestore documents.</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     5. ALL 28 FEATURES MAPPED TO APIs
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">05</div>
+    <div class="section-label">All 28 Features — API & Backend Mapping</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">🏠</div>
+        <div>
+          <div class="feat-title">Dashboard</div>
+          <div class="feat-category">Overview</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (briefing)</div>
+        <div class="feat-api-tag" style="background:rgba(52,211,153,0.1);color:var(--alphav);border-color:rgba(52,211,153,0.2);">Alpha Vantage</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore (all)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">✅</div>
+        <div>
+          <div class="feat-title">Tasks</div>
+          <div class="feat-category">Productivity</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (email source)</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (classify)</div>
+        <div class="feat-api-tag" style="background:rgba(239,68,68,0.1);color:var(--twilio);border-color:rgba(239,68,68,0.2);">Twilio (call source)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">✉️</div>
+        <div>
+          <div class="feat-title">Emails</div>
+          <div class="feat-category">Communications</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (all providers)</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (summarise)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(239,68,68,0.12);">📞</div>
+        <div>
+          <div class="feat-title">Call Log</div>
+          <div class="feat-category">Communications</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(239,68,68,0.1);color:var(--twilio);border-color:rgba(239,68,68,0.2);">Twilio Voice</div>
+        <div class="feat-api-tag" style="background:rgba(139,92,246,0.1);color:var(--whisper);border-color:rgba(139,92,246,0.2);">Whisper</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (summary)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Storage (audio)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">💬</div>
+        <div>
+          <div class="feat-title">Chat</div>
+          <div class="feat-category">Communications</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (thread view)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">🎫</div>
+        <div>
+          <div class="feat-title">Wallet</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (extract passes)</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (parse)</div>
+        <div class="feat-api-tag" style="background:rgba(59,126,248,0.1);color:var(--ios);border-color:rgba(59,126,248,0.2);">PassKit (iOS/Mac)</div>
+        <div class="feat-api-tag" style="background:rgba(52,211,153,0.1);color:var(--and);border-color:rgba(52,211,153,0.2);">Google Wallet (Android)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(16,185,129,0.12);">📊</div>
+        <div>
+          <div class="feat-title">Budget</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (insights)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(16,185,129,0.12);">🔁</div>
+        <div>
+          <div class="feat-title">Bills & Subscriptions</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (detect recurrence)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (price alerts)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(16,185,129,0.12);">🏷️</div>
+        <div>
+          <div class="feat-title">Categorisation</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer (txns)</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (categorise)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(249,115,22,0.12);">🧾</div>
+        <div>
+          <div class="feat-title">VAT Return</div>
+          <div class="feat-category">Tax · HMRC</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer</div>
+        <div class="feat-api-tag" style="background:rgba(249,115,22,0.1);color:var(--hmrc);border-color:rgba(249,115,22,0.2);">HMRC MTD API</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (review)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(249,115,22,0.12);">📋</div>
+        <div>
+          <div class="feat-title">Tax Return</div>
+          <div class="feat-category">Tax · HMRC</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer</div>
+        <div class="feat-api-tag" style="background:rgba(249,115,22,0.1);color:var(--hmrc);border-color:rgba(249,115,22,0.2);">HMRC MTD API</div>
+        <div class="feat-api-tag" style="background:rgba(52,211,153,0.1);color:var(--alphav);border-color:rgba(52,211,153,0.2);">Alpha Vantage (CGT)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(52,211,153,0.12);">📈</div>
+        <div>
+          <div class="feat-title">Stocks</div>
+          <div class="feat-category">Investing</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(52,211,153,0.1);color:var(--alphav);border-color:rgba(52,211,153,0.2);">Alpha Vantage</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (news digest)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (price alerts)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(16,185,129,0.12);">💸</div>
+        <div>
+          <div class="feat-title">Cash Flow</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(16,185,129,0.1);color:var(--truelayer);border-color:rgba(16,185,129,0.2);">TrueLayer</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (forecast)</div>
+        <div class="feat-api-tag" style="background:rgba(52,211,153,0.1);color:var(--alphav);border-color:rgba(52,211,153,0.2);">Alpha Vantage</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">📄</div>
+        <div>
+          <div class="feat-title">Invoice Generator</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (send email)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Storage (PDF)</div>
+        <div class="feat-api-tag" style="background:rgba(249,115,22,0.1);color:var(--fn);border-color:rgba(249,115,22,0.2);">PDFKit (fn)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">💰</div>
+        <div>
+          <div class="feat-title">Payslips</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (auto-detect)</div>
+        <div class="feat-api-tag" style="background:rgba(59,126,248,0.1);color:var(--vision);border-color:rgba(59,126,248,0.2);">Vision Doc AI</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Storage (PDF)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">📦</div>
+        <div>
+          <div class="feat-title">Inventory</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(59,126,248,0.1);color:var(--vision);border-color:rgba(59,126,248,0.2);">Vision OCR</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (match items)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Storage + Firestore</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (low stock)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(176,110,243,0.12);">🍽️</div>
+        <div>
+          <div class="feat-title">Meal Planner</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (generate plan)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore (inventory)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore (profile)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(240,109,158,0.12);">✈️</div>
+        <div>
+          <div class="feat-title">Trip Planning</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (ideas)</div>
+        <div class="feat-api-tag" style="background:rgba(240,109,158,0.1);color:var(--amadeus);border-color:rgba(240,109,158,0.2);">Amadeus</div>
+        <div class="feat-api-tag" style="background:rgba(34,211,238,0.1);color:var(--places);border-color:rgba(34,211,238,0.2);">Google Places</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(245,158,11,0.12);">🚚</div>
+        <div>
+          <div class="feat-title">Parcels</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (auto-extract)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--aftership);border-color:rgba(245,158,11,0.2);">AfterShip</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (status push)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">📅</div>
+        <div>
+          <div class="feat-title">Calendar</div>
+          <div class="feat-category">Productivity</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas Calendar</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (extract events)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);">🎥</div>
+        <div>
+          <div class="feat-title">Meetings</div>
+          <div class="feat-category">Productivity</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas Calendar</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (briefing note)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(176,110,243,0.12);">✦</div>
+        <div>
+          <div class="feat-title">Ask ANN</div>
+          <div class="feat-category">AI Core</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude API (all context)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore (all colls)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">🏃</div>
+        <div>
+          <div class="feat-title">Habit Tracker</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (insights)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (streak alerts)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">👤</div>
+        <div>
+          <div class="feat-title">Taste Profile</div>
+          <div class="feat-category">Personalisation</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore (read by all)</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (informs all AI)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">🛡️</div>
+        <div>
+          <div class="feat-title">Warranty Tracker</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(59,126,248,0.1);color:var(--vision);border-color:rgba(59,126,248,0.2);">Vision OCR (receipt)</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (parse warranty)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (expiry alerts)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(34,211,238,0.12);">🚗</div>
+        <div>
+          <div class="feat-title">Car Maintenance</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(34,211,238,0.1);color:var(--places);border-color:rgba(34,211,238,0.2);">Google Places (garages)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (MOT reminders)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(59,126,248,0.12);">🗃️</div>
+        <div>
+          <div class="feat-title">Document Vault</div>
+          <div class="feat-category">Lifestyle</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(59,126,248,0.1);color:var(--vision);border-color:rgba(59,126,248,0.2);">Vision OCR</div>
+        <div class="feat-api-tag" style="background:rgba(176,110,243,0.1);color:var(--claude);border-color:rgba(176,110,243,0.2);">Claude (summarise docs)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Storage (encrypted)</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-head">
+        <div class="feat-icon" style="background:rgba(16,185,129,0.12);">🤝</div>
+        <div>
+          <div class="feat-title">Bill Splitter</div>
+          <div class="feat-category">Finance</div>
+        </div>
+      </div>
+      <div class="feat-apis">
+        <div class="feat-api-tag" style="background:rgba(99,102,241,0.1);color:var(--nylas);border-color:rgba(99,102,241,0.2);">Nylas (send reminders)</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">Firestore</div>
+        <div class="feat-api-tag" style="background:rgba(245,158,11,0.1);color:var(--firebase);border-color:rgba(245,158,11,0.2);">FCM (reminders)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     6. KEY DATA FLOW JOURNEYS
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">06</div>
+    <div class="section-label">Key Data Flow Journeys — End-to-End</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="flow-grid">
+
+    <!-- EMAIL → TASK -->
+    <div class="flow-card">
+      <div class="flow-card-head">
+        <div class="flow-card-icon" style="background:rgba(99,102,241,0.15);">✉️</div>
+        <div class="flow-card-title">Email → Task (Fully Autonomous)</div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(99,102,241,0.2);color:var(--nylas);">1</div>
+          <div class="flow-right">
+            <div class="flow-action">Email arrives in Gmail / Outlook</div>
+            <div class="flow-tech" style="color:var(--nylas);">Nylas message.created webhook fires → emailProcessor fn</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(249,115,22,0.2);color:var(--fn);">2</div>
+          <div class="flow-right">
+            <div class="flow-action">Cloud Function verifies HMAC signature, fetches full email body from Nylas</div>
+            <div class="flow-tech" style="color:var(--fn);">emailProcessor · Secret Manager → Nylas key</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(176,110,243,0.2);color:var(--claude);">3</div>
+          <div class="flow-right">
+            <div class="flow-action">Email subject + body sent to Claude: "Classify this email. Is it a task, event, parcel, or ignore? Return JSON."</div>
+            <div class="flow-tech" style="color:var(--claude);">Claude API → {type:"task", title:"...", due:"...", priority:"high"}</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">4</div>
+          <div class="flow-right">
+            <div class="flow-action">Task document written to Firestore. If parcel tracking number found → registered with AfterShip</div>
+            <div class="flow-tech" style="color:var(--firebase);">users/{uid}/tasks · users/{uid}/parcels → AfterShip</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">5</div>
+          <div class="flow-right">
+            <div class="flow-action">FCM multicast push sent to all user devices simultaneously</div>
+            <div class="flow-tech" style="color:var(--firebase);">FCM → APNs (iOS/Mac) · WNS (Win) · FCM Android · Web Push</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(59,126,248,0.2);color:var(--web);">6</div>
+          <div class="flow-right">
+            <div class="flow-action">All platform clients update via Firestore real-time listener. Task appears instantly in dashboard + tasks view</div>
+            <div class="flow-tech" style="color:var(--ink3);">Web · iOS · macOS · Windows · Android — simultaneous update</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BANK → BUDGET -->
+    <div class="flow-card">
+      <div class="flow-card-head">
+        <div class="flow-card-icon" style="background:rgba(16,185,129,0.15);">🏦</div>
+        <div class="flow-card-title">Bank Transaction → Budget (Scheduled)</div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">1</div>
+          <div class="flow-right">
+            <div class="flow-action">Cloud Scheduler fires bankSync function daily at 08:00</div>
+            <div class="flow-tech" style="color:var(--firebase);">Cloud Scheduler cron → bankSync Cloud Function</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(16,185,129,0.2);color:var(--truelayer);">2</div>
+          <div class="flow-right">
+            <div class="flow-action">Fetch latest transactions from TrueLayer using user's stored OAuth token</div>
+            <div class="flow-tech" style="color:var(--truelayer);">TrueLayer GET /transactions → new entries since last sync</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(176,110,243,0.2);color:var(--claude);">3</div>
+          <div class="flow-right">
+            <div class="flow-action">Rule-based categorisation first (HMRC, Netflix, Spotify → known). Ambiguous merchants sent to Claude for classification</div>
+            <div class="flow-tech" style="color:var(--claude);">Claude API → {category:"Food", subcategory:"Supermarket"}</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(249,115,22,0.2);color:var(--fn);">4</div>
+          <div class="flow-right">
+            <div class="flow-action">Recurring pattern detection runs: same merchant + similar amount + regular interval = subscription. Detects price changes</div>
+            <div class="flow-tech" style="color:var(--fn);">subscriptionDetector sub-function · FCM alert on price change</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">5</div>
+          <div class="flow-right">
+            <div class="flow-action">Transactions, subscriptions, budget totals, cash-flow forecast all written to Firestore atomically</div>
+            <div class="flow-tech" style="color:var(--firebase);">Firestore batch write → /transactions · /subscriptions · /budget</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(59,126,248,0.2);color:var(--web);">6</div>
+          <div class="flow-right">
+            <div class="flow-action">Budget chart, category totals, bills list, cash flow chart all update live across every device</div>
+            <div class="flow-tech" style="color:var(--ink3);">Firestore onSnapshot → all platform clients update simultaneously</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL → SUMMARY -->
+    <div class="flow-card">
+      <div class="flow-card-head">
+        <div class="flow-card-icon" style="background:rgba(239,68,68,0.15);">📞</div>
+        <div class="flow-card-title">Call → Transcription → Summary</div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(239,68,68,0.2);color:var(--twilio);">1</div>
+          <div class="flow-right">
+            <div class="flow-action">User makes/receives call via Twilio Voice SDK. TwiML plays legal announcement: "This call is being recorded."</div>
+            <div class="flow-tech" style="color:var(--twilio);">Twilio Voice SDK (Web/iOS/Android) · TwiML IVR · RIPA 2000</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(239,68,68,0.2);color:var(--twilio);">2</div>
+          <div class="flow-right">
+            <div class="flow-action">Call ends. Twilio webhook fires with RecordingUrl, CallDuration, CallerID, CallSid</div>
+            <div class="flow-tech" style="color:var(--twilio);">Twilio RecordingStatus webhook → callProcessor fn</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(139,92,246,0.2);color:var(--whisper);">3</div>
+          <div class="flow-right">
+            <div class="flow-action">Recording audio fetched from Twilio CDN, uploaded to Firebase Storage, then sent to Whisper API for transcription</div>
+            <div class="flow-tech" style="color:var(--whisper);">Whisper POST /audio/transcriptions → plain text transcript</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(176,110,243,0.2);color:var(--claude);">4</div>
+          <div class="flow-right">
+            <div class="flow-action">Transcript sent to Claude: "Summarise this call. Extract caller name, key points, and any action items."</div>
+            <div class="flow-tech" style="color:var(--claude);">Claude API → {summary:"...", actions:[...], caller:"..."}</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">5</div>
+          <div class="flow-right">
+            <div class="flow-action">Call log document written (summary, transcript, audioURL). Action items auto-create task documents</div>
+            <div class="flow-tech" style="color:var(--firebase);">Firestore /calls + /tasks · FCM push with summary headline</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECEIPT → INVENTORY -->
+    <div class="flow-card">
+      <div class="flow-card-head">
+        <div class="flow-card-icon" style="background:rgba(59,126,248,0.15);">🧾</div>
+        <div class="flow-card-title">Receipt Photo → Inventory Update</div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(176,110,243,0.2);color:var(--ios);">1</div>
+          <div class="flow-right">
+            <div class="flow-action">User photographs receipt on iOS (AVFoundation) or Android (Camera2). Stored offline-first locally</div>
+            <div class="flow-tech" style="color:var(--ios);">AVFoundation / Camera2 → compressed JPEG · offline-first cache</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">2</div>
+          <div class="flow-right">
+            <div class="flow-action">Image uploaded to Firebase Storage when online. Storage onFinalize trigger fires receiptScanner function</div>
+            <div class="flow-tech" style="color:var(--firebase);">Firebase Storage trigger → receiptScanner fn</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(59,126,248,0.2);color:var(--vision);">3</div>
+          <div class="flow-right">
+            <div class="flow-action">Google Vision DOCUMENT_TEXT_DETECTION extracts all line items, quantities, prices, merchant name, date</div>
+            <div class="flow-tech" style="color:var(--vision);">Vision API → [{item:"Milk 2pt", qty:1, price:1.20}, ...]</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(176,110,243,0.2);color:var(--claude);">4</div>
+          <div class="flow-right">
+            <div class="flow-action">Claude normalises ambiguous item names ("CDGR BTTL WTR 6PK" → "Carbonated Water 6-pack") and matches to existing inventory items</div>
+            <div class="flow-tech" style="color:var(--claude);">Claude API → normalised + matched item array</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" style="background:rgba(245,158,11,0.2);color:var(--firebase);">5</div>
+          <div class="flow-right">
+            <div class="flow-action">Inventory quantities incremented. Receipt matched to bank transaction by merchant + date + amount. Low-stock FCM alert if threshold hit</div>
+            <div class="flow-tech" style="color:var(--firebase);">Firestore /inventory update · FCM low-stock push</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     7. FIRESTORE SCHEMA
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">07</div>
+    <div class="section-label">Firestore Schema — users/{userId}/collections</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="schema-grid">
+
+    <div class="schema-card">
+      <div class="schema-coll">profile</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">displayName</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">hobbies</span><span class="schema-f-type">string[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">interests</span><span class="schema-f-type">string[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">cuisines</span><span class="schema-f-type">string[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">dietary</span><span class="schema-f-type">string[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">allergies</span><span class="schema-f-type">string[]</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">tasks/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">title</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">source</span><span class="schema-f-type">email|call|manual</span></div>
+        <div class="schema-f"><span class="schema-f-name">sourceId</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">dueDate</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">priority</span><span class="schema-f-type">high|med|low</span></div>
+        <div class="schema-f"><span class="schema-f-name">completed</span><span class="schema-f-type">boolean</span></div>
+        <div class="schema-f"><span class="schema-f-name">tags</span><span class="schema-f-type">string[]</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">transactions/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">merchant</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">amount</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">currency</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">date</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">category</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">subcategory</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">recurring</span><span class="schema-f-type">boolean</span></div>
+        <div class="schema-f"><span class="schema-f-name">linkedReceiptId</span><span class="schema-f-type">string?</span></div>
+        <div class="schema-f"><span class="schema-f-name">taxDeductible</span><span class="schema-f-type">boolean</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">subscriptions/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">merchant</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">amount</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">frequency</span><span class="schema-f-type">monthly|annual</span></div>
+        <div class="schema-f"><span class="schema-f-name">nextDue</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">lastCharged</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">priceHistory</span><span class="schema-f-type">map[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">category</span><span class="schema-f-type">string</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">inventory/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">name</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">quantity</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">unit</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">threshold</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">lastUpdated</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">receiptURL</span><span class="schema-f-type">string?</span></div>
+        <div class="schema-f"><span class="schema-f-name">linkedTxId</span><span class="schema-f-type">string?</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">meals/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">recipe</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">mealType</span><span class="schema-f-type">breakfast|lunch|dinner</span></div>
+        <div class="schema-f"><span class="schema-f-name">plannedDate</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">ingredients</span><span class="schema-f-type">map[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">kcal</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">consumed</span><span class="schema-f-type">boolean</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">recipes/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">name</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">ingredients</span><span class="schema-f-type">string[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">method</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">kcal</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">category</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">tags</span><span class="schema-f-type">string[]</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">trips/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">destination</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">dates</span><span class="schema-f-type">map</span></div>
+        <div class="schema-f"><span class="schema-f-name">flights</span><span class="schema-f-type">map[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">hotels</span><span class="schema-f-type">map[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">foodSpots</span><span class="schema-f-type">map[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">itinerary</span><span class="schema-f-type">map[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">totalCost</span><span class="schema-f-type">number</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">parcels/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">courier</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">trackingNumber</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">status</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">eta</span><span class="schema-f-type">timestamp?</span></div>
+        <div class="schema-f"><span class="schema-f-name">lastUpdated</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">sourceEmailId</span><span class="schema-f-type">string?</span></div>
+        <div class="schema-f"><span class="schema-f-name">checkpoints</span><span class="schema-f-type">map[]</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">calls/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">from</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">duration</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">direction</span><span class="schema-f-type">inbound|outbound</span></div>
+        <div class="schema-f"><span class="schema-f-name">transcript</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">summary</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">actions</span><span class="schema-f-type">string[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">audioURL</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">timestamp</span><span class="schema-f-type">timestamp</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">stocks/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">ticker</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">name</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">shares</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">avgCost</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">currentPrice</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">priceFetchedAt</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">alertThresholds</span><span class="schema-f-type">map</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">events/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">title</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">date</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">duration</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">location</span><span class="schema-f-type">string?</span></div>
+        <div class="schema-f"><span class="schema-f-name">meetingLink</span><span class="schema-f-type">string?</span></div>
+        <div class="schema-f"><span class="schema-f-name">source</span><span class="schema-f-type">email|manual|nylas</span></div>
+        <div class="schema-f"><span class="schema-f-name">attendees</span><span class="schema-f-type">string[]</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">wallet/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">type</span><span class="schema-f-type">ticket|card|pass|coupon</span></div>
+        <div class="schema-f"><span class="schema-f-name">issuer</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">validUntil</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">barcodeData</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">passKitURL</span><span class="schema-f-type">string?</span></div>
+        <div class="schema-f"><span class="schema-f-name">linkedEventId</span><span class="schema-f-type">string?</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">habits/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">name</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">type</span><span class="schema-f-type">daily|weekly</span></div>
+        <div class="schema-f"><span class="schema-f-name">completedDates</span><span class="schema-f-type">timestamp[]</span></div>
+        <div class="schema-f"><span class="schema-f-name">streak</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">goal</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">unit</span><span class="schema-f-type">string</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">warranties/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">product</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">purchaseDate</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">expiryDate</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">receiptURL</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">value</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">alertSent</span><span class="schema-f-type">boolean</span></div>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-coll">invoices/{id}</div>
+      <div class="schema-fields">
+        <div class="schema-f"><span class="schema-f-name">client</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">amount</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">vatRate</span><span class="schema-f-type">number</span></div>
+        <div class="schema-f"><span class="schema-f-name">status</span><span class="schema-f-type">draft|sent|paid</span></div>
+        <div class="schema-f"><span class="schema-f-name">dueDate</span><span class="schema-f-type">timestamp</span></div>
+        <div class="schema-f"><span class="schema-f-name">pdfURL</span><span class="schema-f-type">string</span></div>
+        <div class="schema-f"><span class="schema-f-name">items</span><span class="schema-f-type">map[]</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     8. PLATFORM FEATURE MATRIX
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">08</div>
+    <div class="section-label">Platform Feature Matrix — Capability Comparison</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-head">
+      <div class="matrix-cell" style="color:var(--ink2);">Feature / Capability</div>
+      <div class="matrix-cell"><div class="matrix-plat"><div class="matrix-dot" style="background:var(--web)"></div>Web / PWA</div></div>
+      <div class="matrix-cell"><div class="matrix-plat"><div class="matrix-dot" style="background:var(--ios)"></div>iOS</div></div>
+      <div class="matrix-cell"><div class="matrix-plat"><div class="matrix-dot" style="background:var(--mac)"></div>macOS</div></div>
+      <div class="matrix-cell"><div class="matrix-plat"><div class="matrix-dot" style="background:var(--win)"></div>Windows</div></div>
+      <div class="matrix-cell"><div class="matrix-plat"><div class="matrix-dot" style="background:var(--and)"></div>Android</div></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell">Push Notifications</div>
+      <div class="matrix-cell"><span class="half">◑</span> Web Push (limited)</div>
+      <div class="matrix-cell"><span class="ok">✓</span> APNs native</div>
+      <div class="matrix-cell"><span class="ok">✓</span> APNs native</div>
+      <div class="matrix-cell"><span class="ok">✓</span> WNS</div>
+      <div class="matrix-cell"><span class="ok">✓</span> FCM native</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Receipt Camera Scan</div>
+      <div class="matrix-cell"><span class="half">◑</span> MediaDevices API</div>
+      <div class="matrix-cell"><span class="ok">✓</span> AVFoundation</div>
+      <div class="matrix-cell"><span class="half">◑</span> File upload</div>
+      <div class="matrix-cell"><span class="half">◑</span> File upload</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Camera2 API</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Digital Wallet (Passes)</div>
+      <div class="matrix-cell"><span class="half">◑</span> In-app only</div>
+      <div class="matrix-cell"><span class="ok">✓</span> PassKit native</div>
+      <div class="matrix-cell"><span class="ok">✓</span> PassKit native</div>
+      <div class="matrix-cell"><span class="no">✗</span> In-app display</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Google Wallet</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">VOIP Calls (Twilio)</div>
+      <div class="matrix-cell"><span class="ok">✓</span> WebRTC</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Twilio SDK</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Twilio SDK</div>
+      <div class="matrix-cell"><span class="half">◑</span> REST API</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Twilio SDK</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Background Sync</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Service Worker</div>
+      <div class="matrix-cell"><span class="ok">✓</span> BGTaskScheduler</div>
+      <div class="matrix-cell"><span class="ok">✓</span> BGTaskScheduler</div>
+      <div class="matrix-cell"><span class="ok">✓</span> WinRT Background</div>
+      <div class="matrix-cell"><span class="ok">✓</span> WorkManager</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Offline Mode</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Service Worker cache</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Firestore offline</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Firestore offline</div>
+      <div class="matrix-cell"><span class="half">◑</span> REST response cache</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Firestore offline</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Biometric Auth</div>
+      <div class="matrix-cell"><span class="no">✗</span> N/A</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Face ID / Touch ID</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Touch ID</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Windows Hello</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Fingerprint API</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Menu Bar / Status Item</div>
+      <div class="matrix-cell"><span class="no">✗</span></div>
+      <div class="matrix-cell"><span class="half">◑</span> Dynamic Island</div>
+      <div class="matrix-cell"><span class="ok">✓</span> NSStatusBar</div>
+      <div class="matrix-cell"><span class="ok">✓</span> System Tray</div>
+      <div class="matrix-cell"><span class="half">◑</span> Home widget</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Firebase SDK</div>
+      <div class="matrix-cell"><span class="ok">✓</span> JS SDK v9</div>
+      <div class="matrix-cell"><span class="ok">✓</span> iOS SDK</div>
+      <div class="matrix-cell"><span class="ok">✓</span> iOS SDK (Catalyst)</div>
+      <div class="matrix-cell"><span class="half">◑</span> REST API only</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Android SDK</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Installable (no store)</div>
+      <div class="matrix-cell"><span class="ok">✓</span> PWA install</div>
+      <div class="matrix-cell"><span class="no">✗</span> App Store required</div>
+      <div class="matrix-cell"><span class="half">◑</span> Notarisation req.</div>
+      <div class="matrix-cell"><span class="half">◑</span> MSIX sideload</div>
+      <div class="matrix-cell"><span class="half">◑</span> APK sideload</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Firestore Real-time</div>
+      <div class="matrix-cell"><span class="ok">✓</span> onSnapshot</div>
+      <div class="matrix-cell"><span class="ok">✓</span> onSnapshot</div>
+      <div class="matrix-cell"><span class="ok">✓</span> onSnapshot</div>
+      <div class="matrix-cell"><span class="half">◑</span> Polling via REST</div>
+      <div class="matrix-cell"><span class="ok">✓</span> onSnapshot</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-cell">Video Call (Meetings)</div>
+      <div class="matrix-cell"><span class="ok">✓</span> WebRTC in-window</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Deep link to Teams</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Deep link to Teams</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Teams integration</div>
+      <div class="matrix-cell"><span class="ok">✓</span> Deep link to Teams</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     9. SECURITY & COMPLIANCE
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">09</div>
+    <div class="section-label">Security, Compliance & Data Protection</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="security-grid">
+
+    <div class="sec-card">
+      <div class="sec-title">🔒 Data Security</div>
+      <div class="sec-items">
+        <div class="sec-item"><span class="sec-bullet">✓</span>All API keys in Google Cloud Secret Manager — never in source code or Firestore</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Firestore Security Rules: every read/write validates request.auth.uid === resource.data.userId</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Firebase Storage rules: only authenticated owner can read/write their files</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Claude API calls made server-side only (Cloud Functions) — key never exposed to client</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>TrueLayer OAuth tokens encrypted at rest in Firestore, refreshed server-side</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>All Cloud Function endpoints verify HMAC signatures on incoming webhooks</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>HTTPS enforced across all endpoints — HTTP requests rejected</div>
+      </div>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-title">⚖️ Legal & Regulatory</div>
+      <div class="sec-items">
+        <div class="sec-item"><span class="sec-bullet">✓</span>RIPA 2000: Twilio TwiML announces recording to all parties before it starts</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>GDPR: User can delete all their data via account deletion (cascades all Firestore + Storage)</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>PSD2 / Open Banking: TrueLayer is FCA-regulated. ANN re-authenticates user every 90 days</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>HMRC MTD: Government Gateway OAuth authorisation — never store HMRC credentials</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>UK GDPR Article 6: Legitimate interest basis for financial data processing</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>App Store / Play Store: Biometric auth, data usage declarations required in app review</div>
+      </div>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-title">🏗️ Architecture Resilience</div>
+      <div class="sec-items">
+        <div class="sec-item"><span class="sec-bullet">✓</span>Offline-first: Firestore SDK caches locally. App works with no internet, syncs on reconnect</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Idempotent webhooks: emailProcessor and parcelUpdater check for duplicate messageId before writing</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Cloud Functions retry policy: failed webhook handlers retry up to 3 times with exponential backoff</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Firestore transactions: budget writes are atomic — no partial updates to budget totals</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Rate limiting: Claude API calls throttled in functions to avoid runaway spend</div>
+        <div class="sec-item"><span class="sec-bullet">✓</span>Firebase Emulator Suite: all Cloud Functions testable locally before deployment</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     10. DEVELOPMENT PHASES
+═══════════════════════════════════════════════════════ -->
+<div class="layer">
+  <div class="section-head">
+    <div class="section-num">10</div>
+    <div class="section-label">Development Phases — Recommended Build Order</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timeline-row">
+
+    <div class="phase-card">
+      <div class="phase-num">1</div>
+      <div class="phase-tag" style="background:rgba(59,126,248,0.12);color:var(--web);">Weeks 1–8</div>
+      <div class="phase-title">Web / PWA Core</div>
+      <div class="phase-dur">Firebase · Auth · Firestore</div>
+      <div class="phase-items" style="--pc:var(--web)">
+        <div class="phase-item" style="color:var(--web);">Firebase project + Firestore security rules</div>
+        <div class="phase-item" style="color:var(--web);">Email/password + Google Auth</div>
+        <div class="phase-item" style="color:var(--web);">PWA manifest + Service Worker</div>
+        <div class="phase-item" style="color:var(--web);">Dashboard, Tasks, Emails views</div>
+        <div class="phase-item" style="color:var(--web);">Nylas webhook + emailProcessor fn</div>
+        <div class="phase-item" style="color:var(--web);">Deploy to Firebase Hosting</div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">2</div>
+      <div class="phase-tag" style="background:rgba(16,185,129,0.12);color:var(--truelayer);">Weeks 9–16</div>
+      <div class="phase-title">Finance Layer</div>
+      <div class="phase-dur">TrueLayer · Budget · Tax</div>
+      <div class="phase-items">
+        <div class="phase-item" style="color:var(--truelayer);">TrueLayer OAuth flow</div>
+        <div class="phase-item" style="color:var(--truelayer);">bankSync scheduled function</div>
+        <div class="phase-item" style="color:var(--truelayer);">Categorisation + subscription detect</div>
+        <div class="phase-item" style="color:var(--truelayer);">Budget, Bills, Cash Flow views</div>
+        <div class="phase-item" style="color:var(--truelayer);">HMRC MTD VAT + Tax integration</div>
+        <div class="phase-item" style="color:var(--truelayer);">Invoice generator + PDFKit</div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">3</div>
+      <div class="phase-tag" style="background:rgba(176,110,243,0.12);color:var(--claude);">Weeks 17–24</div>
+      <div class="phase-title">AI & Lifestyle</div>
+      <div class="phase-dur">Vision · Meals · Trips · Calls</div>
+      <div class="phase-items">
+        <div class="phase-item" style="color:var(--claude);">Google Vision OCR receipt scan</div>
+        <div class="phase-item" style="color:var(--claude);">Inventory management</div>
+        <div class="phase-item" style="color:var(--claude);">Claude meal planner function</div>
+        <div class="phase-item" style="color:var(--claude);">Amadeus + Places trip planner</div>
+        <div class="phase-item" style="color:var(--claude);">Twilio + Whisper call pipeline</div>
+        <div class="phase-item" style="color:var(--claude);">AfterShip parcel tracking</div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">4</div>
+      <div class="phase-tag" style="background:rgba(176,110,243,0.12);color:var(--ios);">Months 7–12</div>
+      <div class="phase-title">iOS Native</div>
+      <div class="phase-dur">SwiftUI · App Store</div>
+      <div class="phase-items">
+        <div class="phase-item" style="color:var(--ios);">Firebase iOS SDK integration</div>
+        <div class="phase-item" style="color:var(--ios);">SwiftUI thin UI shell</div>
+        <div class="phase-item" style="color:var(--ios);">APNs push notifications</div>
+        <div class="phase-item" style="color:var(--ios);">AVFoundation receipt camera</div>
+        <div class="phase-item" style="color:var(--ios);">PassKit wallet integration</div>
+        <div class="phase-item" style="color:var(--ios);">App Store submission</div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">5</div>
+      <div class="phase-tag" style="background:rgba(240,109,158,0.12);color:var(--mac);">Months 12–14</div>
+      <div class="phase-title">macOS App</div>
+      <div class="phase-dur">Catalyst · Menu Bar</div>
+      <div class="phase-items">
+        <div class="phase-item" style="color:var(--mac);">iOS → macOS via Catalyst</div>
+        <div class="phase-item" style="color:var(--mac);">NSStatusBar menu bar widget</div>
+        <div class="phase-item" style="color:var(--mac);">Daily briefing in menu bar</div>
+        <div class="phase-item" style="color:var(--mac);">Touch ID biometric auth</div>
+        <div class="phase-item" style="color:var(--mac);">Mac App Store submission</div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">6</div>
+      <div class="phase-tag" style="background:rgba(34,211,238,0.12);color:var(--win);">Months 14–18</div>
+      <div class="phase-title">Windows App</div>
+      <div class="phase-dur">Electron / WinUI 3</div>
+      <div class="phase-items">
+        <div class="phase-item" style="color:var(--win);">Electron wrapper of PWA (fast)</div>
+        <div class="phase-item" style="color:var(--win);">Or WinUI 3 native build</div>
+        <div class="phase-item" style="color:var(--win);">Firebase REST (no native SDK)</div>
+        <div class="phase-item" style="color:var(--win);">WNS push + system tray</div>
+        <div class="phase-item" style="color:var(--win);">Microsoft Store submission</div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">7</div>
+      <div class="phase-tag" style="background:rgba(52,211,153,0.12);color:var(--and);">Months 18–24</div>
+      <div class="phase-title">Android App</div>
+      <div class="phase-dur">Kotlin · Jetpack Compose</div>
+      <div class="phase-items">
+        <div class="phase-item" style="color:var(--and);">Firebase Android SDK</div>
+        <div class="phase-item" style="color:var(--and);">Jetpack Compose UI</div>
+        <div class="phase-item" style="color:var(--and);">Camera2 receipt scanning</div>
+        <div class="phase-item" style="color:var(--and);">Google Wallet API</div>
+        <div class="phase-item" style="color:var(--and);">FCM native push</div>
+        <div class="phase-item" style="color:var(--and);">Google Play submission</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- footer -->
+<div class="footer">
+  ANN — Personal Assistant · Full Stack Architecture Document · v1.0 · March 2026<br>
+  <span style="opacity:0.4;">28 Features · 10 External APIs · 5 Platforms · Firebase Backend · 12 Cloud Functions</span>
+</div>
+
+</div>
+</body>
+</html>
