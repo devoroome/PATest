@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ANN — Personal Assistant</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
 
 :root {
   --bg: #d4d6d9;
@@ -38,11 +39,15 @@
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Raleway', sans-serif;
   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+h1, h2, h3, .heading-font, .brand-name, .card-title, .topbar-title {
+  font-family: 'Playfair Display', serif;
 }
 
 body::after {
@@ -104,8 +109,8 @@ body::after {
 }
 
 .brand-name {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800; font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 20px;
   color: white; letter-spacing: -0.5px;
 }
 
@@ -173,7 +178,7 @@ body::after {
 
 .btn {
   padding: 8px 16px; border-radius: 8px; font-size: 12px;
-  font-weight: 600; font-family: 'Manrope', sans-serif;
+  font-weight: 600; font-family: 'Raleway', sans-serif;
   cursor: pointer; border: none; transition: all 0.15s ease;
 }
 .btn-primary { background: #000000; color: white; }
@@ -199,8 +204,9 @@ body::after {
 .content.active { display: block; }
 
 .dashboard-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto; gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
 }
 
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
@@ -233,11 +239,48 @@ body::after {
   padding: 5px 12px; border-radius: 20px;
   font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s;
 }
-.tag-active { background: #000000; color: white; }
-.tag-inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); }
-.tag-inactive:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
-.tag-add { background: transparent; color: rgba(255,255,255,0.3); border: 1px dashed rgba(255,255,255,0.15); }
-.tag-add:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.5); }
+.tag-active { background: #2c4a7c; color: white; }
+.tag-inactive { background: var(--bg2); color: var(--ink2); border: 1px solid var(--border); }
+.tag-inactive:hover { background: var(--border); color: var(--ink); }
+.tag-add { background: transparent; color: var(--ink3); border: 1px dashed var(--border2); }
+.tag-add:hover { border-color: var(--ink3); color: var(--ink2); }
+
+/* ── PROFILE TAB ── */
+.profile-subtabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.profile-tab-panel { display: none; }
+.profile-tab-panel.active { display: block; }
+.profile-section-label {
+  font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3);
+  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+}
+.food-pref-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px; margin-bottom: 16px;
+}
+.food-pref-item {
+  display: flex; align-items: center; gap: 8px; padding: 10px 12px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  background: var(--surface2); cursor: pointer; transition: all 0.15s;
+}
+.food-pref-item.selected { border-color: #2c4a7c; background: var(--blue-light); }
+.food-pref-item:hover:not(.selected) { border-color: var(--border2); background: var(--bg2); }
+.food-pref-icon { font-size: 18px; flex-shrink: 0; }
+.food-pref-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.food-pref-sub { font-size: 9px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 1px; }
+.hobby-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+.hobby-item {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  background: var(--surface2); cursor: pointer; transition: all 0.15s;
+}
+.hobby-item.active { border-color: #2c4a7c; background: var(--blue-light); }
+.hobby-item:hover:not(.active) { border-color: var(--border2); }
+.hobby-icon { font-size: 22px; flex-shrink: 0; }
+.hobby-name { font-size: 12px; font-weight: 700; color: var(--ink); }
+.hobby-freq { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
 
 .task-item {
   display: flex; align-items: flex-start; gap: 10px;
@@ -440,7 +483,7 @@ body::after {
 
 .task-input {
   flex: 1; padding: 8px 12px; border: 1px solid var(--border);
-  border-radius: 7px; font-size: 12px; font-family: 'Manrope', sans-serif;
+  border-radius: 7px; font-size: 12px; font-family: 'Raleway', sans-serif;
   background: var(--surface); color: var(--ink); outline: none; transition: border-color 0.15s;
 }
 .task-input:focus { border-color: #2c4a7c; }
@@ -632,7 +675,7 @@ body::after {
 .tesco-logo {
   background: #00539f;
   color: white;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -641,7 +684,7 @@ body::after {
 .tesco-logo {
   background: #00539f;
   color: white;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -816,7 +859,7 @@ body::after {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 13px;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Raleway', sans-serif;
   background: var(--surface);
   color: var(--ink);
   outline: none;
@@ -1103,10 +1146,183 @@ body::after {
   .trip-modal-footer { padding: 10px 16px; }
 }
 
+/* ── ASK ANN ── */
+.ann-ask-box {
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.ann-ask-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.ann-ask-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: #2c4a7c;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: white; flex-shrink: 0;
+}
+.ann-ask-body {
+  padding: 14px 18px;
+}
+.ann-ask-suggestions {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+}
+.ann-suggestion {
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  background: var(--bg2); color: var(--ink2);
+  border: 1px solid var(--border);
+  padding: 5px 12px; border-radius: 16px; cursor: pointer;
+  transition: all 0.15s;
+}
+.ann-suggestion:hover { background: var(--border); color: var(--ink); }
+.ann-ask-input-row {
+  display: flex; gap: 8px; align-items: center;
+}
+.ann-ask-input {
+  flex: 1; padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px; color: var(--ink);
+  font-size: 12px; font-family: 'Raleway', sans-serif;
+  outline: none; transition: border-color 0.15s;
+}
+.ann-ask-input::placeholder { color: var(--ink3); }
+.ann-ask-input:focus { border-color: #2c4a7c; }
+.ann-ask-send {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: #2c4a7c; color: white;
+  border: none; font-size: 14px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.15s;
+}
+.ann-ask-send:hover { background: #1e3560; }
+.ann-response {
+  margin-top: 12px; padding: 12px 14px;
+  background: var(--blue-light);
+  border: 1px solid rgba(44,74,124,0.2);
+  border-radius: 10px;
+  font-size: 12px; color: var(--ink2);
+  line-height: 1.6; font-family: 'Raleway', sans-serif;
+}
+.ann-thinking {
+  display: flex; gap: 4px; align-items: center;
+}
+.ann-thinking span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ink3);
+  animation: aiPulse 1.2s infinite ease-in-out;
+}
+.ann-thinking span:nth-child(2) { animation-delay: 0.2s; }
+.ann-thinking span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── MEETINGS ── */
+.meeting-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; border-radius: 6px; transition: background 0.15s;
+}
+.meeting-item:last-child { border-bottom: none; }
+.meeting-item:hover { background: var(--bg2); margin: 0 -6px; padding: 12px 6px; }
+.meeting-item.active-meeting { background: var(--blue-light); margin: 0 -6px; padding: 12px 6px; border-color: transparent; }
+
+.meeting-time-col { width: 44px; flex-shrink: 0; }
+.meeting-time { font-size: 11px; font-family: 'DM Mono', monospace; font-weight: 700; color: var(--ink); }
+.meeting-duration { font-size: 9px; font-family: 'DM Mono', monospace; color: var(--ink3); }
+.meeting-bar { width: 3px; height: 36px; border-radius: 2px; flex-shrink: 0; }
+.meeting-info { flex: 1; }
+.meeting-name { font-size: 12px; font-weight: 700; color: var(--ink); }
+.meeting-who { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
+.meeting-status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.meeting-status-dot.live { background: #ef4444; animation: pulse 1.5s infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.meet-toggle { font-size: 11px; transition: all 0.15s; }
+.meet-toggle.active { background: #2c4a7c; color: white; border-color: #2c4a7c; }
+
+/* ── MEETING VIEW SIZING ── */
+#view-meetings { height: 100%; }
+#view-meetings > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 16px;
+  align-items: start;
+}
+#view-meetings .card { min-height: 0; }
+
+/* Briefing list */
+.briefing-item {
+  display: flex; gap: 10px; padding: 8px 0;
+  border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.briefing-item:last-child { border-bottom: none; }
+.briefing-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.briefing-label { font-size: 9px; font-family: 'DM Mono', monospace; color: var(--ink3); margin-top: 2px; }
+
+/* ── VIDEO CALL ── */
+.video-tile {
+  border-radius: 10px; overflow: hidden;
+  background: #1e293b;
+}
+.video-person-bg {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 160px; position: relative;
+  padding-bottom: 24px;
+}
+.video-avatar-big {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; font-weight: 800; color: white;
+  font-family: 'Raleway', sans-serif;
+}
+.video-name-tag {
+  position: absolute; bottom: 8px; left: 10px;
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  color: white; background: rgba(0,0,0,0.5);
+  padding: 2px 8px; border-radius: 4px;
+}
+.video-cam-off-icon {
+  font-size: 24px; opacity: 0.4; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+
+.call-ctrl-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: none;
+  font-size: 18px; cursor: pointer;
+  transition: all 0.15s; display: flex;
+  align-items: center; justify-content: center;
+}
+.call-ctrl-btn:hover { background: rgba(255,255,255,0.18); }
+.call-ctrl-btn.muted { background: rgba(239,68,68,0.25); }
+.call-ctrl-btn.active { background: rgba(255,255,255,0.15); }
+
+.chat-msg { display: flex; flex-direction: column; gap: 1px; }
+.chat-who { font-size: 9px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.35); }
+.chat-text { font-size: 11px; color: rgba(255,255,255,0.8); font-family: 'Raleway', sans-serif; }
+
+@media (max-width: 768px) {
+  #view-meetings > div { grid-template-columns: 1fr !important; }
+  .video-avatar-big { width: 44px; height: 44px; font-size: 20px; }
+  #call-window { border-radius: 0 !important; height: 100vh !important; width: 100vw !important; }
+  #video-grid { grid-template-columns: 1fr 1fr !important; grid-template-rows: 1fr 1fr !important; }
+  #video-grid > div:first-child { grid-column: 1 !important; grid-row: 1 !important; }
+  .ann-ask-suggestions { display: none; }
+}
+
 /* ── MEAL PLANNER ── */
 .meal-tab {
   padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700;
-  font-family: 'Manrope', sans-serif; cursor: pointer; border: 1.5px solid var(--border);
+  font-family: 'Raleway', sans-serif; cursor: pointer; border: 1.5px solid var(--border);
   background: var(--surface); color: var(--ink2); transition: all 0.15s;
 }
 .meal-tab.active { background: #2c4a7c; border-color: #2c4a7c; color: white; }
@@ -1213,7 +1429,7 @@ body::after {
   display: flex;
   height: 100%;
   align-items: center;
-  justify-content: space-around;
+  width: 100%;
 }
 
 .mobile-nav-btn {
@@ -1222,7 +1438,7 @@ body::after {
   align-items: center;
   justify-content: center;
   gap: 3px;
-  padding: 6px 10px;
+  padding: 6px 4px;
   border-radius: 10px;
   cursor: pointer;
   color: rgba(255,255,255,0.5);
@@ -1230,7 +1446,7 @@ body::after {
   font-family: 'DM Mono', monospace;
   letter-spacing: 0.5px;
   transition: all 0.15s;
-  min-width: 52px;
+  flex: 1;
   position: relative;
 }
 
@@ -1504,15 +1720,19 @@ body::after {
   .topbar { height: 46px; padding: 0 12px; }
   .topbar-title { font-size: 13px; }
   .profile-tag { font-size: 9px; padding: 3px 8px; }
-  .mobile-nav-btn { min-width: 44px; font-size: 8px; }
+  .mobile-nav-btn { min-width: 0; font-size: 8px; flex: 1; }
   .mobile-nav-icon { font-size: 16px; }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
 <body>
 
 <div class="titlebar">
-  <button class="mobile-menu-btn" style="display:none;" onclick="toggleDrawer()" id="mobile-menu-btn">☰</button>
+  <button class="mobile-menu-btn" style="display:none;" onclick="toggleDrawer()" id="mobile-menu-btn"><i class="bi bi-list"></i></button>
   <div class="titlebar-dots">
     <div class="dot dot-red"></div>
     <div class="dot dot-yellow"></div>
@@ -1530,24 +1750,26 @@ body::after {
     </div>
     <div class="sidebar-nav">
       <div class="nav-section-label">Overview</div>
-      <div class="nav-item active" onclick="navigate('dashboard', this)"><span class="nav-icon">⊞</span> Dashboard</div>
-      <div class="nav-item" onclick="navigate('calendar', this)"><span class="nav-icon">◫</span> Calendar<span class="nav-badge">3</span></div>
-      <div class="nav-item" onclick="navigate('tasks', this)"><span class="nav-icon">✓</span> Tasks<span class="nav-badge">5</span></div>
+      <div class="nav-item active" onclick="navigate('dashboard', this)"><span class="nav-icon"><i class="bi bi-grid-fill"></i></span> Dashboard</div>
+      <div class="nav-item" onclick="navigate('calendar', this)"><span class="nav-icon"><i class="bi bi-calendar3"></i></span> Calendar<span class="nav-badge">3</span></div>
+      <div class="nav-item" onclick="navigate('tasks', this)"><span class="nav-icon"><i class="bi bi-check2-square"></i></span> Tasks<span class="nav-badge">5</span></div>
+      <div class="nav-item" onclick="navigate('meetings', this)"><span class="nav-icon"><i class="bi bi-camera-video-fill"></i></span> Meetings<span class="nav-badge">2</span></div>
       <div class="nav-section-label">Communications</div>
-      <div class="nav-item" onclick="navigate('emails', this)"><span class="nav-icon">✉</span> Emails<span class="nav-badge">4</span></div>
-      <div class="nav-item" onclick="navigate('calls', this)"><span class="nav-icon">☎</span> Calls</div>
-      <div class="nav-item" onclick="navigate('wallet', this)"><span class="nav-icon">◈</span> Wallet</div>
+      <div class="nav-item" onclick="navigate('emails', this)"><span class="nav-icon"><i class="bi bi-envelope-fill"></i></span> Emails<span class="nav-badge">4</span></div>
+      <div class="nav-item" onclick="navigate('calls', this)"><span class="nav-icon"><i class="bi bi-telephone-fill"></i></span> Calls</div>
+      <div class="nav-item" onclick="navigate('wallet', this)"><span class="nav-icon"><i class="bi bi-wallet2"></i></span> Wallet</div>
       <div class="nav-section-label">Finance</div>
-      <div class="nav-item" onclick="navigate('budget', this)"><span class="nav-icon">◉</span> Budget</div>
-      <div class="nav-item" onclick="navigate('bills', this)"><span class="nav-icon">⚑</span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
-      <div class="nav-item" onclick="navigate('categorisation', this)"><span class="nav-icon">⊛</span> Categorisation</div>
-      <div class="nav-item" onclick="navigate('vat', this)"><span class="nav-icon">◧</span> VAT Return</div>
-      <div class="nav-item" onclick="navigate('tax', this)"><span class="nav-icon">◨</span> Tax Return</div>
+      <div class="nav-item" onclick="navigate('budget', this)"><span class="nav-icon"><i class="bi bi-pie-chart-fill"></i></span> Budget</div>
+      <div class="nav-item" onclick="navigate('bills', this)"><span class="nav-icon"><i class="bi bi-receipt"></i></span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
+      <div class="nav-item" onclick="navigate('categorisation', this)"><span class="nav-icon"><i class="bi bi-tags-fill"></i></span> Categorisation</div>
+      <div class="nav-item" onclick="navigate('vat', this)"><span class="nav-icon"><i class="bi bi-file-earmark-spreadsheet-fill"></i></span> VAT Return</div>
+      <div class="nav-item" onclick="navigate('tax', this)"><span class="nav-icon"><i class="bi bi-calculator-fill"></i></span> Tax Return</div>
       <div class="nav-section-label">Lifestyle</div>
-      <div class="nav-item" onclick="navigate('inventory', this)"><span class="nav-icon">⊟</span> Inventory</div>
-      <div class="nav-item" onclick="navigate('meals', this)"><span class="nav-icon">⊕</span> Meals</div>
-      <div class="nav-item" onclick="navigate('trips', this)"><span class="nav-icon">◎</span> Trips</div>
-      <div class="nav-item" onclick="navigate('parcels', this)"><span class="nav-icon">⊡</span> Parcels<span class="nav-badge">2</span></div>
+      <div class="nav-item" onclick="navigate('profile', this)"><span class="nav-icon"><i class="bi bi-person-fill"></i></span> Profile</div>
+      <div class="nav-item" onclick="navigate('inventory', this)"><span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span> Inventory</div>
+      <div class="nav-item" onclick="navigate('meals', this)"><span class="nav-icon"><i class="bi bi-cup-hot-fill"></i></span> Meals</div>
+      <div class="nav-item" onclick="navigate('trips', this)"><span class="nav-icon"><i class="bi bi-globe2"></i></span> Trips</div>
+      <div class="nav-item" onclick="navigate('parcels', this)"><span class="nav-icon"><i class="bi bi-truck"></i></span> Parcels<span class="nav-badge">2</span></div>
     </div>
     <div class="sidebar-profile">
       <div class="profile-avatar">O</div>
@@ -1567,7 +1789,7 @@ body::after {
       <div class="topbar-actions">
         <button class="btn btn-ghost" onclick="showToast('🔄 Syncing all accounts...')">Sync</button>
         <button class="btn btn-primary" id="action-btn" onclick="handleAction()">+ Add Task</button>
-        <div class="notif-bell" onclick="toggleNotif()">🔔<div class="notif-dot"></div></div>
+        <div class="notif-bell" onclick="toggleNotif()"><i class="bi bi-bell-fill"></i><div class="notif-dot"></div></div>
       </div>
     </div>
 
@@ -1577,39 +1799,41 @@ body::after {
         <div class="notif-clear" onclick="clearNotifs()">Clear all</div>
       </div>
       <div class="notif-list">
-        <div class="notif-item"><div class="notif-ico">⚑</div><div class="notif-body"><div class="notif-msg">Netflix price increased from £10.99 to £13.99/mo</div><div class="notif-time">2 hours ago</div></div></div>
-        <div class="notif-item"><div class="notif-ico">📦</div><div class="notif-body"><div class="notif-msg">Your ASOS order is out for delivery today</div><div class="notif-time">9:14 AM</div></div></div>
-        <div class="notif-item"><div class="notif-ico">✉</div><div class="notif-body"><div class="notif-msg">Email from HMRC — Tax return reminder added to tasks</div><div class="notif-time">Yesterday</div></div></div>
-        <div class="notif-item"><div class="notif-ico">🥛</div><div class="notif-body"><div class="notif-msg">Low stock: Milk (1 unit remaining)</div><div class="notif-time">Yesterday</div></div></div>
-        <div class="notif-item"><div class="notif-ico">📞</div><div class="notif-body"><div class="notif-msg">Voicemail from Dr. Smith summarised and added to tasks</div><div class="notif-time">2 days ago</div></div></div>
+        <div class="notif-item"><div class="notif-ico"><i class="bi bi-receipt"></i></div><div class="notif-body"><div class="notif-msg">Netflix price increased from £10.99 to £13.99/mo</div><div class="notif-time">2 hours ago</div></div></div>
+        <div class="notif-item"><div class="notif-ico"><i class="bi bi-truck"></i></div><div class="notif-body"><div class="notif-msg">Your ASOS order is out for delivery today</div><div class="notif-time">9:14 AM</div></div></div>
+        <div class="notif-item"><div class="notif-ico"><i class="bi bi-envelope-fill"></i></div><div class="notif-body"><div class="notif-msg">Email from HMRC — Tax return reminder added to tasks</div><div class="notif-time">Yesterday</div></div></div>
+        <div class="notif-item"><div class="notif-ico"><i class="bi bi-exclamation-circle-fill"></i></div><div class="notif-body"><div class="notif-msg">Low stock: Milk (1 unit remaining)</div><div class="notif-time">Yesterday</div></div></div>
+        <div class="notif-item"><div class="notif-ico"><i class="bi bi-telephone-fill"></i></div><div class="notif-body"><div class="notif-msg">Voicemail from Dr. Smith summarised and added to tasks</div><div class="notif-time">2 days ago</div></div></div>
       </div>
     </div>
 
     <!-- DASHBOARD -->
     <div class="content active" id="view-dashboard">
-      <div class="card whats-new" style="margin-bottom:16px;">
-        <div class="card-header">
-          <div class="card-icon" style="background:rgba(26,42,74,0.4); font-size:16px;">✦</div>
+
+      <!-- ASK ANN -->
+      <div class="ann-ask-box" style="margin-bottom:16px;" id="ann-ask-box">
+        <div class="ann-ask-header">
+          <div class="ann-ask-icon"><i class="bi bi-stars"></i></div>
           <div>
-            <div class="card-title">Your Taste Profile</div>
-            <div class="card-sub">Click to toggle · Drag to reorder</div>
+            <div class="card-title">Ask ANN</div>
+            <div class="card-sub">Your AI across all your data</div>
           </div>
-          <button class="btn btn-ghost" style="margin-left:auto; font-size:11px; padding:6px 12px; border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.5);" onclick="addTag()">+ Add interest</button>
         </div>
-        <div class="whats-new-body">
-          <div class="profile-tags" id="profile-tags">
-            <span class="profile-tag tag-active" onclick="toggleTag(this)">📈 Stocks & Trading</span>
-            <span class="profile-tag tag-active" onclick="toggleTag(this)">💻 Software Dev</span>
-            <span class="profile-tag tag-active" onclick="toggleTag(this)">🍜 Asian Cuisine</span>
-            <span class="profile-tag tag-active" onclick="toggleTag(this)">🏋️ Gym</span>
-            <span class="profile-tag tag-inactive" onclick="toggleTag(this)">🎮 Gaming</span>
-            <span class="profile-tag tag-active" onclick="toggleTag(this)">☕ Coffee</span>
-            <span class="profile-tag tag-inactive" onclick="toggleTag(this)">📚 Finance Books</span>
-            <span class="profile-tag tag-active" onclick="toggleTag(this)">✈️ Travel</span>
-            <span class="profile-tag tag-add" onclick="addTag()">+ Add</span>
+        <div class="ann-ask-body">
+          <div class="ann-ask-suggestions" id="ann-suggestions">
+            <div class="ann-suggestion" onclick="annAsk(this)">How much have I spent this month?</div>
+            <div class="ann-suggestion" onclick="annAsk(this)">What's my next meeting?</div>
+            <div class="ann-suggestion" onclick="annAsk(this)">What meals can I make tonight?</div>
+            <div class="ann-suggestion" onclick="annAsk(this)">Summarise my emails today</div>
           </div>
+          <div class="ann-ask-input-row">
+            <input class="ann-ask-input" id="ann-ask-input" placeholder="Ask anything about your schedule, finances, inventory..." onkeydown="if(event.key==='Enter') annAskInput()">
+            <button class="ann-ask-send" onclick="annAskInput()"><i class="bi bi-arrow-up"></i></button>
+          </div>
+          <div class="ann-response" id="ann-response" style="display:none;"></div>
         </div>
       </div>
+
       <div class="stat-row">
         <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">Open Tasks</div><div class="stat-change change-down">↑ 2 from emails</div></div>
         <div class="stat-card"><div class="stat-value">£1,842</div><div class="stat-label">Spent This Month</div><div class="stat-change change-up">↓ 8% vs last month</div></div>
@@ -1618,16 +1842,16 @@ body::after {
       </div>
       <div class="dashboard-grid">
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--green-light);">✓</div><div><div class="card-title">Tasks</div><div class="card-sub">5 pending</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-check2-square"></i></div><div><div class="card-title">Tasks</div><div class="card-sub">5 pending</div></div></div>
           <div class="card-body">
             <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Submit self-assessment tax return to HMRC</div><div class="task-source">email</div></div>
-            <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-check done"><i class="bi bi-check-lg"></i></div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
             <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Book dentist appointment — voicemail follow up</div><div class="task-source">call</div></div>
             <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Renew car insurance — expires 15 March</div><div class="task-source">email</div></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">✉</div><div><div class="card-title">Recent Emails</div><div class="card-sub">AI summarised</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-envelope-fill"></i></div><div><div class="card-title">Recent Emails</div><div class="card-sub">AI summarised</div></div></div>
           <div class="card-body">
             <div class="email-item"><div class="email-avatar" style="background:#dc2626;">H</div><div class="email-content"><div class="email-from">HMRC</div><div class="email-subject">Self Assessment — Action Required</div><div class="email-summary">→ Tax return deadline 31 Jan. File now to avoid penalty.</div></div><div class="email-time">9:02</div></div>
             <div class="email-item"><div class="email-avatar" style="background:#7c3aed;">N</div><div class="email-content"><div class="email-from">Netflix</div><div class="email-subject">Your plan price is changing</div><div class="email-summary">→ Price rising £10.99 → £13.99 from 15 Mar.</div></div><div class="email-time">Fri</div></div>
@@ -1635,7 +1859,7 @@ body::after {
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">◉</div><div><div class="card-title">Budget — Feb</div><div class="card-sub">£1,842 of £2,500</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-pie-chart-fill"></i></div><div><div class="card-title">Budget — Feb</div><div class="card-sub">£1,842 of £2,500</div></div></div>
           <div class="card-body">
             <div class="budget-chart-wrap">
               <div class="pie-wrap">
@@ -1660,7 +1884,7 @@ body::after {
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--green-light);">⊟</div><div><div class="card-title">Inventory</div><div class="card-sub">1 item low</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-box-seam-fill"></i></div><div><div class="card-title">Inventory</div><div class="card-sub">1 item low</div></div></div>
           <div class="card-body">
             <div class="inventory-item"><div class="inv-emoji">🥛</div><div class="inv-name">Milk</div><div class="inv-qty">1 jug</div><div class="stock-bar"><div class="stock-fill" style="width:12%; background:#ef4444;"></div></div></div>
             <div class="inventory-item"><div class="inv-emoji">🍞</div><div class="inv-name">Bread</div><div class="inv-qty">1 loaf</div><div class="stock-bar"><div class="stock-fill" style="width:35%; background:#f59e0b;"></div></div></div>
@@ -1670,20 +1894,213 @@ body::after {
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">⊡</div><div><div class="card-title">Parcels</div><div class="card-sub">2 active</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-truck"></i></div><div><div class="card-title">Parcels</div><div class="card-sub">2 active</div></div></div>
           <div class="card-body">
             <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">ASOS Order #28291</div><div class="parcel-courier">Evri · EVR-28291-UK</div></div><div class="status-pill status-transit">Out for delivery</div></div>
             <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">Amazon — GPU Cable</div><div class="parcel-courier">Royal Mail · RM-774821-GB</div></div><div class="status-pill status-processing">In transit</div></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--red-light);">⚑</div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">1 price change detected</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--red-light);"><i class="bi bi-receipt"></i></div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">1 price change detected</div></div></div>
           <div class="card-body">
             <div class="bill-item"><div class="bill-icon" style="background:#e50914; color:white;">N</div><div class="bill-info"><div class="bill-name">Netflix</div><div class="bill-freq">Monthly · 15th</div></div><div><div class="bill-amount">£13.99</div><div class="price-change">↑ was £10.99</div></div></div>
             <div class="bill-item"><div class="bill-icon" style="background:#1db954; color:white;">S</div><div class="bill-info"><div class="bill-name">Spotify</div><div class="bill-freq">Monthly · 3rd</div></div><div class="bill-amount">£11.99</div></div>
             <div class="bill-item"><div class="bill-icon" style="background:#0078d4; color:white;">M</div><div class="bill-info"><div class="bill-name">Microsoft 365</div><div class="bill-freq">Monthly · 1st</div></div><div class="bill-amount">£9.99</div></div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- MEETINGS VIEW -->
+    <div class="content" id="view-meetings">
+      <div>
+
+        <!-- Left: meeting list -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-camera-video-fill"></i></div>
+              <div><div class="card-title">Today's Meetings</div><div class="card-sub">Mon 2 Mar 2026 · Synced from Calendar</div></div>
+            </div>
+            <div class="card-body" style="padding:8px 14px;">
+
+              <div class="meeting-item active-meeting" onclick="selectMeeting('standup')" id="mitem-standup">
+                <div class="meeting-time-col">
+                  <div class="meeting-time">09:00</div>
+                  <div class="meeting-duration">30 min</div>
+                </div>
+                <div class="meeting-bar" style="background:#2c4a7c;"></div>
+                <div class="meeting-info">
+                  <div class="meeting-name">Daily Standup</div>
+                  <div class="meeting-who"><i class="bi bi-camera-video-fill"></i> Teams · 4 attendees</div>
+                </div>
+                <div class="meeting-status-dot live"></div>
+              </div>
+
+              <div class="meeting-item" onclick="selectMeeting('quarterly')" id="mitem-quarterly">
+                <div class="meeting-time-col">
+                  <div class="meeting-time">11:00</div>
+                  <div class="meeting-duration">60 min</div>
+                </div>
+                <div class="meeting-bar" style="background:#7c3aed;"></div>
+                <div class="meeting-info">
+                  <div class="meeting-name">Q1 Management Review</div>
+                  <div class="meeting-who"><i class="bi bi-camera-video-fill"></i> Teams · 8 attendees</div>
+                </div>
+                <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--amber);">in 2h</div>
+              </div>
+
+              <div class="meeting-item" onclick="selectMeeting('aat')" id="mitem-aat">
+                <div class="meeting-time-col">
+                  <div class="meeting-time">14:00</div>
+                  <div class="meeting-duration">45 min</div>
+                </div>
+                <div class="meeting-bar" style="background:#10b981;"></div>
+                <div class="meeting-info">
+                  <div class="meeting-name">AAT Revision Session</div>
+                  <div class="meeting-who"><i class="bi bi-camera-video-fill"></i> Teams · 3 attendees</div>
+                </div>
+                <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">in 5h</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--surface2);"><i class="bi bi-calendar-event-fill"></i></div>
+              <div><div class="card-title">This Week</div><div class="card-sub">Upcoming meetings</div></div>
+            </div>
+            <div class="card-body" style="padding:8px 14px;">
+              <div class="meeting-item" style="padding:8px 0;">
+                <div class="meeting-time-col"><div class="meeting-time" style="font-size:9px;color:var(--ink3);">TUE 10:00</div></div>
+                <div class="meeting-bar" style="background:#f59e0b;"></div>
+                <div class="meeting-info"><div class="meeting-name" style="font-size:11px;">1:1 with Line Manager</div><div class="meeting-who">30 min · Teams</div></div>
+              </div>
+              <div class="meeting-item" style="padding:8px 0;">
+                <div class="meeting-time-col"><div class="meeting-time" style="font-size:9px;color:var(--ink3);">THU 15:30</div></div>
+                <div class="meeting-bar" style="background:#ef4444;"></div>
+                <div class="meeting-info"><div class="meeting-name" style="font-size:11px;">Client Call — Accounts Review</div><div class="meeting-who">45 min · Teams</div></div>
+              </div>
+              <div class="meeting-item" style="padding:8px 0;border-bottom:none;">
+                <div class="meeting-time-col"><div class="meeting-time" style="font-size:9px;color:var(--ink3);">FRI 09:00</div></div>
+                <div class="meeting-bar" style="background:#2c4a7c;"></div>
+                <div class="meeting-info"><div class="meeting-name" style="font-size:11px;">Daily Standup</div><div class="meeting-who">30 min · Teams</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: briefing + join panel -->
+        <div id="meeting-detail-panel" style="display:flex;flex-direction:column;gap:16px;">
+
+          <!-- Briefing card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:#dbeafe;" id="meet-icon"><i class="bi bi-clipboard-fill"></i></div>
+              <div>
+                <div class="card-title" id="meet-title">Daily Standup</div>
+                <div class="card-sub" id="meet-sub">09:00 – 09:30 · Mon 2 Mar · 4 attendees</div>
+              </div>
+              <span class="status-pill status-transit" style="margin-left:auto;" id="meet-badge">Live Now</span>
+            </div>
+            <div class="card-body" id="meet-briefing-body">
+              <!-- Briefing injected by JS -->
+            </div>
+          </div>
+
+          <!-- Join card -->
+          <div class="card" id="meet-join-card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-camera-video-fill"></i></div>
+              <div><div class="card-title">Join Meeting</div><div class="card-sub" id="meet-join-sub">Ready to join · Camera & mic available</div></div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;gap:10px;margin-bottom:12px;">
+                <button class="btn btn-ghost meet-toggle active" id="toggle-cam" onclick="toggleMeetCtrl(this,'cam')"><i class="bi bi-camera-video-fill"></i> Cam On</button>
+                <button class="btn btn-ghost meet-toggle active" id="toggle-mic" onclick="toggleMeetCtrl(this,'mic')"><i class="bi bi-mic-fill"></i> Mic On</button>
+                <button class="btn btn-ghost meet-toggle" id="toggle-blur" onclick="toggleMeetCtrl(this,'blur')"><i class="bi bi-eye-slash"></i> Blur Off</button>
+              </div>
+              <button class="btn btn-primary" style="width:100%;padding:12px;font-size:14px;font-weight:800;letter-spacing:0.5px;" id="join-btn" onclick="joinMeeting()"><i class="bi bi-arrow-up-right-circle-fill"></i> Join Meeting</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO CALL MODAL -->
+    <div class="modal-overlay" id="call-modal" style="z-index:500;" onclick="">
+      <div id="call-window" style="width:min(860px,100vw);height:min(560px,100vh);background:#111827;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 60px 120px rgba(0,0,0,0.6);position:relative;">
+
+        <!-- Call header bar -->
+        <div style="display:flex;align-items:center;padding:12px 18px;background:#0f172a;gap:12px;flex-shrink:0;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.5s infinite;" class="meeting-status-dot live"></div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.6);" id="call-title-bar">Daily Standup · 00:00</div>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <div style="font-size:10px;font-family:'DM Mono',monospace;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);padding:3px 10px;border-radius:5px;">4 participants</div>
+          </div>
+        </div>
+
+        <!-- Video grid -->
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;background:#0a0f1a;padding:3px;" id="video-grid">
+
+          <div class="video-tile" style="grid-column:1;grid-row:1 / span 2;position:relative;">
+            <div class="video-person-bg" style="background:linear-gradient(135deg,#1e3a5f,#2c4a7c);">
+              <div class="video-avatar-big">O</div>
+              <div class="video-name-tag">You (Overwatch) <span style="background:#ef4444;font-size:8px;padding:1px 5px;border-radius:3px;margin-left:4px;">SPEAKING</span></div>
+              <div id="your-cam-icon" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:24px;opacity:0.4;" style="display:none;"><i class="bi bi-camera-video-off-fill" style="font-size:24px;opacity:0.4;"></i></div>
+            </div>
+          </div>
+
+          <div class="video-tile" style="position:relative;">
+            <div class="video-person-bg" style="background:linear-gradient(135deg,#3b1f6e,#5b21b6);">
+              <div class="video-avatar-big">S</div>
+              <div class="video-name-tag">Sarah Mitchell</div>
+            </div>
+          </div>
+
+          <div class="video-tile" style="position:relative;">
+            <div class="video-person-bg" style="background:linear-gradient(135deg,#064e3b,#065f46);">
+              <div class="video-avatar-big">J</div>
+              <div class="video-name-tag">James K. 🎙</div>
+            </div>
+          </div>
+
+          <div class="video-tile" style="position:relative;">
+            <div class="video-person-bg" style="background:linear-gradient(135deg,#7c2d12,#9a3412);">
+              <div class="video-avatar-big">R</div>
+              <div class="video-name-tag">Rachel T.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Chat sidebar (hidden by default) -->
+        <div id="call-chat" style="display:none;position:absolute;top:48px;right:0;bottom:64px;width:240px;background:rgba(15,23,42,0.97);border-left:1px solid rgba(255,255,255,0.08);flex-direction:column;">
+          <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,0.4);">MEETING CHAT</div>
+          <div id="chat-messages" style="flex:1;overflow-y:auto;padding:10px 14px;display:flex;flex-direction:column;gap:8px;max-height:300px;">
+            <div class="chat-msg"><span class="chat-who">Sarah M.</span><span class="chat-text">Morning everyone 👋</span></div>
+            <div class="chat-msg"><span class="chat-who">James K.</span><span class="chat-text">Ready when you are</span></div>
+            <div class="chat-msg"><span class="chat-who">Rachel T.</span><span class="chat-text">Just joining from mobile</span></div>
+          </div>
+          <div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:6px;">
+            <input id="chat-input" placeholder="Message..." style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:white;font-size:11px;padding:6px 8px;outline:none;font-family:'Raleway',sans-serif;" onkeydown="if(event.key==='Enter')sendChatMsg()">
+            <button onclick="sendChatMsg()" style="background:#2c4a7c;border:none;border-radius:6px;color:white;padding:0 10px;cursor:pointer;font-size:13px;">↑</button>
+          </div>
+        </div>
+
+        <!-- Controls bar -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;background:#0f172a;flex-shrink:0;" id="call-controls">
+          <button class="call-ctrl-btn active" id="ctrl-mic" onclick="toggleCallCtrl(this,'mic')"><i class="bi bi-mic-fill"></i></button>
+          <button class="call-ctrl-btn active" id="ctrl-cam" onclick="toggleCallCtrl(this,'cam')"><i class="bi bi-camera-video-fill"></i></button>
+          <button class="call-ctrl-btn" id="ctrl-screen" onclick="showToast('🖥 Screen share not available in demo')"><i class="bi bi-display"></i></button>
+          <button class="call-ctrl-btn" id="ctrl-chat" onclick="toggleChat()"><i class="bi bi-chat-fill"></i></button>
+          <button class="call-ctrl-btn" id="ctrl-react" onclick="sendReaction()"><i class="bi bi-hand-index-thumb-fill"></i></button>
+          <div style="width:1px;height:32px;background:rgba(255,255,255,0.1);margin:0 4px;"></div>
+          <button onclick="leaveCall()" style="background:#ef4444;border:none;border-radius:10px;color:white;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Raleway',sans-serif;">Leave</button>
+        </div>
+
       </div>
     </div>
 
@@ -1694,10 +2111,10 @@ body::after {
         <button class="btn btn-primary" onclick="addNewTask()">Add Task</button>
       </div>
       <div class="card">
-        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">✓</div><div><div class="card-title">All Tasks</div><div class="card-sub">From emails, calls, and manual entries</div></div></div>
+        <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-check2-square"></i></div><div><div class="card-title">All Tasks</div><div class="card-sub">From emails, calls, and manual entries</div></div></div>
         <div class="card-body" id="all-tasks-list">
           <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Submit self-assessment tax return to HMRC</div><div class="task-source">email</div></div>
-          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done"><i class="bi bi-check-lg"></i></div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
           <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Book dentist appointment — voicemail follow up</div><div class="task-source">call</div></div>
           <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Renew car insurance — expires 15 March</div><div class="task-source">email</div></div>
           <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Review AAT Level 2 practice exam papers</div><div class="task-source">manual</div></div>
@@ -1708,7 +2125,7 @@ body::after {
     <!-- EMAILS VIEW -->
     <div class="content" id="view-emails">
       <div class="card">
-        <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">✉</div><div><div class="card-title">Inbox — AI Summarised</div><div class="card-sub">All email providers · Nylas unified</div></div></div>
+        <div class="card-header"><div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-envelope-fill"></i></div><div><div class="card-title">Inbox — AI Summarised</div><div class="card-sub">All email providers · Nylas unified</div></div></div>
         <div class="card-body">
           <div class="email-item"><div class="email-avatar" style="background:#dc2626;">H</div><div class="email-content"><div class="email-from">HMRC</div><div class="email-subject">Self Assessment 2024/25 — Action Required</div><div class="email-summary">→ File your self assessment return by 31 Jan. Penalty of £100 if late. Task added.</div></div><div class="email-time">09:02</div></div>
           <div class="email-item"><div class="email-avatar" style="background:#7c3aed;">N</div><div class="email-content"><div class="email-from">Netflix</div><div class="email-subject">Your plan price is changing from 15 March</div><div class="email-summary">→ Standard plan rising from £10.99 to £13.99/month. Bill alert created.</div></div><div class="email-time">Fri</div></div>
@@ -1722,7 +2139,7 @@ body::after {
     <!-- CALLS VIEW -->
     <div class="content" id="view-calls">
       <div class="card">
-        <div class="card-header"><div class="card-icon" style="background:var(--green-light);">☎</div><div><div class="card-title">Call Log — AI Summarised</div><div class="card-sub">Whisper transcription · Claude summary</div></div></div>
+        <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-telephone-fill"></i></div><div><div class="card-title">Call Log — AI Summarised</div><div class="card-sub">Whisper transcription · Claude summary</div></div></div>
         <div class="card-body">
           <div class="call-item"><div class="call-avatar" style="background:#7c3aed;">D</div><div class="call-info"><div class="call-name">Dr. Smith — GP Surgery</div><div class="call-summary">Voicemail: Appointment available Mon 2 Mar at 10:30AM. Call back to confirm. Task added to book.</div></div><div class="call-meta"><div class="call-time">Yesterday</div><div class="call-duration">0:42</div></div></div>
           <div class="call-item"><div class="call-avatar" style="background:#0284c7;">M</div><div class="call-info"><div class="call-name">Manager — Work</div><div class="call-summary">Discussion re: Q1 management accounts deadline moved to 10 March. Review meeting booked for 12 Mar. Event added.</div></div><div class="call-meta"><div class="call-time">Thu</div><div class="call-duration">4:17</div></div></div>
@@ -1764,7 +2181,7 @@ body::after {
 
         <!-- Pie chart card -->
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);">◉</div><div><div class="card-title">February Breakdown</div><div class="card-sub">Linked via TrueLayer · Auto-categorised</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-pie-chart-fill"></i></div><div><div class="card-title">February Breakdown</div><div class="card-sub">Linked via TrueLayer · Auto-categorised</div></div></div>
           <div class="card-body">
             <div class="budget-chart-wrap" style="flex-direction:column; gap:20px; align-items:flex-start;">
               <div class="pie-wrap" style="width:130px;height:130px; margin:0 auto;">
@@ -1792,7 +2209,7 @@ body::after {
         <!-- Transactions card -->
         <div class="card">
           <div class="card-header">
-            <div class="card-icon" style="background:var(--blue-light);">≡</div>
+            <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-list-ul"></i></div>
             <div>
               <div class="card-title">Transactions</div>
               <div class="card-sub">February 2026 · Auto-categorised · TrueLayer</div>
@@ -1920,7 +2337,7 @@ body::after {
     <!-- BILLS VIEW -->
     <div class="content" id="view-bills">
       <div class="card">
-        <div class="card-header"><div class="card-icon" style="background:var(--red-light);">⚑</div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">Auto-detected from recurring transactions</div></div></div>
+        <div class="card-header"><div class="card-icon" style="background:var(--red-light);"><i class="bi bi-receipt"></i></div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">Auto-detected from recurring transactions</div></div></div>
         <div class="card-body">
           <div class="bill-item"><div class="bill-icon" style="background:#e50914;color:white;">N</div><div class="bill-info"><div class="bill-name">Netflix</div><div class="bill-freq">Monthly · 15th · Standard Plan</div></div><div><div class="bill-amount">£13.99</div><div class="price-change">↑ was £10.99</div></div></div>
           <div class="bill-item"><div class="bill-icon" style="background:#1db954;color:white;">S</div><div class="bill-info"><div class="bill-name">Spotify Premium</div><div class="bill-freq">Monthly · 3rd</div></div><div class="bill-amount">£11.99</div></div>
@@ -1936,7 +2353,7 @@ body::after {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
         <div class="card">
           <div class="card-header">
-            <div class="card-icon" style="background:#dbeafe;">⊛</div>
+            <div class="card-icon" style="background:#dbeafe;"><i class="bi bi-tags-fill"></i></div>
             <div><div class="card-title">Auto-Categorisation Engine</div><div class="card-sub">AI rule-based · Learns from corrections</div></div>
           </div>
           <div class="card-body">
@@ -2002,7 +2419,7 @@ body::after {
         </div>
         <div class="card">
           <div class="card-header">
-            <div class="card-icon" style="background:#fef3c7;">⊙</div>
+            <div class="card-icon" style="background:#fef3c7;"><i class="bi bi-calculator-fill"></i></div>
             <div><div class="card-title">Category Breakdown</div><div class="card-sub">Monthly recurring spend by category</div></div>
           </div>
           <div class="card-body">
@@ -2039,7 +2456,7 @@ body::after {
       </div>
       <div class="card">
         <div class="card-header">
-          <div class="card-icon" style="background:var(--amber-light);">⚠</div>
+          <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-exclamation-triangle-fill"></i></div>
           <div><div class="card-title">Uncategorised Transactions</div><div class="card-sub">2 transactions need review</div></div>
         </div>
         <div class="card-body">
@@ -2105,7 +2522,7 @@ body::after {
         <!-- VAT Return Form -->
         <div class="card">
           <div class="card-header">
-            <div class="card-icon" style="background:#d0ddf5;">◧</div>
+            <div class="card-icon" style="background:#d0ddf5;"><i class="bi bi-file-earmark-spreadsheet-fill"></i></div>
             <div><div class="card-title">VAT Return — Q4 Oct–Dec 2025</div><div class="card-sub">MTD compliant · Auto-populated from transactions</div></div>
             <span style="font-size:9px;font-family:'DM Mono',monospace;background:var(--amber-light);color:var(--amber);padding:3px 8px;border-radius:4px;margin-left:auto;">DRAFT</span>
           </div>
@@ -2177,7 +2594,7 @@ body::after {
         <div style="display:flex;flex-direction:column;gap:16px;">
           <div class="card">
             <div class="card-header">
-              <div class="card-icon" style="background:var(--blue-light);">▦</div>
+              <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-bar-chart-fill"></i></div>
               <div><div class="card-title">Output VAT Detail</div><div class="card-sub">Sales by VAT rate — Q4 2025</div></div>
             </div>
             <div class="card-body">
@@ -2197,7 +2614,7 @@ body::after {
           </div>
           <div class="card">
             <div class="card-header">
-              <div class="card-icon" style="background:var(--green-light);">▦</div>
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-graph-up-arrow"></i></div>
               <div><div class="card-title">Input VAT Detail</div><div class="card-sub">Reclaimable purchases — Q4 2025</div></div>
             </div>
             <div class="card-body">
@@ -2257,7 +2674,7 @@ body::after {
         <!-- SA100 Form -->
         <div class="card">
           <div class="card-header">
-            <div class="card-icon" style="background:#d0ddf5;">◨</div>
+            <div class="card-icon" style="background:#d0ddf5;"><i class="bi bi-calculator-fill"></i></div>
             <div><div class="card-title">Self Assessment — SA100</div><div class="card-sub">Tax year 6 Apr 2024 – 5 Apr 2025 · HMRC reference: UTR 1234567890</div></div>
             <span style="font-size:9px;font-family:'DM Mono',monospace;background:var(--amber-light);color:var(--amber);padding:3px 8px;border-radius:4px;margin-left:auto;">DRAFT</span>
           </div>
@@ -2360,7 +2777,7 @@ body::after {
           <!-- Tax timeline -->
           <div class="card">
             <div class="card-header">
-              <div class="card-icon" style="background:var(--amber-light);">⏱</div>
+              <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-clock-history"></i></div>
               <div><div class="card-title">Key Deadlines</div><div class="card-sub">2024/25 tax year</div></div>
             </div>
             <div class="card-body">
@@ -2382,7 +2799,7 @@ body::after {
           <!-- Expenses breakdown -->
           <div class="card">
             <div class="card-header">
-              <div class="card-icon" style="background:var(--green-light);">£</div>
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-currency-pound"></i></div>
               <div><div class="card-title">Allowable Expenses</div><div class="card-sub">Auto-matched from transactions</div></div>
             </div>
             <div class="card-body">
@@ -2421,7 +2838,7 @@ body::after {
     <div class="content" id="view-inventory">
       <div class="card">
         <div class="card-header">
-          <div class="card-icon" style="background:var(--green-light);">⊟</div>
+          <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-box-seam-fill"></i></div>
           <div>
             <div class="card-title">Food & Drink Inventory</div>
             <div class="card-sub">Updated from receipt scans · 1 item low</div>
@@ -2453,12 +2870,12 @@ body::after {
       <div id="meal-tab-content-plan">
         <div class="card" style="margin-bottom:16px;">
           <div class="card-header">
-            <div class="card-icon" style="background:var(--green-light);">⊕</div>
+            <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-cup-hot-fill"></i></div>
             <div>
               <div class="card-title">Weekly Meal Plan</div>
               <div class="card-sub">Mon 2 – Sun 8 Mar 2026 · Click any slot to assign a meal</div>
             </div>
-            <button class="btn btn-primary" style="margin-left:auto;" onclick="aiGeneratePlan()">ANN Generate</button>
+            <button class="btn btn-primary" style="margin-left:auto;" onclick="aiGeneratePlan()">🤖 AI Generate</button>
           </div>
           <div class="card-body" style="padding:0;">
             <div id="meal-planner-grid"></div>
@@ -2472,7 +2889,7 @@ body::after {
           <!-- Recipe list -->
           <div class="card">
             <div class="card-header">
-              <div class="card-icon" style="background:var(--amber-light);">📖</div>
+              <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-book-fill"></i></div>
               <div><div class="card-title">My Recipes</div><div class="card-sub" id="recipe-count-sub">6 saved recipes</div></div>
               <button class="btn btn-primary" style="margin-left:auto;" onclick="openRecipeEditor(null)">+ Add Recipe</button>
             </div>
@@ -2481,7 +2898,7 @@ body::after {
           <!-- Recipe detail / editor -->
           <div class="card" id="recipe-detail-card">
             <div class="card-header">
-              <div class="card-icon" style="background:var(--green-light);">🍽</div>
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-egg-fried"></i></div>
               <div><div class="card-title" id="recipe-detail-title">Select a recipe</div><div class="card-sub" id="recipe-detail-sub">or add a new one</div></div>
               <button class="btn btn-ghost" style="margin-left:auto;display:none;" id="recipe-edit-btn" onclick="openRecipeEditor(currentRecipeId)">Edit</button>
             </div>
@@ -2500,12 +2917,12 @@ body::after {
     <div class="modal-overlay" id="meal-slot-modal" onclick="closeMealSlotModal(event)">
       <div class="receipt-modal" style="width:min(460px,calc(100vw - 24px));" onclick="event.stopPropagation()">
         <div class="receipt-modal-header">
-          <div class="card-icon" style="background:var(--green-light);width:32px;height:32px;">🍽</div>
+          <div class="card-icon" style="background:var(--green-light);width:32px;height:32px;"><i class="bi bi-egg-fried"></i></div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--ink);" id="slot-modal-title">Assign Meal</div>
             <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);" id="slot-modal-sub">Monday · Breakfast</div>
           </div>
-          <button class="receipt-modal-close" onclick="closeMealSlotModalBtn()">✕</button>
+          <button class="receipt-modal-close" onclick="closeMealSlotModalBtn()"><i class="bi bi-x-lg"></i></button>
         </div>
         <div style="padding:14px 20px;">
           <input class="task-input" id="meal-slot-search" placeholder="Search recipes or type a meal name..." oninput="filterSlotRecipes(this.value)" style="margin-bottom:12px;width:100%;">
@@ -2529,12 +2946,12 @@ body::after {
     <div class="modal-overlay" id="recipe-editor-modal" onclick="closeRecipeEditorOverlay(event)">
       <div class="receipt-modal" style="width:min(540px,calc(100vw - 24px));max-height:90vh;" onclick="event.stopPropagation()">
         <div class="receipt-modal-header">
-          <div class="card-icon" style="background:var(--amber-light);width:32px;height:32px;">📝</div>
+          <div class="card-icon" style="background:var(--amber-light);width:32px;height:32px;"><i class="bi bi-pencil-square"></i></div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--ink);" id="recipe-editor-title">New Recipe</div>
             <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Fill in the details below</div>
           </div>
-          <button class="receipt-modal-close" onclick="closeRecipeEditor()">✕</button>
+          <button class="receipt-modal-close" onclick="closeRecipeEditor()"><i class="bi bi-x-lg"></i></button>
         </div>
         <div style="padding:16px 20px;overflow-y:auto;max-height:calc(90vh - 120px);">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
@@ -2585,7 +3002,7 @@ body::after {
     <div class="content" id="view-trips">
       <div class="card" style="margin-bottom:16px;">
         <div class="card-header">
-          <div class="card-icon" style="background:var(--blue-light);">◎</div>
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-globe2"></i></div>
           <div>
             <div class="card-title">Suggested Destinations</div>
             <div class="card-sub">Based on your taste profile & interests</div>
@@ -2608,7 +3025,7 @@ body::after {
       </div>
       <div class="card">
         <div class="card-header">
-          <div class="card-icon" style="background:var(--blue-light);">✈</div>
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-airplane-fill"></i></div>
           <div>
             <div class="card-title">Upcoming — Glastonbury 2026</div>
             <div class="card-sub">25–29 June 2026 · Somerset, UK</div>
@@ -2626,7 +3043,7 @@ body::after {
     <div class="content" id="view-parcels">
       <div class="card">
         <div class="card-header">
-          <div class="card-icon" style="background:var(--amber-light);">⊡</div>
+          <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-truck"></i></div>
           <div>
             <div class="card-title">Parcel Tracking</div>
             <div class="card-sub">Auto-detected from emails · AfterShip</div>
@@ -2644,7 +3061,7 @@ body::after {
     <div class="content" id="view-calendar">
       <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:16px;">
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);">◫</div><div><div class="card-title">February 2026</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-calendar3"></i></div><div><div class="card-title">February 2026</div></div></div>
           <div class="card-body">
             <div class="calendar-grid">
               <div class="cal-day-label">M</div><div class="cal-day-label">T</div><div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div><div class="cal-day-label">S</div>
@@ -2657,12 +3074,226 @@ body::after {
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--purple-light);">◫</div><div><div class="card-title">Upcoming Events</div><div class="card-sub">From emails, calls & manual</div></div></div>
+          <div class="card-header"><div class="card-icon" style="background:var(--purple-light);"><i class="bi bi-calendar-event-fill"></i></div><div><div class="card-title">Upcoming Events</div><div class="card-sub">From emails, calls & manual</div></div></div>
           <div class="card-body">
             <div class="event-item"><div class="event-time-col"><div class="event-time">Today</div><div class="event-bar" style="background:#2c4a7c;"></div></div><div class="event-info"><div class="event-name">ASOS Delivery Expected</div><div class="event-detail">Evri · by 6PM · No action needed</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">Mon 2</div><div class="event-bar" style="background:#7c3aed;"></div></div><div class="event-info"><div class="event-name">GP Appointment — Dr. Smith</div><div class="event-detail">10:30 AM · Booked from voicemail</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">15 Mar</div><div class="event-bar" style="background:#0284c7;"></div></div><div class="event-info"><div class="event-name">LNER — London to Somerset</div><div class="event-detail">08:45 · Ticket in Wallet</div></div></div>
             <div class="event-item"><div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#10b981;"></div></div><div class="event-info"><div class="event-name">Glastonbury Festival 2026</div><div class="event-detail">Worthy Farm · Ticket in Wallet · 5 days</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TASTE PROFILE VIEW -->
+    <div class="content" id="view-profile">
+      <!-- Sub-tab nav -->
+      <div class="profile-subtabs">
+        <button class="meal-tab active" onclick="switchProfileTab('interests', this)"><i class="bi bi-stars" style="margin-right:5px;"></i>Interests</button>
+        <button class="meal-tab" onclick="switchProfileTab('hobbies', this)"><i class="bi bi-controller" style="margin-right:5px;"></i>Hobbies</button>
+        <button class="meal-tab" onclick="switchProfileTab('food', this)"><i class="bi bi-cup-hot-fill" style="margin-right:5px;"></i>Food & Taste</button>
+      </div>
+
+      <!-- INTERESTS PANEL -->
+      <div id="ptab-interests" class="profile-tab-panel active">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-stars"></i></div>
+            <div>
+              <div class="card-title">Your Interests</div>
+              <div class="card-sub">Click to toggle · ANN uses these to personalise suggestions</div>
+            </div>
+            <button class="btn btn-ghost" style="margin-left:auto; font-size:11px; padding:6px 12px;" onclick="addTag()">+ Add</button>
+          </div>
+          <div class="card-body">
+            <div class="profile-section-label">Active Interests</div>
+            <div class="profile-tags" id="profile-tags" style="margin-bottom:16px;">
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">📈 Stocks & Trading</span>
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">💻 Software Dev</span>
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">✈️ Travel</span>
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">💰 Finance</span>
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">🏋️ Fitness</span>
+              <span class="profile-tag tag-inactive" onclick="toggleTag(this)">🎵 Music</span>
+              <span class="profile-tag tag-inactive" onclick="toggleTag(this)">📸 Photography</span>
+              <span class="profile-tag tag-inactive" onclick="toggleTag(this)">🎮 Gaming</span>
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">📚 Finance Books</span>
+              <span class="profile-tag tag-active" onclick="toggleTag(this)">🌍 World Affairs</span>
+              <span class="profile-tag tag-add" onclick="addTag()">+ Add</span>
+            </div>
+            <div class="profile-section-label">ANN Personalisation</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;">
+              <div style="padding:12px;background:var(--blue-light);border-radius:10px;border:1px solid rgba(44,74,124,0.15);">
+                <div style="font-size:10px;font-family:'DM Mono',monospace;color:#1a3260;letter-spacing:1px;margin-bottom:4px;">FINANCE ALERTS</div>
+                <div style="font-size:12px;color:#1a3260;">Stock market summaries, budgeting tips, HMRC updates</div>
+              </div>
+              <div style="padding:12px;background:var(--green-light);border-radius:10px;border:1px solid rgba(22,101,52,0.15);">
+                <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--green);letter-spacing:1px;margin-bottom:4px;">TRIP SUGGESTIONS</div>
+                <div style="font-size:12px;color:var(--green);">Destinations based on travel & food preferences</div>
+              </div>
+              <div style="padding:12px;background:var(--amber-light);border-radius:10px;border:1px solid rgba(146,64,14,0.15);">
+                <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--amber);letter-spacing:1px;margin-bottom:4px;">MEAL IDEAS</div>
+                <div style="font-size:12px;color:var(--amber);">Recipe suggestions matched to your taste preferences</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOBBIES PANEL -->
+      <div id="ptab-hobbies" class="profile-tab-panel">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--purple-light);"><i class="bi bi-controller"></i></div>
+            <div>
+              <div class="card-title">Hobbies & Activities</div>
+              <div class="card-sub">Track how you spend your time</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="profile-section-label">Active Hobbies</div>
+            <div class="hobby-grid" style="margin-bottom:20px;">
+              <div class="hobby-item active" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">🏋️</span>
+                <div><div class="hobby-name">Gym / Fitness</div><div class="hobby-freq">4x per week</div></div>
+              </div>
+              <div class="hobby-item active" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">💻</span>
+                <div><div class="hobby-name">Coding</div><div class="hobby-freq">Daily</div></div>
+              </div>
+              <div class="hobby-item active" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">📚</span>
+                <div><div class="hobby-name">Reading</div><div class="hobby-freq">Evenings</div></div>
+              </div>
+              <div class="hobby-item" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">🎮</span>
+                <div><div class="hobby-name">Gaming</div><div class="hobby-freq">Weekends</div></div>
+              </div>
+              <div class="hobby-item active" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">☕</span>
+                <div><div class="hobby-name">Coffee Culture</div><div class="hobby-freq">Daily</div></div>
+              </div>
+              <div class="hobby-item" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">🎵</span>
+                <div><div class="hobby-name">Music</div><div class="hobby-freq">Occasional</div></div>
+              </div>
+              <div class="hobby-item active" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">✈️</span>
+                <div><div class="hobby-name">Travel</div><div class="hobby-freq">Monthly</div></div>
+              </div>
+              <div class="hobby-item" onclick="this.classList.toggle('active')">
+                <span class="hobby-icon">🧗</span>
+                <div><div class="hobby-name">Climbing</div><div class="hobby-freq">Occasional</div></div>
+              </div>
+            </div>
+            <div class="profile-section-label">Upcoming Hobby Events</div>
+            <div class="event-item"><div class="event-time-col"><div class="event-time">25 Jun</div><div class="event-bar" style="background:#10b981;"></div></div><div class="event-info"><div class="event-name">Glastonbury Festival</div><div class="event-detail">Music · 5 days · Ticket in Wallet</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOD & TASTE PANEL -->
+      <div id="ptab-food" class="profile-tab-panel">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-cup-hot-fill"></i></div>
+              <div>
+                <div class="card-title">Cuisine Preferences</div>
+                <div class="card-sub">Used for meal planning & restaurant suggestions</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="food-pref-grid">
+                <div class="food-pref-item selected" onclick="this.classList.toggle('selected')">
+                  <span class="food-pref-icon">🍜</span>
+                  <div><div class="food-pref-name">Asian</div><div class="food-pref-sub">Favourite</div></div>
+                </div>
+                <div class="food-pref-item selected" onclick="this.classList.toggle('selected')">
+                  <span class="food-pref-icon">🍕</span>
+                  <div><div class="food-pref-name">Italian</div><div class="food-pref-sub">Weekly</div></div>
+                </div>
+                <div class="food-pref-item selected" onclick="this.classList.toggle('selected')">
+                  <span class="food-pref-icon">🌮</span>
+                  <div><div class="food-pref-name">Mexican</div><div class="food-pref-sub">Monthly</div></div>
+                </div>
+                <div class="food-pref-item" onclick="this.classList.toggle('selected')">
+                  <span class="food-pref-icon">🥘</span>
+                  <div><div class="food-pref-name">Mediterranean</div><div class="food-pref-sub">Occasional</div></div>
+                </div>
+                <div class="food-pref-item selected" onclick="this.classList.toggle('selected')">
+                  <span class="food-pref-icon">🍱</span>
+                  <div><div class="food-pref-name">Japanese</div><div class="food-pref-sub">Favourite</div></div>
+                </div>
+                <div class="food-pref-item" onclick="this.classList.toggle('selected')">
+                  <span class="food-pref-icon">🫕</span>
+                  <div><div class="food-pref-name">Indian</div><div class="food-pref-sub">Monthly</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-heart-fill"></i></div>
+              <div>
+                <div class="card-title">Dietary Preferences</div>
+                <div class="card-sub">Affects meal planning & shopping lists</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="profile-section-label">Dietary Tags</div>
+              <div class="profile-tags" style="margin-bottom:16px;">
+                <span class="profile-tag tag-active" onclick="toggleTag(this)">High Protein</span>
+                <span class="profile-tag tag-active" onclick="toggleTag(this)">Low Carb</span>
+                <span class="profile-tag tag-inactive" onclick="toggleTag(this)">Vegetarian</span>
+                <span class="profile-tag tag-inactive" onclick="toggleTag(this)">Vegan</span>
+                <span class="profile-tag tag-active" onclick="toggleTag(this)">Gluten-free options</span>
+                <span class="profile-tag tag-inactive" onclick="toggleTag(this)">Dairy-free</span>
+                <span class="profile-tag tag-add" onclick="addTag()">+ Add</span>
+              </div>
+              <div class="profile-section-label">Allergies & Avoidances</div>
+              <div style="padding:10px 12px;background:var(--red-light);border-radius:8px;border-left:3px solid var(--red);">
+                <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--red);letter-spacing:1px;margin-bottom:4px;"><i class="bi bi-exclamation-triangle-fill" style="margin-right:4px;"></i>NONE RECORDED</div>
+                <div style="font-size:12px;color:var(--red);">Add any allergies or foods to avoid</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="grid-column:1/-1;">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-bar-chart-fill"></i></div>
+              <div>
+                <div class="card-title">Top Foods This Month</div>
+                <div class="card-sub">From Tesco receipts & meal planner</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;">
+                <div style="padding:10px;background:var(--surface2);border-radius:8px;text-align:center;">
+                  <div style="font-size:24px;margin-bottom:4px;">🥚</div>
+                  <div style="font-size:11px;font-weight:700;color:var(--ink);">Eggs</div>
+                  <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">12 this month</div>
+                </div>
+                <div style="padding:10px;background:var(--surface2);border-radius:8px;text-align:center;">
+                  <div style="font-size:24px;margin-bottom:4px;">🍚</div>
+                  <div style="font-size:11px;font-weight:700;color:var(--ink);">Rice</div>
+                  <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">4 packs</div>
+                </div>
+                <div style="padding:10px;background:var(--surface2);border-radius:8px;text-align:center;">
+                  <div style="font-size:24px;margin-bottom:4px;">☕</div>
+                  <div style="font-size:11px;font-weight:700;color:var(--ink);">Coffee</div>
+                  <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">500g beans</div>
+                </div>
+                <div style="padding:10px;background:var(--surface2);border-radius:8px;text-align:center;">
+                  <div style="font-size:24px;margin-bottom:4px;">🍗</div>
+                  <div style="font-size:11px;font-weight:700;color:var(--ink);">Chicken</div>
+                  <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">3 packs</div>
+                </div>
+                <div style="padding:10px;background:var(--surface2);border-radius:8px;text-align:center;">
+                  <div style="font-size:24px;margin-bottom:4px;">🥑</div>
+                  <div style="font-size:11px;font-weight:700;color:var(--ink);">Avocado</div>
+                  <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">8 this month</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2682,24 +3313,26 @@ body::after {
   </div>
   <div class="sidebar-nav">
     <div class="nav-section-label">Overview</div>
-    <div class="nav-item" onclick="navigateMobile('dashboard', this)"><span class="nav-icon">⊞</span> Dashboard</div>
-    <div class="nav-item" onclick="navigateMobile('calendar', this)"><span class="nav-icon">◫</span> Calendar<span class="nav-badge">3</span></div>
-    <div class="nav-item" onclick="navigateMobile('tasks', this)"><span class="nav-icon">✓</span> Tasks<span class="nav-badge">5</span></div>
+    <div class="nav-item" onclick="navigateMobile('dashboard', this)"><span class="nav-icon"><i class="bi bi-grid-fill"></i></span> Dashboard</div>
+    <div class="nav-item" onclick="navigateMobile('calendar', this)"><span class="nav-icon"><i class="bi bi-calendar3"></i></span> Calendar<span class="nav-badge">3</span></div>
+    <div class="nav-item" onclick="navigateMobile('tasks', this)"><span class="nav-icon"><i class="bi bi-check2-square"></i></span> Tasks<span class="nav-badge">5</span></div>
+    <div class="nav-item" onclick="navigateMobile('meetings', this)"><span class="nav-icon"><i class="bi bi-camera-video-fill"></i></span> Meetings<span class="nav-badge">2</span></div>
     <div class="nav-section-label">Communications</div>
-    <div class="nav-item" onclick="navigateMobile('emails', this)"><span class="nav-icon">✉</span> Emails<span class="nav-badge">4</span></div>
-    <div class="nav-item" onclick="navigateMobile('calls', this)"><span class="nav-icon">☎</span> Calls</div>
-    <div class="nav-item" onclick="navigateMobile('wallet', this)"><span class="nav-icon">◈</span> Wallet</div>
+    <div class="nav-item" onclick="navigateMobile('emails', this)"><span class="nav-icon"><i class="bi bi-envelope-fill"></i></span> Emails<span class="nav-badge">4</span></div>
+    <div class="nav-item" onclick="navigateMobile('calls', this)"><span class="nav-icon"><i class="bi bi-telephone-fill"></i></span> Calls</div>
+    <div class="nav-item" onclick="navigateMobile('wallet', this)"><span class="nav-icon"><i class="bi bi-wallet2"></i></span> Wallet</div>
     <div class="nav-section-label">Finance</div>
-    <div class="nav-item" onclick="navigateMobile('budget', this)"><span class="nav-icon">◉</span> Budget</div>
-    <div class="nav-item" onclick="navigateMobile('bills', this)"><span class="nav-icon">⚑</span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
-    <div class="nav-item" onclick="navigateMobile('categorisation', this)"><span class="nav-icon">⊛</span> Categorisation</div>
-    <div class="nav-item" onclick="navigateMobile('vat', this)"><span class="nav-icon">◧</span> VAT Return</div>
-    <div class="nav-item" onclick="navigateMobile('tax', this)"><span class="nav-icon">◨</span> Tax Return</div>
+    <div class="nav-item" onclick="navigateMobile('budget', this)"><span class="nav-icon"><i class="bi bi-pie-chart-fill"></i></span> Budget</div>
+    <div class="nav-item" onclick="navigateMobile('bills', this)"><span class="nav-icon"><i class="bi bi-receipt"></i></span> Bills<span class="nav-badge" style="background:var(--red)">!</span></div>
+    <div class="nav-item" onclick="navigateMobile('categorisation', this)"><span class="nav-icon"><i class="bi bi-tags-fill"></i></span> Categorisation</div>
+    <div class="nav-item" onclick="navigateMobile('vat', this)"><span class="nav-icon"><i class="bi bi-file-earmark-spreadsheet-fill"></i></span> VAT Return</div>
+    <div class="nav-item" onclick="navigateMobile('tax', this)"><span class="nav-icon"><i class="bi bi-calculator-fill"></i></span> Tax Return</div>
     <div class="nav-section-label">Lifestyle</div>
-    <div class="nav-item" onclick="navigateMobile('inventory', this)"><span class="nav-icon">⊟</span> Inventory</div>
-    <div class="nav-item" onclick="navigateMobile('meals', this)"><span class="nav-icon">⊕</span> Meals</div>
-    <div class="nav-item" onclick="navigateMobile('trips', this)"><span class="nav-icon">◎</span> Trips</div>
-    <div class="nav-item" onclick="navigateMobile('parcels', this)"><span class="nav-icon">⊡</span> Parcels<span class="nav-badge">2</span></div>
+    <div class="nav-item" onclick="navigateMobile('profile', this)"><span class="nav-icon"><i class="bi bi-person-fill"></i></span> Profile</div>
+    <div class="nav-item" onclick="navigateMobile('inventory', this)"><span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span> Inventory</div>
+    <div class="nav-item" onclick="navigateMobile('meals', this)"><span class="nav-icon"><i class="bi bi-cup-hot-fill"></i></span> Meals</div>
+    <div class="nav-item" onclick="navigateMobile('trips', this)"><span class="nav-icon"><i class="bi bi-globe2"></i></span> Trips</div>
+    <div class="nav-item" onclick="navigateMobile('parcels', this)"><span class="nav-icon"><i class="bi bi-truck"></i></span> Parcels<span class="nav-badge">2</span></div>
   </div>
   <div class="sidebar-profile">
     <div class="profile-avatar">O</div>
@@ -2714,25 +3347,29 @@ body::after {
 <nav class="mobile-nav">
   <div class="mobile-nav-inner">
     <div class="mobile-nav-btn active" id="mnav-dashboard" onclick="navigateMobileBottom('dashboard', this)">
-      <span class="mobile-nav-icon">⊞</span>
+      <span class="mobile-nav-icon"><i class="bi bi-grid-fill"></i></span>
       <span>Home</span>
     </div>
     <div class="mobile-nav-btn" id="mnav-emails" onclick="navigateMobileBottom('emails', this)">
-      <span class="mobile-nav-icon">✉</span>
+      <span class="mobile-nav-icon"><i class="bi bi-envelope-fill"></i></span>
       <span>Emails</span>
       <div class="mobile-nav-badge">4</div>
     </div>
     <div class="mobile-nav-btn" id="mnav-budget" onclick="navigateMobileBottom('budget', this)">
-      <span class="mobile-nav-icon">◉</span>
+      <span class="mobile-nav-icon"><i class="bi bi-pie-chart-fill"></i></span>
       <span>Budget</span>
     </div>
     <div class="mobile-nav-btn" id="mnav-tasks" onclick="navigateMobileBottom('tasks', this)">
-      <span class="mobile-nav-icon">✓</span>
+      <span class="mobile-nav-icon"><i class="bi bi-check2-square"></i></span>
       <span>Tasks</span>
       <div class="mobile-nav-badge">5</div>
     </div>
+    <div class="mobile-nav-btn" id="mnav-profile" onclick="navigateMobileBottom('profile', this)">
+      <span class="mobile-nav-icon"><i class="bi bi-person-fill"></i></span>
+      <span>Profile</span>
+    </div>
     <div class="mobile-nav-btn" id="mnav-more" onclick="toggleDrawer()">
-      <span class="mobile-nav-icon">☰</span>
+      <span class="mobile-nav-icon"><i class="bi bi-list"></i></span>
       <span>More</span>
     </div>
   </div>
@@ -2747,10 +3384,10 @@ body::after {
 
     <!-- Hero -->
     <div class="trip-modal-hero">
-      <button class="trip-modal-close-btn" onclick="closeTripPlanner()">✕</button>
+      <button class="trip-modal-close-btn" onclick="closeTripPlanner()"><i class="bi bi-x-lg"></i></button>
       <div class="trip-modal-hero-text">
         <h2>New York City</h2>
-        <p>TRIP PLANNER · POWERED BY ANN </p>
+        <p>TRIP PLANNER · POWERED BY ANN AI</p>
       </div>
     </div>
 
@@ -2813,14 +3450,14 @@ body::after {
       </div>
       <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:10px;margin-top:4px;">INTERESTS (from your profile)</div>
       <div class="pref-chips" id="pref-chips">
-        <div class="pref-chip selected" onclick="toggleChip(this)">Finance & Business</div>
-        <div class="pref-chip selected" onclick="toggleChip(this)">Asian Cuisine</div>
-        <div class="pref-chip selected" onclick="toggleChip(this)">Coffee Shops</div>
-        <div class="pref-chip selected" onclick="toggleChip(this)">Tech Culture</div>
-        <div class="pref-chip" onclick="toggleChip(this)">Art & Museums</div>
-        <div class="pref-chip" onclick="toggleChip(this)">Architecture</div>
-        <div class="pref-chip" onclick="toggleChip(this)">Broadway</div>
-        <div class="pref-chip" onclick="toggleChip(this)">Fitness</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">📈 Finance & Business</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">🍜 Asian Cuisine</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">☕ Coffee Shops</div>
+        <div class="pref-chip selected" onclick="toggleChip(this)">💻 Tech Culture</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🎨 Art & Museums</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🏙 Architecture</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🎭 Broadway</div>
+        <div class="pref-chip" onclick="toggleChip(this)">🏋️ Fitness</div>
       </div>
       <div style="padding:12px 14px;background:var(--blue-light);border-radius:8px;font-size:11px;color:#1a3260;font-family:'DM Mono',monospace;line-height:1.5;">
         ✦ ANN will generate a personalised itinerary, flight options, and hotel suggestions based on your selections and taste profile.
@@ -3045,11 +3682,11 @@ body::after {
           <span style="font-family:'DM Mono',monospace;font-weight:700;">£349</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);font-size:13px;">
-          <span style="font-weight:600;">Hotel · 5 nights</span>
+          <span style="font-weight:600;">🏨 Hotel · 5 nights</span>
           <span style="font-family:'DM Mono',monospace;font-weight:700;">£945</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);font-size:13px;">
-          <span style="font-weight:600;">Est. activities & food</span>
+          <span style="font-weight:600;">🗺 Est. activities & food</span>
           <span style="font-family:'DM Mono',monospace;font-weight:700;">~£420</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:12px 14px;background:#1e3560;border-radius:8px;font-size:14px;color:white;">
@@ -3097,7 +3734,7 @@ body::after {
         <div style="font-size:13px;font-weight:700;color:var(--ink);">Tesco Superstore</div>
         <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);">Receipt · 27 Feb 2026 · £47.83</div>
       </div>
-      <button class="receipt-modal-close" onclick="closeReceiptBtn()">✕</button>
+      <button class="receipt-modal-close" onclick="closeReceiptBtn()"><i class="bi bi-x-lg"></i></button>
     </div>
     <div class="receipt-body">
       <div class="receipt-paper">
@@ -3177,6 +3814,8 @@ const views = {
   trips: { title: 'Trip Planning', sub: 'Suggestions based on your interests', btn: 'Plan New Trip' },
   parcels: { title: 'Parcels', sub: 'Auto-tracked from emails · AfterShip', btn: 'Add Tracking' },
   calendar: { title: 'Calendar', sub: 'Events from emails & calls', btn: '+ Add Event' },
+  meetings: { title: 'Meetings', sub: 'Synced from Calendar · Mon 2 Mar 2026', btn: '+ Schedule' },
+  profile: { title: 'Taste Profile', sub: 'Interests, hobbies & food preferences', btn: 'Edit Profile' },
 };
 
 function navigate(view, el) {
@@ -3192,6 +3831,13 @@ function navigate(view, el) {
   if (view === 'meals') renderPlannerGrid();
 }
 
+function switchProfileTab(tab, btn) {
+  document.querySelectorAll('.profile-tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.profile-subtabs .meal-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('ptab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
 function handleAction() {
   const btn = document.getElementById('action-btn').textContent;
   const msgs = {
@@ -3205,7 +3851,7 @@ function handleAction() {
     'Regenerate': '🤖 Claude regenerating meal plan...',
     'Plan New Trip': '✈ Starting trip planner...',
     'Add Tracking': '📦 Enter tracking number',
-    '+ Add Event': '◫ Create a new calendar event',
+    '+ Add Event': 'Create a new calendar event',
   };
   if (btn === '+ Add Task') {
     navigate('tasks', document.querySelectorAll('.nav-item')[2]);
@@ -3219,10 +3865,10 @@ function toggleTask(el) {
   const check = el.querySelector('.task-check');
   const text = el.querySelector('.task-text');
   if (check.classList.contains('done')) {
-    check.classList.remove('done'); check.textContent = ''; text.classList.remove('done');
+    check.classList.remove('done'); check.innerHTML = ''; text.classList.remove('done');
   } else {
-    check.classList.add('done'); check.textContent = '✓'; text.classList.add('done');
-    showToast('✓ Task completed');
+    check.classList.add('done'); check.innerHTML = '<i class="bi bi-check-lg"></i>'; text.classList.add('done');
+    showToast('Task completed');
   }
 }
 
@@ -3237,7 +3883,7 @@ function addNewTask() {
   item.innerHTML = `<div class="task-check"></div><div class="task-text">${val}</div><div class="task-source">manual</div>`;
   list.appendChild(item);
   input.value = '';
-  showToast('✓ Task added');
+  showToast('Task added');
 }
 
 function toggleTag(el) {
@@ -3246,7 +3892,7 @@ function toggleTag(el) {
   } else if (el.classList.contains('tag-inactive')) {
     el.classList.remove('tag-inactive'); el.classList.add('tag-active');
   }
-  showToast('✦ Profile updated');
+  showToast('Profile updated');
 }
 
 function addTag() {
@@ -3259,7 +3905,7 @@ function addTag() {
   tag.textContent = name;
   tag.onclick = function() { toggleTag(this); };
   tags.insertBefore(tag, addBtn);
-  showToast('✦ Interest added to profile');
+  showToast('Interest added to profile');
 }
 
 function toggleNotif() {
@@ -3427,6 +4073,7 @@ const mobileBottomMap = {
   emails: 'mnav-emails',
   budget: 'mnav-budget',
   tasks: 'mnav-tasks',
+  profile: 'mnav-profile',
 };
 
 function navigateMobile(view, el) {
@@ -3578,7 +4225,7 @@ function renderSlot(day, type) {
   const isSnack = type === 'snack';
   if (meal) {
     return `<div class="meal-slot filled ${isSnack ? 'snack-slot' : ''}" onclick="openMealSlot('${day}','${type}')">
-      <button class="slot-clear-btn" onclick="event.stopPropagation();clearSlotDirect('${day}','${type}')">✕</button>
+      <button class="slot-clear-btn" onclick="event.stopPropagation();clearSlotDirect('${day}','${type}')"><i class="bi bi-x-lg"></i></button>
       <div class="slot-label">${SLOT_ICONS[type]} ${type}</div>
       <div class="slot-emoji">${meal.emoji}</div>
       <div class="slot-name">${meal.name}</div>
@@ -3831,7 +4478,180 @@ function deleteRecipe() {
 }
 
 // Init planner on load
-document.addEventListener('DOMContentLoaded', () => { renderPlannerGrid(); });
+document.addEventListener('DOMContentLoaded', () => { renderPlannerGrid(); selectMeeting('standup'); });
+
+// ── ASK ANN ──
+const annResponses = {
+  'how much have i spent this month': '💰 You\'ve spent <strong>£1,842</strong> this month against a £2,500 budget — <strong>74% used</strong> with 1 day remaining in February. Biggest categories: Housing £780, Food £340, Shopping £312. You\'re £120 under on food vs last month.',
+  'what\'s my next meeting': 'Your next meeting is the <strong>Q1 Management Review</strong> at 11:00 today (1h) — starting in 2 hours. 8 attendees. ANN has prepared a briefing with your Q4 spend data and outstanding tasks.',
+  'what meals can i make tonight': '🍜 Based on your inventory, you can make: <strong>Garlic Egg Fried Rice</strong> (rice, eggs, garlic, olive oil — all in stock), <strong>Spaghetti Aglio e Olio</strong> (pasta low stock — check), or <strong>Scrambled Eggs on Toast</strong> (bread running low). Recommend egg fried rice.',
+  'summarise my emails today': '✉ <strong>3 emails today:</strong> HMRC chasing self-assessment (overdue — task already added), Netflix confirming price rise to £13.99 from 15 Mar (bill alert created), ASOS order dispatched (parcel tracking active, arriving today).',
+};
+
+function annAsk(el) {
+  const q = el.textContent;
+  document.getElementById('ann-ask-input').value = q;
+  annAskInput();
+}
+
+function annAskInput() {
+  const input = document.getElementById('ann-ask-input');
+  const q = input.value.trim();
+  if (!q) return;
+  const resp = document.getElementById('ann-response');
+  resp.style.display = 'block';
+  resp.innerHTML = '<div class="ann-thinking"><span></span><span></span><span></span></div>';
+  const key = q.toLowerCase().replace(/[?!.]/g, '');
+  const answer = annResponses[key] || `✦ Based on your data: I found information related to "<em>${q}</em>". Cross-referencing your emails, transactions, calendar and inventory now. For a full answer, this would query your connected accounts in real-time.`;
+  setTimeout(() => {
+    resp.innerHTML = answer;
+    input.value = '';
+  }, 900);
+}
+
+// ── MEETINGS ──
+const meetingData = {
+  standup: {
+    title: 'Daily Standup',
+    sub: '09:00 – 09:30 · Mon 2 Mar · 4 attendees',
+    icon: '📋',
+    badge: 'Live Now',
+    badgeStyle: 'status-transit',
+    attendees: ['Sarah Mitchell · Senior Accountant', 'James K. · Management Accountant', 'Rachel T. · Finance Analyst'],
+    agenda: ['Quick wins from last week', 'Blockers & priorities for today', 'Q1 review prep — James to lead', 'Any other business'],
+    notes: 'Q1 Management Review prep is top priority today. James has the deck — confirm by 10:30.',
+    joinSub: 'Live now · 4 participants · Started 09:00',
+  },
+  quarterly: {
+    title: 'Q1 Management Review',
+    sub: '11:00 – 12:00 · Mon 2 Mar · 8 attendees',
+    icon: '📊',
+    badge: 'In 2h',
+    badgeStyle: 'status-processing',
+    attendees: ['David Chen · Finance Director', 'Sarah Mitchell', 'James K.', 'Rachel T.', '+ 4 others'],
+    agenda: ['Q4 2025 P&L review', 'Budget vs actuals — February', 'VAT return status (overdue)', 'Q1 2026 forecast', 'Headcount & contractor review'],
+    notes: 'ANN summary: Your Feb spend was £1,842 vs £2,500 budget (74%). VAT return is overdue — flag this. Outstanding tasks include tax self-assessment.',
+    joinSub: 'Starting in 2 hours · Link ready · 8 participants',
+  },
+  aat: {
+    title: 'AAT Revision Session',
+    sub: '14:00 – 14:45 · Mon 2 Mar · 3 attendees',
+    icon: '📚',
+    badge: 'In 5h',
+    badgeStyle: 'status-processing',
+    attendees: ['Tom Brady · AAT Tutor', 'Priya S. · Fellow Apprentice'],
+    agenda: ['Double-entry bookkeeping recap', 'Trial balance exercise', 'Practice exam walkthrough — Unit 2', 'Q&A on payroll concepts'],
+    notes: 'Focus area this week: Control accounts and reconciliation. Tom mentioned a mock exam next Monday — review chapters 4–6 beforehand.',
+    joinSub: 'Starting in 5 hours · Link ready',
+  },
+};
+
+let activeMeeting = 'standup';
+
+function selectMeeting(id) {
+  activeMeeting = id;
+  const m = meetingData[id];
+  // Update list highlight
+  document.querySelectorAll('.meeting-item').forEach(el => el.classList.remove('active-meeting'));
+  const mitem = document.getElementById('mitem-' + id);
+  if (mitem) { mitem.classList.add('active-meeting'); }
+  // Update detail panel
+  document.getElementById('meet-icon').textContent = m.icon;
+  document.getElementById('meet-title').textContent = m.title;
+  document.getElementById('meet-sub').textContent = m.sub;
+  const badge = document.getElementById('meet-badge');
+  badge.textContent = m.badge;
+  badge.className = 'status-pill ' + m.badgeStyle;
+  badge.style.marginLeft = 'auto';
+  document.getElementById('meet-join-sub').textContent = m.joinSub;
+  // Update call title
+  document.getElementById('call-title-bar').textContent = m.title + ' · 00:00';
+  // Render briefing
+  document.getElementById('meet-briefing-body').innerHTML = `
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:8px;">ATTENDEES</div>
+      ${m.attendees.map(a => `<div class="briefing-item"><div class="briefing-dot" style="background:#2c4a7c;"></div><div><div style="font-size:12px;font-weight:600;color:var(--ink);">${a}</div></div></div>`).join('')}
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:8px;">AGENDA</div>
+      ${m.agenda.map((a,i) => `<div class="briefing-item"><div class="briefing-dot" style="background:#10b981;"></div><div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);margin-right:8px;">${i+1}.</span><span style="font-size:12px;color:var(--ink2);">${a}</span></div></div>`).join('')}
+    </div>
+    <div style="padding:10px 12px;background:var(--blue-light);border-radius:8px;border-left:3px solid #2c4a7c;">
+      <div style="font-size:9px;font-family:'DM Mono',monospace;color:#1a3260;letter-spacing:1px;margin-bottom:4px;"><i class="bi bi-stars"></i> ANN BRIEFING NOTE</div>
+      <div style="font-size:12px;color:#1a3260;line-height:1.5;">${m.notes}</div>
+    </div>`;
+}
+
+function joinMeeting() {
+  document.getElementById('call-modal').classList.add('open');
+  startCallTimer();
+}
+
+function leaveCall() {
+  document.getElementById('call-modal').classList.remove('open');
+  clearInterval(callTimer);
+  callSeconds = 0;
+  showToast('👋 Left ' + meetingData[activeMeeting].title);
+}
+
+let callTimer, callSeconds = 0;
+function startCallTimer() {
+  callSeconds = 0;
+  clearInterval(callTimer);
+  callTimer = setInterval(() => {
+    callSeconds++;
+    const m = String(Math.floor(callSeconds/60)).padStart(2,'0');
+    const s = String(callSeconds%60).padStart(2,'0');
+    const bar = document.getElementById('call-title-bar');
+    if (bar) bar.textContent = meetingData[activeMeeting].title + ' · ' + m + ':' + s;
+  }, 1000);
+}
+
+function toggleCallCtrl(btn, type) {
+  btn.classList.toggle('muted');
+  if (type === 'cam') {
+    const icon = document.getElementById('your-cam-icon');
+    if (icon) icon.style.display = btn.classList.contains('muted') ? 'block' : 'none';
+    btn.innerHTML = '<i class="bi bi-camera-video' + (btn.classList.contains('muted') ? '-off' : '') + '-fill"></i>';
+    showToast(btn.classList.contains('muted') ? 'Camera off' : 'Camera on');
+  }
+  if (type === 'mic') showToast(btn.classList.contains('muted') ? 'Muted' : 'Unmuted');
+}
+
+function toggleMeetCtrl(btn, type) {
+  btn.classList.toggle('active');
+  const labels = {
+    cam: ['<i class="bi bi-camera-video-off-fill"></i> Cam Off', '<i class="bi bi-camera-video-fill"></i> Cam On'],
+    mic: ['<i class="bi bi-mic-mute-fill"></i> Mic Off', '<i class="bi bi-mic-fill"></i> Mic On'],
+    blur: ['<i class="bi bi-eye-slash"></i> Blur On', '<i class="bi bi-eye"></i> Blur Off']
+  };
+  btn.innerHTML = btn.classList.contains('active') ? labels[type][1] : labels[type][0];
+}
+
+let chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const panel = document.getElementById('call-chat');
+  panel.style.display = chatOpen ? 'flex' : 'none';
+  panel.style.flexDirection = 'column';
+}
+
+function sendChatMsg() {
+  const inp = document.getElementById('chat-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  const container = document.getElementById('chat-messages');
+  const el = document.createElement('div');
+  el.className = 'chat-msg';
+  el.innerHTML = `<span class="chat-who">You</span><span class="chat-text">${text}</span>`;
+  container.appendChild(el);
+  container.scrollTop = container.scrollHeight;
+  inp.value = '';
+}
+
+function sendReaction() {
+  showToast('✋ Reaction sent');
+}
 </script>
 
 </body>
