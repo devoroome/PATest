@@ -123,6 +123,7 @@ body::after {
 .sidebar-nav {
   padding: 16px 12px; flex: 1;
   display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto;
 }
 
 .nav-section-label {
@@ -2166,6 +2167,91 @@ body::after {
 .payslip-detail-lbl { color:var(--ink2); }
 .payslip-detail-val { font-family:'DM Mono',monospace; color:var(--ink); font-weight:600; }
 .payslip-detail-val.deduction { color:var(--red); }
+
+/* ── Warranty Tracker ───────────────────────────────── */
+.warranty-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+.warranty-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; text-align:center; }
+.warranty-stat-val { font-size:22px; font-weight:800; line-height:1; }
+.warranty-stat-lbl { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); margin-top:3px; text-transform:uppercase; }
+.warranty-table { width:100%; border-collapse:collapse; }
+.warranty-table th { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; letter-spacing:.5px; padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+.warranty-table td { padding:10px; border-bottom:1px solid var(--border); font-size:12.5px; color:var(--ink); vertical-align:middle; }
+.warranty-table tr:last-child td { border-bottom:none; }
+.warranty-table tbody tr:hover td { background:var(--bg2); }
+.warranty-status { font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px; white-space:nowrap; display:inline-block; }
+.warranty-status.ok { background:var(--green-light); color:var(--green); }
+.warranty-status.soon { background:var(--amber-light); color:var(--amber); }
+.warranty-status.expired { background:var(--red-light); color:var(--red); }
+
+/* ── Car Maintenance ────────────────────────────────── */
+.car-status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+.car-status-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.car-status-label { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.car-status-val { font-size:18px; font-weight:800; color:var(--ink); line-height:1.1; }
+.car-status-sub { font-size:11px; color:var(--ink3); margin-top:4px; }
+.service-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
+.service-row:last-child { border-bottom:none; }
+.service-icon { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.service-info { flex:1; min-width:0; }
+.service-type { font-size:13px; font-weight:600; color:var(--ink); }
+.service-date { font-size:10.5px; font-family:'DM Mono',monospace; color:var(--ink3); margin-top:2px; }
+.service-cost { font-size:12px; font-family:'DM Mono',monospace; color:var(--ink); font-weight:700; white-space:nowrap; }
+@media (max-width:600px) { .car-status-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:400px) { .car-status-grid { grid-template-columns:1fr; } }
+
+/* ── Document Vault ─────────────────────────────────── */
+.vault-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(185px,1fr)); gap:14px; }
+.vault-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:8px; cursor:pointer; transition:all .15s; }
+.vault-card:hover { border-color:#2c4a7c; transform:translateY(-1px); }
+.vault-icon { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.vault-doc-name { font-size:13px; font-weight:700; color:var(--ink); }
+.vault-doc-meta { font-size:10.5px; font-family:'DM Mono',monospace; color:var(--ink3); }
+.vault-doc-expiry { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; align-self:flex-start; }
+.vault-secure { font-size:9.5px; font-family:'DM Mono',monospace; color:var(--green); display:flex; align-items:center; gap:3px; margin-top:auto; }
+@media (max-width:500px) { .vault-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:360px) { .vault-grid { grid-template-columns:1fr; } }
+
+/* ── Bill Splitter ──────────────────────────────────── */
+.split-people-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; align-items:center; }
+.split-person-chip { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:5px 12px; font-size:12px; font-weight:600; color:var(--ink); }
+.split-person-av { width:22px; height:22px; border-radius:50%; background:#2c4a7c; color:#fff; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; flex-shrink:0; }
+.split-table { width:100%; border-collapse:collapse; }
+.split-table th { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; letter-spacing:.5px; padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+.split-table td { padding:10px; border-bottom:1px solid var(--border); font-size:12.5px; color:var(--ink); vertical-align:middle; }
+.split-table tr:last-child td { border-bottom:none; }
+.split-owe { color:var(--red); font-weight:700; font-family:'DM Mono',monospace; }
+.split-owing { color:var(--green); font-weight:700; font-family:'DM Mono',monospace; }
+.split-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; display:inline-block; }
+.split-tag.pending { background:var(--amber-light); color:var(--amber); }
+.split-tag.settled { background:var(--green-light); color:var(--green); }
+
+/* ── Stocks P&L + Dividends tabs ────────────────────── */
+.stock-right-wrap { display:flex; flex-direction:column; overflow:hidden; min-height:0; }
+.stock-tab-bar { display:flex; padding:0 16px; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0; }
+.stock-tab { padding:12px 14px; font-size:12px; font-weight:700; font-family:'Raleway',sans-serif; border:none; background:transparent; color:var(--ink3); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:all .15s; }
+.stock-tab.active { color:#2c4a7c; border-bottom-color:#2c4a7c; }
+.stock-tab:hover:not(.active) { color:var(--ink); }
+.stock-tab-content { display:none; flex:1; min-height:0; overflow-y:auto; flex-direction:column; }
+.stock-tab-content.active { display:flex; }
+#stab-watchlist.active { overflow:hidden; }
+#stab-watchlist .stock-detail { flex:1; min-height:0; }
+.pnl-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.pnl-box { background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:12px 14px; }
+.pnl-box-lbl { font-size:9.5px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; margin-bottom:4px; }
+.pnl-box-val { font-size:16px; font-weight:800; color:var(--ink); line-height:1.1; }
+.pnl-table { width:100%; border-collapse:collapse; }
+.pnl-table th { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; letter-spacing:.4px; }
+.pnl-table td { padding:10px; border-bottom:1px solid var(--border); font-size:12.5px; color:var(--ink); vertical-align:middle; }
+.pnl-table tr:last-child td { border-bottom:none; }
+.pnl-table tbody tr:hover td { background:var(--bg2); }
+.pnl-gain { color:var(--green); font-weight:700; font-family:'DM Mono',monospace; }
+.pnl-loss { color:var(--red); font-weight:700; font-family:'DM Mono',monospace; }
+.div-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.div-box { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; }
+.div-box-val { font-size:22px; font-weight:800; color:var(--ink); line-height:1; }
+.div-box-lbl { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); margin-top:3px; text-transform:uppercase; }
+@media (max-width:768px) { .pnl-summary { grid-template-columns:1fr 1fr; } .div-summary { grid-template-columns:1fr 1fr; } .warranty-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:480px) { .pnl-summary { grid-template-columns:1fr 1fr; } .pnl-table th:nth-child(3), .pnl-table td:nth-child(3), .pnl-table th:nth-child(4), .pnl-table td:nth-child(4) { display:none; } }
 </style>
 </head>
 <body>
@@ -2208,6 +2294,10 @@ body::after {
       <div class="nav-item" onclick="navigate('invoice', this)"><span class="nav-icon"><i class="bi bi-file-earmark-text-fill"></i></span> Invoice</div>
       <div class="nav-item" onclick="navigate('cashflow', this)"><span class="nav-icon"><i class="bi bi-cash-stack"></i></span> Cash Flow</div>
       <div class="nav-item" onclick="navigate('payslips', this)"><span class="nav-icon"><i class="bi bi-file-earmark-person-fill"></i></span> Payslips</div>
+      <div class="nav-item" onclick="navigate('warranty', this)"><span class="nav-icon"><i class="bi bi-shield-check"></i></span> Warranty</div>
+      <div class="nav-item" onclick="navigate('car', this)"><span class="nav-icon"><i class="bi bi-car-front-fill"></i></span> Car</div>
+      <div class="nav-item" onclick="navigate('docvault', this)"><span class="nav-icon"><i class="bi bi-safe-fill"></i></span> Doc Vault</div>
+      <div class="nav-item" onclick="navigate('billsplit', this)"><span class="nav-icon"><i class="bi bi-people-fill"></i></span> Bill Splitter</div>
       <div class="nav-section-label">Lifestyle</div>
       <div class="nav-item" onclick="navigate('profile', this)"><span class="nav-icon"><i class="bi bi-person-fill"></i></span> Profile</div>
       <div class="nav-item" onclick="navigate('habits', this)"><span class="nav-icon"><i class="bi bi-activity"></i></span> Habits</div>
@@ -4139,7 +4229,7 @@ body::after {
         <div class="card">
           <div class="card-header"><div class="card-icon" style="background:var(--purple-light);"><i class="bi bi-moon-fill" style="color:var(--purple);"></i></div><div><div class="card-title">Sleep This Week</div><div class="card-sub">Hours per night · Sun 23 Feb — Sat 1 Mar</div></div></div>
           <div class="card-body">
-            <svg width="100%" height="120" viewBox="0 0 420 120" preserveAspectRatio="none" style="display:block;margin-bottom:8px;">
+            <svg width="100%" viewBox="0 0 420 120" style="display:block;margin-bottom:8px;max-height:160px;">
               <!-- bars: Mon 7h, Tue 6h, Wed 8.5h, Thu 9h, Fri 5.5h, Sat 7.5h, Sun 7h — scale 0-10h → 0-100px -->
               <rect x="10" y="30" width="44" height="70" rx="4" fill="#2c4a7c" opacity=".85"/>
               <rect x="70" y="40" width="44" height="60" rx="4" fill="#2c4a7c" opacity=".85"/>
@@ -4256,8 +4346,15 @@ body::after {
           </div>
         </div>
       </div>
-      <!-- Detail panels -->
-      <div class="stock-detail" id="sdetail-aapl">
+      <!-- Right panel: tabs + detail/P&L/Dividends -->
+      <div class="stock-right-wrap">
+        <div class="stock-tab-bar">
+          <button class="stock-tab active" id="stab-btn-watchlist" onclick="switchStockTab('watchlist',this)">Watchlist</button>
+          <button class="stock-tab" id="stab-btn-pnl" onclick="switchStockTab('pnl',this)">P&amp;L</button>
+          <button class="stock-tab" id="stab-btn-dividends" onclick="switchStockTab('dividends',this)">Dividends</button>
+        </div>
+        <div id="stab-watchlist" class="stock-tab-content active">
+          <div class="stock-detail" id="sdetail-aapl">
         <div class="stock-hero">
           <div class="stock-hero-name">Apple Inc.</div>
           <div class="stock-hero-meta">AAPL · NASDAQ · Last updated: Mon 2 Mar, 21:00 EST</div>
@@ -4357,6 +4454,97 @@ body::after {
           <div class="stock-news-item"><div class="stock-news-source">WSJ</div><div class="stock-news-headline">Meta Reality Labs losses narrow as Quest 4 headset launch approaches</div><div class="stock-news-time">Yesterday</div></div>
         </div>
       </div>
+        </div><!-- /stab-watchlist -->
+
+        <!-- P&L Tab -->
+        <div id="stab-pnl" class="stock-tab-content" style="background:var(--bg);padding:20px;gap:16px;">
+          <div class="pnl-summary">
+            <div class="pnl-box"><div class="pnl-box-lbl">Portfolio Value</div><div class="pnl-box-val">£12,480</div></div>
+            <div class="pnl-box"><div class="pnl-box-lbl">Total Invested</div><div class="pnl-box-val">£10,200</div></div>
+            <div class="pnl-box"><div class="pnl-box-lbl">Unrealised P&amp;L</div><div class="pnl-box-val" style="color:var(--green);">+£2,280</div></div>
+            <div class="pnl-box"><div class="pnl-box-lbl">Total Return</div><div class="pnl-box-val" style="color:var(--green);">+22.4%</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-graph-up-arrow" style="color:var(--blue);"></i></div>
+              <div><div class="card-title">Profit &amp; Loss by Holding</div><div class="card-sub">Unrealised gains/losses · As of 1 Mar 2026</div></div>
+            </div>
+            <div class="card-body" style="padding:0;overflow-x:auto;">
+              <table class="pnl-table">
+                <thead><tr><th>Stock</th><th>Qty</th><th>Avg Cost</th><th>Current</th><th>Value</th><th>P&amp;L</th><th>Return</th></tr></thead>
+                <tbody>
+                  <tr><td><div style="font-weight:700;">AAPL</div><div style="font-size:10.5px;color:var(--ink3);">Apple Inc.</div></td><td style="font-family:'DM Mono',monospace;">15</td><td style="font-family:'DM Mono',monospace;">$142.30</td><td style="font-family:'DM Mono',monospace;">$182.40</td><td style="font-family:'DM Mono',monospace;font-weight:700;">£2,155</td><td class="pnl-gain">+£474</td><td class="pnl-gain">+28.2%</td></tr>
+                  <tr><td><div style="font-weight:700;">NVDA</div><div style="font-size:10.5px;color:var(--ink3);">NVIDIA Corp.</div></td><td style="font-family:'DM Mono',monospace;">4</td><td style="font-family:'DM Mono',monospace;">$621.00</td><td style="font-family:'DM Mono',monospace;">$875.10</td><td style="font-family:'DM Mono',monospace;font-weight:700;">£2,756</td><td class="pnl-gain">+£800</td><td class="pnl-gain">+40.9%</td></tr>
+                  <tr><td><div style="font-weight:700;">TSLA</div><div style="font-size:10.5px;color:var(--ink3);">Tesla Inc.</div></td><td style="font-family:'DM Mono',monospace;">10</td><td style="font-family:'DM Mono',monospace;">$241.20</td><td style="font-family:'DM Mono',monospace;">$193.57</td><td style="font-family:'DM Mono',monospace;font-weight:700;">£1,526</td><td class="pnl-loss">−£376</td><td class="pnl-loss">−19.7%</td></tr>
+                  <tr><td><div style="font-weight:700;">META</div><div style="font-size:10.5px;color:var(--ink3);">Meta Platforms</div></td><td style="font-family:'DM Mono',monospace;">12</td><td style="font-family:'DM Mono',monospace;">$311.40</td><td style="font-family:'DM Mono',monospace;">$493.00</td><td style="font-family:'DM Mono',monospace;font-weight:700;">£4,660</td><td class="pnl-gain">+£1,714</td><td class="pnl-gain">+58.3%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-check-circle-fill" style="color:var(--green);"></i></div>
+              <div><div class="card-title">Realised Gains (This Tax Year)</div><div class="card-sub">2025/26 · Closed positions</div></div>
+            </div>
+            <div class="card-body" style="padding:0;overflow-x:auto;">
+              <table class="pnl-table">
+                <thead><tr><th>Stock</th><th>Sold</th><th>Cost Basis</th><th>Proceeds</th><th>Gain / Loss</th></tr></thead>
+                <tbody>
+                  <tr><td><div style="font-weight:700;">MSFT</div><div style="font-size:10.5px;color:var(--ink3);">Microsoft</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">12 Jan 2026</td><td style="font-family:'DM Mono',monospace;">£2,100</td><td style="font-family:'DM Mono',monospace;">£2,680</td><td class="pnl-gain">+£580</td></tr>
+                  <tr><td><div style="font-weight:700;">AMZN</div><div style="font-size:10.5px;color:var(--ink3);">Amazon</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">4 Feb 2026</td><td style="font-family:'DM Mono',monospace;">£1,840</td><td style="font-family:'DM Mono',monospace;">£1,630</td><td class="pnl-loss">−£210</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- /stab-pnl -->
+
+        <!-- Dividends Tab -->
+        <div id="stab-dividends" class="stock-tab-content" style="background:var(--bg);padding:20px;gap:16px;">
+          <div class="div-summary">
+            <div class="div-box"><div class="div-box-val" style="color:var(--green);">£284</div><div class="div-box-lbl">This Tax Year</div></div>
+            <div class="div-box"><div class="div-box-val">£68</div><div class="div-box-lbl">Last Quarter</div></div>
+            <div class="div-box"><div class="div-box-val">£94</div><div class="div-box-lbl">Upcoming Est.</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-cash-coin" style="color:var(--green);"></i></div>
+              <div><div class="card-title">Dividend Payments</div><div class="card-sub">Received &amp; upcoming · 2025/26 tax year</div></div>
+            </div>
+            <div class="card-body" style="padding:0;overflow-x:auto;">
+              <table class="pnl-table">
+                <thead><tr><th>Stock</th><th>Ex-Div</th><th>Pay Date</th><th>Per Share</th><th>Total</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td><div style="font-weight:700;">AAPL</div><div style="font-size:10.5px;color:var(--ink3);">Apple Inc.</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">10 Feb 2026</td><td style="font-size:12px;font-family:'DM Mono',monospace;">14 Feb 2026</td><td style="font-family:'DM Mono',monospace;">$0.25</td><td class="pnl-gain">£2.97</td><td><span style="background:var(--green-light);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Received</span></td></tr>
+                  <tr><td><div style="font-weight:700;">META</div><div style="font-size:10.5px;color:var(--ink3);">Meta Platforms</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">22 Jan 2026</td><td style="font-size:12px;font-family:'DM Mono',monospace;">26 Jan 2026</td><td style="font-family:'DM Mono',monospace;">$0.525</td><td class="pnl-gain">£49.87</td><td><span style="background:var(--green-light);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Received</span></td></tr>
+                  <tr><td><div style="font-weight:700;">MSFT</div><div style="font-size:10.5px;color:var(--ink3);">Microsoft (closed)</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">15 Nov 2025</td><td style="font-size:12px;font-family:'DM Mono',monospace;">12 Dec 2025</td><td style="font-family:'DM Mono',monospace;">$0.83</td><td class="pnl-gain">£46.82</td><td><span style="background:var(--green-light);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Received</span></td></tr>
+                  <tr style="opacity:.75;"><td><div style="font-weight:700;">META</div><div style="font-size:10.5px;color:var(--ink3);">Meta Platforms</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">22 Apr 2026</td><td style="font-size:12px;font-family:'DM Mono',monospace;">26 Apr 2026</td><td style="font-family:'DM Mono',monospace;">$0.525 est.</td><td style="font-family:'DM Mono',monospace;color:var(--ink3);">~£49.87</td><td><span style="background:var(--amber-light);color:var(--amber);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Upcoming</span></td></tr>
+                  <tr style="opacity:.75;"><td><div style="font-weight:700;">AAPL</div><div style="font-size:10.5px;color:var(--ink3);">Apple Inc.</div></td><td style="font-size:12px;font-family:'DM Mono',monospace;">9 May 2026</td><td style="font-size:12px;font-family:'DM Mono',monospace;">15 May 2026</td><td style="font-family:'DM Mono',monospace;">$0.25 est.</td><td style="font-family:'DM Mono',monospace;color:var(--ink3);">~£2.97</td><td><span style="background:var(--amber-light);color:var(--amber);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Upcoming</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-bar-chart-fill" style="color:var(--blue);"></i></div>
+              <div><div class="card-title">Annual Dividend Income</div><div class="card-sub">Calendar year totals · All holdings</div></div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;align-items:flex-end;gap:10px;height:90px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="background:#2c4a7c;opacity:.4;width:100%;border-radius:4px 4px 0 0;height:45px;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">2023</div></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="background:#2c4a7c;opacity:.6;width:100%;border-radius:4px 4px 0 0;height:62px;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">2024</div></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="background:#2c4a7c;width:100%;border-radius:4px 4px 0 0;height:80px;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">2025</div></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="background:var(--green);opacity:.6;width:100%;border-radius:4px 4px 0 0;height:26px;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);">2026</div></div>
+              </div>
+              <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;">
+                <div style="font-size:11px;color:var(--ink3);">2023 <strong style="color:var(--ink);">£142</strong></div>
+                <div style="font-size:11px;color:var(--ink3);">2024 <strong style="color:var(--ink);">£218</strong></div>
+                <div style="font-size:11px;color:var(--ink3);">2025 <strong style="color:var(--ink);">£284</strong></div>
+                <div style="font-size:11px;color:var(--ink3);">2026 <strong style="color:var(--green);">£94 est.</strong></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /stab-dividends -->
+      </div><!-- /stock-right-wrap -->
     </div>
 
     <!-- INVOICE VIEW -->
@@ -4605,6 +4793,245 @@ body::after {
       <input type="file" id="payslip-file-input" accept=".pdf,.jpg,.png" style="display:none;" onchange="showToast('Payslip uploaded successfully')">
     </div>
 
+    <!-- WARRANTY TRACKER VIEW -->
+    <div class="content" id="view-warranty">
+      <div class="warranty-grid">
+        <div class="warranty-stat"><div class="warranty-stat-val" style="color:var(--green);">8</div><div class="warranty-stat-lbl">Active</div></div>
+        <div class="warranty-stat"><div class="warranty-stat-val" style="color:var(--amber);">2</div><div class="warranty-stat-lbl">Expiring Soon</div></div>
+        <div class="warranty-stat"><div class="warranty-stat-val" style="color:var(--red);">1</div><div class="warranty-stat-lbl">Expired</div></div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-exclamation-triangle-fill" style="color:var(--amber);"></i></div>
+          <div><div class="card-title">Expiring Within 90 Days</div><div class="card-sub">Action needed to avoid lapsed coverage</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;">
+            <div style="width:36px;height:36px;border-radius:9px;background:var(--amber-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">💻</div>
+            <div style="flex:1;min-width:120px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">MacBook Pro 14"</div><div style="font-size:10.5px;font-family:'DM Mono',monospace;color:var(--ink3);">AppleCare+ · Expires 14 Apr 2026</div></div>
+            <span class="warranty-status soon">45 days left</span>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px;" onclick="showToast('Reminder set for MacBook warranty')"><i class="bi bi-bell"></i></button>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;flex-wrap:wrap;">
+            <div style="width:36px;height:36px;border-radius:9px;background:var(--amber-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🌀</div>
+            <div style="flex:1;min-width:120px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Dyson V15 Vacuum</div><div style="font-size:10.5px;font-family:'DM Mono',monospace;color:var(--ink3);">Dyson Warranty · Expires 2 Jun 2026</div></div>
+            <span class="warranty-status soon">92 days left</span>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px;" onclick="showToast('Reminder set for Dyson warranty')"><i class="bi bi-bell"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-shield-check" style="color:var(--blue);"></i></div>
+          <div><div class="card-title">All Warranties</div><div class="card-sub">Auto-extracted from purchase receipts</div></div>
+          <button class="btn btn-ghost" style="margin-left:auto;font-size:11px;flex-shrink:0;" onclick="showToast('📄 Upload receipt to scan')"><i class="bi bi-camera"></i> Scan</button>
+        </div>
+        <div class="card-body" style="padding:0;overflow-x:auto;">
+          <table class="warranty-table">
+            <thead><tr><th>Product</th><th>Purchase</th><th>Expiry</th><th>Provider</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:600;">MacBook Pro 14"</div><div style="font-size:10.5px;color:var(--ink3);">Apple · £2,199</div></td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">14 Apr 2023</td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">14 Apr 2026</td><td style="font-size:12px;">AppleCare+</td><td><span class="warranty-status soon">Expiring</span></td></tr>
+              <tr><td><div style="font-weight:600;">Samsung 65" QLED TV</div><div style="font-size:10.5px;color:var(--ink3);">Samsung · £1,299</div></td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">3 Jan 2024</td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">3 Jan 2027</td><td style="font-size:12px;">Manufacturer</td><td><span class="warranty-status ok">Active</span></td></tr>
+              <tr><td><div style="font-weight:600;">Dyson V15 Vacuum</div><div style="font-size:10.5px;color:var(--ink3);">Dyson · £649</div></td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">2 Jun 2021</td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">2 Jun 2026</td><td style="font-size:12px;">Dyson</td><td><span class="warranty-status soon">Expiring</span></td></tr>
+              <tr><td><div style="font-weight:600;">Bosch Dishwasher</div><div style="font-size:10.5px;color:var(--ink3);">Bosch · £549</div></td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">18 Aug 2023</td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">18 Aug 2026</td><td style="font-size:12px;">Manufacturer</td><td><span class="warranty-status ok">Active</span></td></tr>
+              <tr><td><div style="font-weight:600;">iPhone 14 Pro</div><div style="font-size:10.5px;color:var(--ink3);">Apple · £1,099</div></td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">5 Oct 2022</td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">5 Oct 2024</td><td style="font-size:12px;">AppleCare</td><td><span class="warranty-status expired">Expired</span></td></tr>
+              <tr><td><div style="font-weight:600;">Sonos Era 300</div><div style="font-size:10.5px;color:var(--ink3);">Sonos · £449</div></td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">22 Dec 2023</td><td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;">22 Dec 2025</td><td style="font-size:12px;">Manufacturer</td><td><span class="warranty-status ok">Active</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-plus-circle-fill" style="color:var(--green);"></i></div>
+          <div><div class="card-title">Add Warranty</div><div class="card-sub">Manual entry or scan a receipt</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Product Name</label><input class="shop-add-input" style="width:100%;" placeholder="e.g. Samsung TV"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Purchase Date</label><input type="date" class="shop-add-input" style="width:100%;"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Expiry Date</label><input type="date" class="shop-add-input" style="width:100%;"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Provider</label><input class="shop-add-input" style="width:100%;" placeholder="e.g. AppleCare"></div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="showToast('✓ Warranty added')">Add Warranty</button>
+            <button class="btn btn-ghost" onclick="showToast('📄 Upload receipt to scan')"><i class="bi bi-camera-fill"></i> Scan Receipt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAR MAINTENANCE VIEW -->
+    <div class="content" id="view-car">
+      <div class="car-status-grid">
+        <div class="car-status-card">
+          <div class="car-status-label">MOT Expiry</div>
+          <div class="car-status-val" style="color:var(--amber);">14 May 2026</div>
+          <div class="car-status-sub"><span style="background:var(--amber-light);color:var(--amber);font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">74 days</span></div>
+        </div>
+        <div class="car-status-card">
+          <div class="car-status-label">Road Tax</div>
+          <div class="car-status-val" style="color:var(--green);">1 Aug 2026</div>
+          <div class="car-status-sub"><span style="background:var(--green-light);color:var(--green);font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">153 days</span></div>
+        </div>
+        <div class="car-status-card">
+          <div class="car-status-label">Insurance</div>
+          <div class="car-status-val" style="color:var(--green);">22 Nov 2026</div>
+          <div class="car-status-sub"><span style="background:var(--green-light);color:var(--green);font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">266 days</span></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-car-front-fill" style="color:var(--blue);"></i></div>
+          <div><div class="card-title">Vehicle Details</div><div class="card-sub">Toyota Yaris · AB21 XYZ</div></div>
+          <button class="btn btn-ghost" style="margin-left:auto;font-size:11px;" onclick="showToast('Vehicle details updated')">Edit</button>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;">
+            <div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:3px;">Make &amp; Model</div><div style="font-size:13px;font-weight:600;">Toyota Yaris</div></div>
+            <div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:3px;">Year</div><div style="font-size:13px;font-weight:600;">2019</div></div>
+            <div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:3px;">Mileage</div><div style="font-size:13px;font-weight:600;">42,310 mi</div></div>
+            <div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:3px;">Fuel Type</div><div style="font-size:13px;font-weight:600;">Hybrid</div></div>
+            <div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:3px;">Reg</div><div style="font-size:13px;font-weight:600;">AB21 XYZ</div></div>
+            <div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:3px;">Colour</div><div style="font-size:13px;font-weight:600;">Silver</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--purple-light);"><i class="bi bi-wrench-adjustable-circle-fill" style="color:var(--purple);"></i></div>
+          <div><div class="card-title">Service History</div><div class="card-sub">Maintenance records &amp; costs</div></div>
+          <button class="btn btn-ghost" style="margin-left:auto;font-size:11px;" onclick="showToast('+ Add service record')"><i class="bi bi-plus"></i> Add</button>
+        </div>
+        <div class="card-body">
+          <div class="service-row"><div class="service-icon" style="background:var(--blue-light);">🔧</div><div class="service-info"><div class="service-type">Annual Service + MOT</div><div class="service-date">14 May 2025 · 40,100 mi · Kwik Fit, Manchester</div></div><div class="service-cost">£380</div></div>
+          <div class="service-row"><div class="service-icon" style="background:var(--amber-light);">🛞</div><div class="service-info"><div class="service-type">Tyre Replacement (x2 front)</div><div class="service-date">8 Jan 2025 · 38,900 mi · ATS Euromaster</div></div><div class="service-cost">£210</div></div>
+          <div class="service-row"><div class="service-icon" style="background:var(--green-light);">🛢</div><div class="service-info"><div class="service-type">Oil &amp; Filter Change</div><div class="service-date">22 Aug 2024 · 37,200 mi · Toyota Dealer</div></div><div class="service-cost">£95</div></div>
+          <div class="service-row"><div class="service-icon" style="background:var(--red-light);">🔋</div><div class="service-info"><div class="service-type">Battery Replacement</div><div class="service-date">3 Mar 2024 · 35,800 mi · Halfords</div></div><div class="service-cost">£140</div></div>
+          <div class="service-row"><div class="service-icon" style="background:var(--blue-light);">🔧</div><div class="service-info"><div class="service-type">Annual Service + MOT</div><div class="service-date">18 May 2024 · 34,600 mi · Kwik Fit, Manchester</div></div><div class="service-cost">£360</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-plus-circle-fill" style="color:var(--green);"></i></div>
+          <div><div class="card-title">Log Maintenance</div><div class="card-sub">Record a service, MOT, or repair</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Type</label><select class="shop-add-input" style="width:100%;"><option>Annual Service</option><option>MOT</option><option>Tyres</option><option>Oil Change</option><option>Repairs</option><option>Other</option></select></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Date</label><input type="date" class="shop-add-input" style="width:100%;"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Mileage</label><input class="shop-add-input" style="width:100%;" placeholder="e.g. 42,500"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Cost</label><input class="shop-add-input" style="width:100%;" placeholder="£0.00"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Garage</label><input class="shop-add-input" style="width:100%;" placeholder="e.g. Kwik Fit"></div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:12px;" onclick="showToast('✓ Maintenance record saved')">Save Record</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENT VAULT VIEW -->
+    <div class="content" id="view-docvault">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+        <i class="bi bi-shield-lock-fill" style="color:var(--green);font-size:18px;flex-shrink:0;"></i>
+        <div style="flex:1;min-width:160px;"><div style="font-size:12px;font-weight:700;color:var(--ink);">AES-256 Encrypted · Zero-Knowledge Storage</div><div style="font-size:10.5px;font-family:'DM Mono',monospace;color:var(--ink3);">Documents are encrypted locally. ANN cannot read your files.</div></div>
+        <button class="btn btn-ghost" style="font-size:11px;flex-shrink:0;" onclick="showToast('📂 Upload a document')"><i class="bi bi-upload"></i> Upload</button>
+      </div>
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Identity</div>
+      <div class="vault-grid" style="margin-bottom:22px;">
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--blue-light);">🪪</div><div class="vault-doc-name">Driving Licence</div><div class="vault-doc-meta">DVLA · Full UK Licence</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">Expires Mar 2040</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--red-light);">📕</div><div class="vault-doc-name">Passport</div><div class="vault-doc-meta">UK · No. 123456789</div><div class="vault-doc-expiry" style="background:var(--amber-light);color:var(--amber);">Expires Oct 2027</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--purple-light);">💳</div><div class="vault-doc-name">National Insurance</div><div class="vault-doc-meta">HMRC · NI: AB123456C</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">No Expiry</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+      </div>
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Insurance Policies</div>
+      <div class="vault-grid" style="margin-bottom:22px;">
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--amber-light);">🚗</div><div class="vault-doc-name">Car Insurance</div><div class="vault-doc-meta">Admiral · Policy #ADM-8821</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">Expires Nov 2026</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--green-light);">🏥</div><div class="vault-doc-name">Health Insurance</div><div class="vault-doc-meta">Bupa · Policy #BP-44210</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">Expires Jul 2026</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--blue-light);">🏠</div><div class="vault-doc-name">Contents Insurance</div><div class="vault-doc-meta">Aviva · Policy #AV-33109</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">Expires Feb 2027</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--purple-light);">💼</div><div class="vault-doc-name">Life Insurance</div><div class="vault-doc-meta">Legal &amp; General · #LG-5520</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">Expires 2045</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+      </div>
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Housing</div>
+      <div class="vault-grid">
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--amber-light);">📋</div><div class="vault-doc-name">Tenancy Agreement</div><div class="vault-doc-meta">17 Maple Street · 12-month AST</div><div class="vault-doc-expiry" style="background:var(--amber-light);color:var(--amber);">Ends Sep 2026</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('🔐 Opening secure viewer...')"><div class="vault-icon" style="background:var(--green-light);">📄</div><div class="vault-doc-name">Deposit Certificate</div><div class="vault-doc-meta">DPS · £1,400 protected</div><div class="vault-doc-expiry" style="background:var(--green-light);color:var(--green);">Active</div><div class="vault-secure"><i class="bi bi-shield-lock-fill"></i> Encrypted</div></div>
+        <div class="vault-card" onclick="showToast('📂 Upload a document')" style="border-style:dashed;align-items:center;justify-content:center;text-align:center;min-height:130px;"><div style="font-size:28px;color:var(--border2);">+</div><div style="font-size:12px;font-weight:600;color:var(--ink3);">Add Document</div><div style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;">PDF, JPG or PNG</div></div>
+      </div>
+    </div>
+
+    <!-- BILL SPLITTER VIEW -->
+    <div class="content" id="view-billsplit">
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-people-fill" style="color:var(--blue);"></i></div>
+          <div><div class="card-title">Flat Share — 17 Maple Street</div><div class="card-sub">4 people · Month-to-month expenses</div></div>
+        </div>
+        <div class="card-body">
+          <div class="split-people-row">
+            <div class="split-person-chip"><div class="split-person-av">O</div> You</div>
+            <div class="split-person-chip"><div class="split-person-av" style="background:#166534;">J</div> James</div>
+            <div class="split-person-chip"><div class="split-person-av" style="background:#92400e;">S</div> Sarah</div>
+            <div class="split-person-chip"><div class="split-person-av" style="background:#4c1d95;">M</div> Marcus</div>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px;" onclick="showToast('+ Add person to group')"><i class="bi bi-person-plus"></i> Add</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px;">
+        <div class="card" style="border-left:3px solid var(--red);"><div class="card-body"><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:4px;">You Owe</div><div style="font-size:24px;font-weight:800;color:var(--red);">£135.00</div><div style="font-size:11px;color:var(--ink3);margin-top:2px;">James £80 · Sarah £55</div></div></div>
+        <div class="card" style="border-left:3px solid var(--green);"><div class="card-body"><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:4px;">Owed to You</div><div style="font-size:24px;font-weight:800;color:var(--green);">£60.00</div><div style="font-size:11px;color:var(--ink3);margin-top:2px;">Marcus £60</div></div></div>
+        <div class="card" style="border-left:3px solid #2c4a7c;"><div class="card-body"><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;margin-bottom:4px;">Net Position</div><div style="font-size:24px;font-weight:800;color:var(--red);">−£75.00</div><div style="font-size:11px;color:var(--ink3);margin-top:2px;">After all settlements</div></div></div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-house-fill" style="color:var(--amber);"></i></div>
+          <div><div class="card-title">Rent &amp; Recurring Bills</div><div class="card-sub">Monthly reminders sent automatically</div></div>
+        </div>
+        <div class="card-body" style="padding:0;overflow-x:auto;">
+          <table class="split-table">
+            <thead><tr><th>Description</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:600;">Rent — Your Share</div><div style="font-size:10.5px;color:var(--ink3);">17 Maple Street · Monthly</div></td><td style="font-family:'DM Mono',monospace;font-weight:700;white-space:nowrap;">£650</td><td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap;color:var(--ink3);">1 Mar</td><td><span class="split-tag settled">Paid</span></td><td></td></tr>
+              <tr><td><div style="font-weight:600;">Electricity</div><div style="font-size:10.5px;color:var(--ink3);">Split 4 ways · Octopus Energy</div></td><td style="font-family:'DM Mono',monospace;font-weight:700;white-space:nowrap;">£38.75</td><td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap;color:var(--ink3);">8 Mar</td><td><span class="split-tag pending">Pending</span></td><td><button class="btn btn-ghost" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="showToast('Reminder sent to James, Sarah &amp; Marcus')"><i class="bi bi-bell"></i> Remind</button></td></tr>
+              <tr><td><div style="font-weight:600;">Internet</div><div style="font-size:10.5px;color:var(--ink3);">Split 4 ways · Virgin Media</div></td><td style="font-family:'DM Mono',monospace;font-weight:700;white-space:nowrap;">£13.75</td><td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap;color:var(--ink3);">8 Mar</td><td><span class="split-tag pending">Pending</span></td><td><button class="btn btn-ghost" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="showToast('Reminder sent to James, Sarah &amp; Marcus')"><i class="bi bi-bell"></i> Remind</button></td></tr>
+              <tr><td><div style="font-weight:600;">Council Tax</div><div style="font-size:10.5px;color:var(--ink3);">Split 4 ways · Manchester City</div></td><td style="font-family:'DM Mono',monospace;font-weight:700;white-space:nowrap;">£55.00</td><td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap;color:var(--ink3);">1 Mar</td><td><span class="split-tag settled">Paid</span></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--purple-light);"><i class="bi bi-receipt" style="color:var(--purple);"></i></div>
+          <div><div class="card-title">One-Off Expenses</div><div class="card-sub">Shared purchases split between flatmates</div></div>
+          <button class="btn btn-ghost" style="margin-left:auto;font-size:11px;" onclick="showToast('+ Add shared expense')"><i class="bi bi-plus"></i> Add</button>
+        </div>
+        <div class="card-body" style="padding:0;overflow-x:auto;">
+          <table class="split-table">
+            <thead><tr><th>Item</th><th>Paid By</th><th>Your Share</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:600;">Tesco Weekly Shop</div><div style="font-size:10.5px;color:var(--ink3);">22 Feb 2026</div></td><td style="font-size:12px;">James</td><td class="split-owe">£23.40</td><td><span class="split-tag pending">Owed</span></td><td><button class="btn btn-primary" style="font-size:10px;padding:4px 8px;" onclick="showToast('Payment request sent to James')">Pay</button></td></tr>
+              <tr><td><div style="font-weight:600;">Cleaning Supplies</div><div style="font-size:10.5px;color:var(--ink3);">18 Feb 2026</div></td><td style="font-size:12px;">You</td><td class="split-owing">+£8.25 ea</td><td><span class="split-tag pending">Owed to you</span></td><td><button class="btn btn-ghost" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="showToast('Reminders sent to flatmates')"><i class="bi bi-bell"></i> Remind</button></td></tr>
+              <tr><td><div style="font-weight:600;">Netflix (shared)</div><div style="font-size:10.5px;color:var(--ink3);">1 Feb 2026</div></td><td style="font-size:12px;">Marcus</td><td class="split-owe">£3.50</td><td><span class="split-tag settled">Settled</span></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-plus-circle-fill" style="color:var(--green);"></i></div>
+          <div><div class="card-title">Log Shared Expense</div><div class="card-sub">Split a purchase between flatmates</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Description</label><input class="shop-add-input" style="width:100%;" placeholder="e.g. Grocery shop"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Total Amount</label><input class="shop-add-input" style="width:100%;" placeholder="£0.00"></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Paid By</label><select class="shop-add-input" style="width:100%;"><option>You</option><option>James</option><option>Sarah</option><option>Marcus</option></select></div>
+            <div><label style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-bottom:4px;text-transform:uppercase;">Split Between</label><select class="shop-add-input" style="width:100%;"><option>All 4</option><option>You &amp; James</option><option>You &amp; Sarah</option><option>Custom</option></select></div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="showToast('✓ Expense added · Reminders scheduled')">Add &amp; Notify</button>
+            <button class="btn btn-ghost" onclick="showToast('✓ Expense added without notification')">Add Quietly</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -4638,6 +5065,10 @@ body::after {
     <div class="nav-item" onclick="navigateMobile('invoice', this)"><span class="nav-icon"><i class="bi bi-file-earmark-text-fill"></i></span> Invoice</div>
     <div class="nav-item" onclick="navigateMobile('cashflow', this)"><span class="nav-icon"><i class="bi bi-cash-stack"></i></span> Cash Flow</div>
     <div class="nav-item" onclick="navigateMobile('payslips', this)"><span class="nav-icon"><i class="bi bi-file-earmark-person-fill"></i></span> Payslips</div>
+    <div class="nav-item" onclick="navigateMobile('warranty', this)"><span class="nav-icon"><i class="bi bi-shield-check"></i></span> Warranty</div>
+    <div class="nav-item" onclick="navigateMobile('car', this)"><span class="nav-icon"><i class="bi bi-car-front-fill"></i></span> Car</div>
+    <div class="nav-item" onclick="navigateMobile('docvault', this)"><span class="nav-icon"><i class="bi bi-safe-fill"></i></span> Doc Vault</div>
+    <div class="nav-item" onclick="navigateMobile('billsplit', this)"><span class="nav-icon"><i class="bi bi-people-fill"></i></span> Bill Splitter</div>
     <div class="nav-section-label">Lifestyle</div>
     <div class="nav-item" onclick="navigateMobile('profile', this)"><span class="nav-icon"><i class="bi bi-person-fill"></i></span> Profile</div>
     <div class="nav-item" onclick="navigateMobile('habits', this)"><span class="nav-icon"><i class="bi bi-activity"></i></span> Habits</div>
@@ -5135,6 +5566,10 @@ const views = {
   invoice: { title: 'Invoice Generator', sub: 'Create & send professional invoices', btn: 'New Invoice' },
   cashflow: { title: 'Cash Flow', sub: 'Income vs expenses · 6-month forecast', btn: 'Export' },
   payslips: { title: 'Payslips', sub: 'Synced from email · Manual uploads', btn: 'Upload Payslip' },
+  warranty: { title: 'Warranty Tracker', sub: 'Purchase receipts & expiry alerts', btn: 'Scan Receipt' },
+  car: { title: 'Car Maintenance', sub: 'MOT, tax & service history', btn: '+ Add Record' },
+  docvault: { title: 'Document Vault', sub: 'Securely stored personal documents', btn: 'Upload Document' },
+  billsplit: { title: 'Bill Splitter', sub: 'Shared expenses & payment reminders', btn: 'Add Expense' },
 };
 
 function navigate(view, el) {
@@ -6062,7 +6497,16 @@ function toggleGymDay(dot) {
 }
 
 // ── Stocks ────────────────────────────────────────────
+function switchStockTab(tab, btn) {
+  document.querySelectorAll('.stock-tab-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.stock-tab-bar .stock-tab').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('stab-' + tab);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
 function selectStock(id, row) {
+  // Ensure we're on the watchlist tab
+  switchStockTab('watchlist', document.getElementById('stab-btn-watchlist'));
   document.querySelectorAll('.stock-row').forEach(r => r.classList.remove('active'));
   document.querySelectorAll('.stock-detail').forEach(d => d.style.display = 'none');
   if (row) row.classList.add('active');
