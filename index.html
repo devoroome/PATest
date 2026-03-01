@@ -2020,6 +2020,152 @@ body::after {
   .chat-sidebar { display: none; }
   .chat-layout.conv-open .chat-sidebar { display: none; }
 }
+
+/* ── Daily Briefing ─────────────────────────────────── */
+.briefing-section { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+.briefing-section:last-child { border-bottom:none; padding-bottom:0; }
+.briefing-icon { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.briefing-label { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.briefing-items { display:flex; flex-direction:column; gap:5px; flex:1; }
+.briefing-item { font-size:12.5px; color:var(--ink); line-height:1.4; }
+.briefing-item strong { font-weight:700; }
+.briefing-item .btime { font-size:10.5px; font-family:'DM Mono',monospace; color:var(--ink3); margin-left:6px; }
+
+/* ── Stock Strip (dashboard) ────────────────────────── */
+.stock-strip { display:flex; gap:10px; overflow-x:auto; padding:4px 0 2px; scrollbar-width:none; }
+.stock-strip::-webkit-scrollbar { display:none; }
+.stock-chip { flex-shrink:0; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:9px 14px; display:flex; align-items:center; gap:10px; cursor:pointer; transition:border-color .15s; }
+.stock-chip:hover { border-color:#2c4a7c; }
+.stock-chip-ticker { font-size:11px; font-weight:800; font-family:'DM Mono',monospace; color:var(--ink); min-width:36px; }
+.stock-chip-price { font-size:12px; font-weight:700; color:var(--ink); }
+.stock-chip-chg { font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:5px; }
+.stock-chip-chg.up { background:var(--green-light); color:var(--green); }
+.stock-chip-chg.dn { background:var(--red-light); color:var(--red); }
+.stock-sparkline { width:52px; height:24px; }
+
+/* ── Shopping List ──────────────────────────────────── */
+.shop-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
+.shop-item:last-child { border-bottom:none; }
+.shop-check { width:18px; height:18px; border-radius:4px; border:2px solid var(--border); flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:11px; transition:all .15s; }
+.shop-check.checked { background:#2c4a7c; border-color:#2c4a7c; color:#fff; }
+.shop-name { flex:1; font-size:12.5px; color:var(--ink); font-weight:600; }
+.shop-name.done { text-decoration:line-through; color:var(--ink3); }
+.shop-qty { font-size:11px; font-family:'DM Mono',monospace; color:var(--ink2); }
+.shop-source { font-size:9.5px; font-weight:700; padding:2px 6px; border-radius:4px; }
+.shop-source.auto { background:var(--blue-light); color:#2c4a7c; }
+.shop-source.added { background:var(--amber-light); color:var(--amber); }
+.shop-add-row { display:flex; gap:8px; margin-top:12px; }
+.shop-add-input { flex:1; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-size:12px; color:var(--ink); font-family:inherit; outline:none; }
+
+/* ── Habit Tracker ──────────────────────────────────── */
+.habit-stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+.habit-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; text-align:center; }
+.habit-stat-val { font-size:22px; font-weight:800; color:var(--ink); line-height:1; }
+.habit-stat-lbl { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); margin-top:3px; text-transform:uppercase; }
+.habit-chart-wrap { position:relative; margin-bottom:16px; }
+.gym-week-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin-bottom:16px; }
+.gym-day { text-align:center; }
+.gym-day-label { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); margin-bottom:5px; }
+.gym-day-dot { width:34px; height:34px; border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; margin:0 auto; cursor:pointer; font-size:14px; transition:all .15s; }
+.gym-day-dot.done { background:#2c4a7c; border-color:#2c4a7c; color:#fff; }
+.gym-day-dot.rest { background:var(--bg); color:var(--ink3); }
+.screen-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.screen-bar-label { font-size:12px; font-weight:600; color:var(--ink); width:110px; flex-shrink:0; }
+.screen-bar-track { flex:1; height:8px; background:var(--bg); border-radius:4px; overflow:hidden; }
+.screen-bar-fill { height:100%; border-radius:4px; }
+.screen-bar-time { font-size:11px; font-family:'DM Mono',monospace; color:var(--ink2); width:52px; text-align:right; flex-shrink:0; }
+
+/* ── Stocks ─────────────────────────────────────────── */
+#view-stocks { padding:0 !important; display:none; height:100%; }
+#view-stocks.active { display:grid; grid-template-columns:280px minmax(0,1fr); }
+.stock-sidebar { border-right:1px solid var(--border); background:var(--surface); display:flex; flex-direction:column; overflow:hidden; }
+.stock-sidebar-hdr { padding:14px 16px; border-bottom:1px solid var(--border); font-size:11px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; letter-spacing:.5px; }
+.stock-list { flex:1; overflow-y:auto; }
+.stock-row { display:flex; align-items:center; gap:10px; padding:12px 16px; cursor:pointer; border-bottom:1px solid var(--border); transition:background .12s; }
+.stock-row:hover { background:var(--bg); }
+.stock-row.active { background:#eef2f9; }
+.stock-ticker-badge { background:#2c4a7c; color:#fff; border-radius:6px; padding:3px 8px; font-size:10px; font-weight:800; font-family:'DM Mono',monospace; flex-shrink:0; }
+.stock-row-name { font-size:12px; font-weight:600; color:var(--ink); flex:1; }
+.stock-row-price { font-size:12px; font-family:'DM Mono',monospace; color:var(--ink); font-weight:700; }
+.stock-row-chg { font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; margin-left:4px; }
+.stock-detail { display:flex; flex-direction:column; overflow-y:auto; background:var(--bg); padding:20px; gap:16px; }
+.stock-hero { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+.stock-hero-name { font-size:18px; font-weight:700; color:var(--ink); }
+.stock-hero-meta { font-size:11px; font-family:'DM Mono',monospace; color:var(--ink3); margin-top:2px; }
+.stock-hero-price { font-size:32px; font-weight:800; color:var(--ink); margin:10px 0 4px; line-height:1; }
+.stock-hero-chg { font-size:14px; font-weight:700; padding:3px 10px; border-radius:6px; display:inline-block; }
+.stock-sparkline-lg { width:100%; height:80px; display:block; margin-top:12px; }
+.stock-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.stock-stat-box { background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:10px 12px; }
+.stock-stat-lbl { font-size:9.5px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; margin-bottom:3px; }
+.stock-stat-val { font-size:13px; font-weight:700; color:var(--ink); }
+.stock-news { display:flex; flex-direction:column; gap:10px; }
+.stock-news-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
+.stock-news-source { font-size:9.5px; font-family:'DM Mono',monospace; color:var(--ink3); text-transform:uppercase; margin-bottom:4px; }
+.stock-news-headline { font-size:13px; font-weight:600; color:var(--ink); line-height:1.4; }
+.stock-news-time { font-size:10.5px; color:var(--ink3); margin-top:4px; }
+@media (max-width:768px) { #view-stocks.active { grid-template-columns:1fr; } .stock-sidebar { display:none; } }
+
+/* ── Invoice Generator ──────────────────────────────── */
+.invoice-layout { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:900px) { .invoice-layout { grid-template-columns:1fr; } }
+.invoice-form-section label { display:block; font-size:11px; font-family:'DM Mono',monospace; color:var(--ink3); margin-bottom:4px; text-transform:uppercase; letter-spacing:.4px; }
+.invoice-form-section .inv-input { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:7px; padding:8px 11px; font-size:12.5px; color:var(--ink); font-family:inherit; outline:none; box-sizing:border-box; }
+.inv-line-table { width:100%; border-collapse:collapse; margin:8px 0; }
+.inv-line-table th { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-align:left; padding:6px 8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+.inv-line-table td { padding:6px 4px; }
+.inv-line-table td input { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:5px 7px; font-size:12px; color:var(--ink); font-family:inherit; outline:none; }
+.inv-line-table td:last-child { font-size:12px; font-family:'DM Mono',monospace; color:var(--ink); padding-left:8px; white-space:nowrap; }
+.inv-preview { background:#fff; border:1px solid var(--border); border-radius:12px; padding:24px; font-family:'Raleway',sans-serif; }
+.inv-preview-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; padding-bottom:16px; border-bottom:2px solid #2c4a7c; }
+.inv-preview-title { font-size:24px; font-weight:800; color:#2c4a7c; }
+.inv-preview-from { font-size:11px; color:#666; line-height:1.6; }
+.inv-preview-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; font-size:12px; color:#333; }
+.inv-preview-to-label { font-size:10px; font-family:'DM Mono',monospace; color:#888; text-transform:uppercase; margin-bottom:3px; }
+.inv-preview-table { width:100%; border-collapse:collapse; font-size:12px; }
+.inv-preview-table th { background:#f5f5f5; padding:8px 10px; text-align:left; font-size:10px; text-transform:uppercase; color:#666; }
+.inv-preview-table td { padding:8px 10px; border-bottom:1px solid #eee; color:#333; }
+.inv-preview-totals { margin-top:12px; text-align:right; font-size:12px; color:#333; }
+.inv-preview-total-line { display:flex; justify-content:flex-end; gap:24px; padding:4px 0; }
+.inv-preview-grand { font-size:16px; font-weight:800; color:#2c4a7c; border-top:2px solid #2c4a7c; padding-top:8px; margin-top:4px; }
+
+/* ── Cash Flow ──────────────────────────────────────── */
+.cashflow-chart-wrap { overflow-x:auto; }
+.cf-bar-chart { display:flex; align-items:flex-end; gap:16px; height:140px; padding:0 4px; }
+.cf-month-group { display:flex; gap:4px; align-items:flex-end; flex:1; min-width:52px; }
+.cf-bar { border-radius:4px 4px 0 0; width:18px; transition:opacity .15s; cursor:default; }
+.cf-bar.income { background:#2c4a7c; }
+.cf-bar.expense { background:#ef4444; }
+.cf-month-label { text-align:center; font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); margin-top:5px; }
+.cf-table { width:100%; border-collapse:collapse; font-size:12px; }
+.cf-table th { font-size:10px; font-family:'DM Mono',monospace; color:var(--ink3); text-align:left; padding:7px 10px; border-bottom:1px solid var(--border); text-transform:uppercase; background:var(--surface2); }
+.cf-table td { padding:8px 10px; border-bottom:1px solid var(--border); color:var(--ink); }
+.cf-table tr:last-child td { border-bottom:none; font-weight:700; }
+.cf-table td.income-col { color:var(--green); font-family:'DM Mono',monospace; }
+.cf-table td.expense-col { color:var(--red); font-family:'DM Mono',monospace; }
+.cf-table td.net-col { font-family:'DM Mono',monospace; font-weight:700; }
+.cf-ann-insight { background:#f0f4ff; border:1px solid #c5d3ef; border-radius:10px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; }
+
+/* ── Payslips ───────────────────────────────────────── */
+.payslip-layout { display:grid; grid-template-columns:300px minmax(0,1fr); gap:16px; }
+@media (max-width:768px) { .payslip-layout { grid-template-columns:1fr; } }
+.payslip-item { display:flex; align-items:center; gap:10px; padding:11px 14px; cursor:pointer; border-bottom:1px solid var(--border); border-radius:0; transition:background .12s; }
+.payslip-item:hover { background:var(--bg); }
+.payslip-item.active { background:#eef2f9; }
+.payslip-logo { width:36px; height:36px; border-radius:9px; background:#2c4a7c; color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; }
+.payslip-meta { flex:1; }
+.payslip-employer { font-size:12.5px; font-weight:700; color:var(--ink); }
+.payslip-date { font-size:10.5px; font-family:'DM Mono',monospace; color:var(--ink3); }
+.payslip-gross { font-size:12px; font-family:'DM Mono',monospace; color:var(--ink); font-weight:700; }
+.payslip-badge { font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; }
+.payslip-badge.synced { background:var(--green-light); color:var(--green); }
+.payslip-badge.uploaded { background:var(--amber-light); color:var(--amber); }
+.payslip-detail-row { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--border); font-size:13px; }
+.payslip-detail-row:last-child { border-bottom:none; }
+.payslip-detail-row.total { font-weight:800; font-size:14px; color:#2c4a7c; }
+.payslip-detail-lbl { color:var(--ink2); }
+.payslip-detail-val { font-family:'DM Mono',monospace; color:var(--ink); font-weight:600; }
+.payslip-detail-val.deduction { color:var(--red); }
 </style>
 </head>
 <body>
@@ -2058,8 +2204,13 @@ body::after {
       <div class="nav-item" onclick="navigate('categorisation', this)"><span class="nav-icon"><i class="bi bi-tags-fill"></i></span> Categorisation</div>
       <div class="nav-item" onclick="navigate('vat', this)"><span class="nav-icon"><i class="bi bi-file-earmark-spreadsheet-fill"></i></span> VAT Return</div>
       <div class="nav-item" onclick="navigate('tax', this)"><span class="nav-icon"><i class="bi bi-calculator-fill"></i></span> Tax Return</div>
+      <div class="nav-item" onclick="navigate('stocks', this)"><span class="nav-icon"><i class="bi bi-graph-up"></i></span> Stocks</div>
+      <div class="nav-item" onclick="navigate('invoice', this)"><span class="nav-icon"><i class="bi bi-file-earmark-text-fill"></i></span> Invoice</div>
+      <div class="nav-item" onclick="navigate('cashflow', this)"><span class="nav-icon"><i class="bi bi-cash-stack"></i></span> Cash Flow</div>
+      <div class="nav-item" onclick="navigate('payslips', this)"><span class="nav-icon"><i class="bi bi-file-earmark-person-fill"></i></span> Payslips</div>
       <div class="nav-section-label">Lifestyle</div>
       <div class="nav-item" onclick="navigate('profile', this)"><span class="nav-icon"><i class="bi bi-person-fill"></i></span> Profile</div>
+      <div class="nav-item" onclick="navigate('habits', this)"><span class="nav-icon"><i class="bi bi-activity"></i></span> Habits</div>
       <div class="nav-item" onclick="navigate('inventory', this)"><span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span> Inventory</div>
       <div class="nav-item" onclick="navigate('meals', this)"><span class="nav-icon"><i class="bi bi-cup-hot-fill"></i></span> Meals</div>
       <div class="nav-item" onclick="navigate('trips', this)"><span class="nav-icon"><i class="bi bi-globe2"></i></span> Trips</div>
@@ -2134,72 +2285,97 @@ body::after {
         <div class="stat-card"><div class="stat-value">2</div><div class="stat-label">Parcels En Route</div><div class="stat-change" style="color:var(--amber)">1 out for delivery</div></div>
         <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Events This Week</div><div class="stat-change" style="color:var(--ink3)">Next: Mon 9AM</div></div>
       </div>
-      <div class="dashboard-grid">
-        <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-check2-square"></i></div><div><div class="card-title">Tasks</div><div class="card-sub">5 pending</div></div></div>
-          <div class="card-body">
-            <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Submit self-assessment tax return to HMRC</div><div class="task-source">email</div></div>
-            <div class="task-item" onclick="toggleTask(this)"><div class="task-check done"><i class="bi bi-check-lg"></i></div><div class="task-text done">Review Q4 management accounts</div><div class="task-source">manual</div></div>
-            <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Book dentist appointment — voicemail follow up</div><div class="task-source">call</div></div>
-            <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Renew car insurance — expires 15 March</div><div class="task-source">email</div></div>
-          </div>
+      <!-- Stock Summary Strip -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header" style="border-bottom:none; padding-bottom:10px;">
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-graph-up"></i></div>
+          <div><div class="card-title">Markets</div><div class="card-sub">Last close · Tap to view details</div></div>
         </div>
-        <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-envelope-fill"></i></div><div><div class="card-title">Recent Emails</div><div class="card-sub">AI summarised</div></div></div>
-          <div class="card-body">
-            <div class="email-item"><div class="email-avatar" style="background:#dc2626;">H</div><div class="email-content"><div class="email-from">HMRC</div><div class="email-subject">Self Assessment — Action Required</div><div class="email-summary">→ Tax return deadline 31 Jan. File now to avoid penalty.</div></div><div class="email-time">9:02</div></div>
-            <div class="email-item"><div class="email-avatar" style="background:#7c3aed;">N</div><div class="email-content"><div class="email-from">Netflix</div><div class="email-subject">Your plan price is changing</div><div class="email-summary">→ Price rising £10.99 → £13.99 from 15 Mar.</div></div><div class="email-time">Fri</div></div>
-            <div class="email-item"><div class="email-avatar" style="background:#059669;">A</div><div class="email-content"><div class="email-from">ASOS</div><div class="email-subject">Your order is on its way 🎉</div><div class="email-summary">→ Tracking: EVR-28291. Est. delivery today.</div></div><div class="email-time">Thu</div></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-pie-chart-fill"></i></div><div><div class="card-title">Budget — Feb</div><div class="card-sub">£1,842 of £2,500</div></div></div>
-          <div class="card-body">
-            <div class="budget-chart-wrap">
-              <div class="pie-wrap">
-                <svg width="90" height="90" viewBox="0 0 90 90">
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="#f5f2ed" stroke-width="14"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="#3b82f6" stroke-width="14" stroke-dasharray="57 182" stroke-dashoffset="0"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="#10b981" stroke-width="14" stroke-dasharray="46 182" stroke-dashoffset="-57"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="#f59e0b" stroke-width="14" stroke-dasharray="34 182" stroke-dashoffset="-103"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="#ef4444" stroke-width="14" stroke-dasharray="28 182" stroke-dashoffset="-137"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="#8b5cf6" stroke-width="14" stroke-dasharray="17 182" stroke-dashoffset="-165"/>
-                </svg>
-                <div class="pie-center"><div class="pie-total">74%</div><div class="pie-label">used</div></div>
-              </div>
-              <div class="budget-legend">
-                <div class="budget-item"><div class="budget-dot" style="background:#3b82f6"></div><div class="budget-cat">Housing</div><div class="budget-amt">£780</div><div class="budget-pct">31%</div></div>
-                <div class="budget-item"><div class="budget-dot" style="background:#10b981"></div><div class="budget-cat">Food</div><div class="budget-amt">£340</div><div class="budget-pct">14%</div></div>
-                <div class="budget-item"><div class="budget-dot" style="background:#f59e0b"></div><div class="budget-cat">Transport</div><div class="budget-amt">£210</div><div class="budget-pct">8%</div></div>
-                <div class="budget-item"><div class="budget-dot" style="background:#ef4444"></div><div class="budget-cat">Shopping</div><div class="budget-amt">£312</div><div class="budget-pct">12%</div></div>
-                <div class="budget-item"><div class="budget-dot" style="background:#8b5cf6"></div><div class="budget-cat">Subs</div><div class="budget-amt">£200</div><div class="budget-pct">8%</div></div>
-              </div>
+        <div style="padding:0 18px 14px;">
+          <div class="stock-strip">
+            <div class="stock-chip" onclick="navigate('stocks', document.querySelector('[onclick*=navigate_stocks]'))">
+              <span class="stock-chip-ticker">AAPL</span>
+              <span class="stock-chip-price">$182.40</span>
+              <span class="stock-chip-chg up">↑ 1.2%</span>
+              <svg class="stock-sparkline" viewBox="0 0 52 24" fill="none"><polyline points="0,18 7,16 13,17 19,13 26,10 32,8 38,11 44,7 52,6" stroke="#166534" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <div class="stock-chip" onclick="navigate('stocks', document.querySelector('[onclick*=navigate_stocks]'))">
+              <span class="stock-chip-ticker">NVDA</span>
+              <span class="stock-chip-price">$875.10</span>
+              <span class="stock-chip-chg up">↑ 3.4%</span>
+              <svg class="stock-sparkline" viewBox="0 0 52 24" fill="none"><polyline points="0,20 7,18 13,15 19,12 26,9 32,7 38,5 44,4 52,2" stroke="#166534" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <div class="stock-chip" onclick="navigate('stocks', document.querySelector('[onclick*=navigate_stocks]'))">
+              <span class="stock-chip-ticker">TSLA</span>
+              <span class="stock-chip-price">$193.57</span>
+              <span class="stock-chip-chg dn">↓ 0.8%</span>
+              <svg class="stock-sparkline" viewBox="0 0 52 24" fill="none"><polyline points="0,6 7,7 13,8 19,10 26,11 32,14 38,13 44,16 52,17" stroke="#991b1b" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <div class="stock-chip" onclick="navigate('stocks', document.querySelector('[onclick*=navigate_stocks]'))">
+              <span class="stock-chip-ticker">META</span>
+              <span class="stock-chip-price">$493.00</span>
+              <span class="stock-chip-chg up">↑ 0.5%</span>
+              <svg class="stock-sparkline" viewBox="0 0 52 24" fill="none"><polyline points="0,14 7,13 13,12 19,13 26,11 32,10 38,12 44,10 52,9" stroke="#166534" stroke-width="1.5" fill="none"/></svg>
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-box-seam-fill"></i></div><div><div class="card-title">Inventory</div><div class="card-sub">1 item low</div></div></div>
-          <div class="card-body">
-            <div class="inventory-item"><div class="inv-emoji">🥛</div><div class="inv-name">Milk</div><div class="inv-qty">1 jug</div><div class="stock-bar"><div class="stock-fill" style="width:12%; background:#ef4444;"></div></div></div>
-            <div class="inventory-item"><div class="inv-emoji">🍞</div><div class="inv-name">Bread</div><div class="inv-qty">1 loaf</div><div class="stock-bar"><div class="stock-fill" style="width:35%; background:#f59e0b;"></div></div></div>
-            <div class="inventory-item"><div class="inv-emoji">🥚</div><div class="inv-name">Eggs</div><div class="inv-qty">8</div><div class="stock-bar"><div class="stock-fill" style="width:65%; background:#10b981;"></div></div></div>
-            <div class="inventory-item"><div class="inv-emoji">☕</div><div class="inv-name">Coffee</div><div class="inv-qty">250g</div><div class="stock-bar"><div class="stock-fill" style="width:80%; background:#10b981;"></div></div></div>
-            <div class="inventory-item"><div class="inv-emoji">🍚</div><div class="inv-name">Rice</div><div class="inv-qty">500g</div><div class="stock-bar"><div class="stock-fill" style="width:50%; background:#3b82f6;"></div></div></div>
+      </div>
+
+      <!-- Today's Briefing -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#2c4a7c;"><i class="bi bi-stars" style="color:#fff;"></i></div>
+          <div>
+            <div class="card-title">Today's Briefing</div>
+            <div class="card-sub">Sunday, 1 March 2026 · ANN generated</div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-truck"></i></div><div><div class="card-title">Parcels</div><div class="card-sub">2 active</div></div></div>
-          <div class="card-body">
-            <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">ASOS Order #28291</div><div class="parcel-courier">Evri · EVR-28291-UK</div></div><div class="status-pill status-transit">Out for delivery</div></div>
-            <div class="parcel-item"><div class="parcel-icon">📦</div><div class="parcel-info"><div class="parcel-name">Amazon — GPU Cable</div><div class="parcel-courier">Royal Mail · RM-774821-GB</div></div><div class="status-pill status-processing">In transit</div></div>
+        <div class="card-body">
+          <!-- Schedule -->
+          <div class="briefing-section">
+            <div class="briefing-icon" style="background:var(--blue-light);"><i class="bi bi-calendar3" style="color:#2c4a7c;font-size:12px;"></i></div>
+            <div class="briefing-items">
+              <div class="briefing-label">Today's schedule</div>
+              <div class="briefing-item"><strong>Client call with Sarah Mitchell</strong><span class="btime">09:00 · Zoom</span></div>
+              <div class="briefing-item"><strong>Team standup</strong><span class="btime">10:30 · Teams</span></div>
+              <div class="briefing-item"><strong>AAT revision session</strong><span class="btime">14:00 · Home</span></div>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header"><div class="card-icon" style="background:var(--red-light);"><i class="bi bi-receipt"></i></div><div><div class="card-title">Bills & Subscriptions</div><div class="card-sub">1 price change detected</div></div></div>
-          <div class="card-body">
-            <div class="bill-item"><div class="bill-icon" style="background:#e50914; color:white;">N</div><div class="bill-info"><div class="bill-name">Netflix</div><div class="bill-freq">Monthly · 15th</div></div><div><div class="bill-amount">£13.99</div><div class="price-change">↑ was £10.99</div></div></div>
-            <div class="bill-item"><div class="bill-icon" style="background:#1db954; color:white;">S</div><div class="bill-info"><div class="bill-name">Spotify</div><div class="bill-freq">Monthly · 3rd</div></div><div class="bill-amount">£11.99</div></div>
-            <div class="bill-item"><div class="bill-icon" style="background:#0078d4; color:white;">M</div><div class="bill-info"><div class="bill-name">Microsoft 365</div><div class="bill-freq">Monthly · 1st</div></div><div class="bill-amount">£9.99</div></div>
+          <!-- Tasks -->
+          <div class="briefing-section">
+            <div class="briefing-icon" style="background:var(--green-light);"><i class="bi bi-check2-square" style="color:var(--green);font-size:12px;"></i></div>
+            <div class="briefing-items">
+              <div class="briefing-label">Priority tasks</div>
+              <div class="briefing-item"><strong>Submit self-assessment tax return</strong> — deadline 31 Jan, overdue</div>
+              <div class="briefing-item"><strong>Renew car insurance</strong> — expires 15 March</div>
+              <div class="briefing-item"><strong>Book dentist appointment</strong> — voicemail follow-up pending</div>
+            </div>
+          </div>
+          <!-- Budget -->
+          <div class="briefing-section">
+            <div class="briefing-icon" style="background:var(--amber-light);"><i class="bi bi-pie-chart-fill" style="color:var(--amber);font-size:12px;"></i></div>
+            <div class="briefing-items">
+              <div class="briefing-label">Budget</div>
+              <div class="briefing-item">Spent <strong>£1,842</strong> of <strong>£2,500</strong> this month — 74% used, 7 days remaining</div>
+              <div class="briefing-item">Netflix price increase to <strong>£13.99</strong> detected from 15 Mar</div>
+            </div>
+          </div>
+          <!-- Emails -->
+          <div class="briefing-section">
+            <div class="briefing-icon" style="background:var(--blue-light);"><i class="bi bi-envelope-fill" style="color:#2c4a7c;font-size:12px;"></i></div>
+            <div class="briefing-items">
+              <div class="briefing-label">Email highlights</div>
+              <div class="briefing-item"><strong>HMRC</strong> — Self Assessment action required. File before 31 Jan to avoid penalty.</div>
+              <div class="briefing-item"><strong>ASOS</strong> — Order #28291 out for delivery today via Evri</div>
+            </div>
+          </div>
+          <!-- Inventory / Shopping -->
+          <div class="briefing-section">
+            <div class="briefing-icon" style="background:var(--red-light);"><i class="bi bi-cart-fill" style="color:var(--red);font-size:12px;"></i></div>
+            <div class="briefing-items">
+              <div class="briefing-label">Shopping needed</div>
+              <div class="briefing-item"><strong>Milk</strong> is critically low (12%). <strong>Bread</strong> and <strong>Garlic</strong> running low.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -3149,6 +3325,36 @@ body::after {
           <div class="inventory-item"><div class="inv-emoji">🧄</div><div class="inv-name">Garlic</div><div class="inv-qty">4 cloves</div><div class="stock-bar"><div class="stock-fill" style="width:30%;background:#f59e0b;"></div></div></div>
         </div>
       </div>
+
+      <!-- Shopping List -->
+      <div class="card" style="margin-top:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--green-light);"><i class="bi bi-cart-fill"></i></div>
+          <div>
+            <div class="card-title">Shopping List</div>
+            <div class="card-sub">Auto-generated from low stock · ANN suggested</div>
+          </div>
+          <button class="btn btn-ghost" style="margin-left:auto;font-size:11px;padding:6px 12px;" onclick="regenShopList()"><i class="bi bi-arrow-clockwise"></i> Regenerate</button>
+        </div>
+        <div class="card-body">
+          <div id="shop-list">
+            <div class="shop-item"><div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">Milk</div><div class="shop-qty">2 jugs</div><span class="shop-source auto">Auto</span></div>
+            <div class="shop-item"><div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">Bread</div><div class="shop-qty">1 loaf</div><span class="shop-source auto">Auto</span></div>
+            <div class="shop-item"><div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">Garlic</div><div class="shop-qty">1 bulb</div><span class="shop-source auto">Auto</span></div>
+            <div class="shop-item"><div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">Chicken Breast</div><div class="shop-qty">500g</div><span class="shop-source auto">Auto</span></div>
+            <div class="shop-item"><div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">Spinach</div><div class="shop-qty">1 bag</div><span class="shop-source auto">Auto</span></div>
+            <div class="shop-item"><div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">Greek Yoghurt</div><div class="shop-qty">500g</div><span class="shop-source auto">Auto</span></div>
+          </div>
+          <div class="shop-add-row">
+            <input class="shop-add-input" id="shop-add-input" placeholder="Add item…" onkeydown="if(event.key==='Enter')addShopItem()">
+            <button class="btn btn-ghost" style="padding:7px 14px;font-size:12px;" onclick="addShopItem()">+ Add</button>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;">
+            <button class="btn btn-ghost" style="font-size:12px;" onclick="showToast('Opening Tesco online…')"><i class="bi bi-bag-fill"></i> Order via Tesco</button>
+            <button class="btn btn-ghost" style="font-size:12px;" onclick="copyShopList()"><i class="bi bi-clipboard"></i> Copy List</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- MEALS VIEW -->
@@ -3915,6 +4121,490 @@ body::after {
       </div>
     </div>
 
+    <!-- HABITS VIEW -->
+    <div class="content" id="view-habits">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="meal-tab active" id="htab-btn-sleep" onclick="switchHabitTab('sleep',this)"><i class="bi bi-moon-fill" style="margin-right:5px;"></i>Sleep</button>
+        <button class="meal-tab" id="htab-btn-gym" onclick="switchHabitTab('gym',this)"><i class="bi bi-lightning-fill" style="margin-right:5px;"></i>Gym</button>
+        <button class="meal-tab" id="htab-btn-screen" onclick="switchHabitTab('screen',this)"><i class="bi bi-phone-fill" style="margin-right:5px;"></i>Screen Time</button>
+      </div>
+
+      <!-- SLEEP PANEL -->
+      <div id="htab-sleep" class="profile-tab-panel active">
+        <div class="habit-stats-row">
+          <div class="habit-stat"><div class="habit-stat-val">7.2<span style="font-size:14px;font-weight:400;">h</span></div><div class="habit-stat-lbl">Weekly Avg</div></div>
+          <div class="habit-stat"><div class="habit-stat-val" style="color:var(--green);">9<span style="font-size:14px;font-weight:400;">h</span></div><div class="habit-stat-lbl">Best Night</div></div>
+          <div class="habit-stat"><div class="habit-stat-val" style="color:var(--red);">5.5<span style="font-size:14px;font-weight:400;">h</span></div><div class="habit-stat-lbl">Worst Night</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-icon" style="background:var(--purple-light);"><i class="bi bi-moon-fill" style="color:var(--purple);"></i></div><div><div class="card-title">Sleep This Week</div><div class="card-sub">Hours per night · Sun 23 Feb — Sat 1 Mar</div></div></div>
+          <div class="card-body">
+            <svg width="100%" height="120" viewBox="0 0 420 120" preserveAspectRatio="none" style="display:block;margin-bottom:8px;">
+              <!-- bars: Mon 7h, Tue 6h, Wed 8.5h, Thu 9h, Fri 5.5h, Sat 7.5h, Sun 7h — scale 0-10h → 0-100px -->
+              <rect x="10" y="30" width="44" height="70" rx="4" fill="#2c4a7c" opacity=".85"/>
+              <rect x="70" y="40" width="44" height="60" rx="4" fill="#2c4a7c" opacity=".85"/>
+              <rect x="130" y="15" width="44" height="85" rx="4" fill="#2c4a7c" opacity=".85"/>
+              <rect x="190" y="10" width="44" height="90" rx="4" fill="#2c4a7c"/>
+              <rect x="250" y="45" width="44" height="55" rx="4" fill="#ef4444" opacity=".8"/>
+              <rect x="310" y="25" width="44" height="75" rx="4" fill="#2c4a7c" opacity=".85"/>
+              <rect x="370" y="30" width="44" height="70" rx="4" fill="#2c4a7c" opacity=".85"/>
+              <!-- avg line at 72% -->
+              <line x1="0" y1="28" x2="420" y2="28" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 3"/>
+              <!-- labels -->
+              <text x="32" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Mon</text>
+              <text x="92" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Tue</text>
+              <text x="152" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Wed</text>
+              <text x="212" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Thu</text>
+              <text x="272" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Fri</text>
+              <text x="332" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Sat</text>
+              <text x="392" y="115" text-anchor="middle" font-size="10" fill="#6b7280" font-family="DM Mono,monospace">Sun</text>
+              <text x="4" y="32" font-size="9" fill="#10b981" font-family="DM Mono,monospace">avg 7.2h</text>
+              <text x="32" y="26" text-anchor="middle" font-size="9" fill="#1e2a3a" font-family="DM Mono,monospace">7h</text>
+              <text x="92" y="36" text-anchor="middle" font-size="9" fill="#1e2a3a" font-family="DM Mono,monospace">6h</text>
+              <text x="152" y="11" text-anchor="middle" font-size="9" fill="#1e2a3a" font-family="DM Mono,monospace">8.5h</text>
+              <text x="212" y="6" text-anchor="middle" font-size="9" fill="#1e2a3a" font-family="DM Mono,monospace">9h</text>
+              <text x="272" y="41" text-anchor="middle" font-size="9" fill="#ef4444" font-family="DM Mono,monospace">5.5h</text>
+              <text x="332" y="21" text-anchor="middle" font-size="9" fill="#1e2a3a" font-family="DM Mono,monospace">7.5h</text>
+              <text x="392" y="26" text-anchor="middle" font-size="9" fill="#1e2a3a" font-family="DM Mono,monospace">7h</text>
+            </svg>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px;">
+              <input type="number" min="0" max="12" step="0.5" placeholder="e.g. 7.5" class="shop-add-input" style="width:110px;flex:none;" id="sleep-input">
+              <span style="font-size:12px;color:var(--ink2);">hours tonight</span>
+              <button class="btn btn-primary" style="font-size:12px;padding:7px 16px;" onclick="logSleep()">Log Sleep</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GYM PANEL -->
+      <div id="htab-gym" class="profile-tab-panel">
+        <div class="habit-stats-row">
+          <div class="habit-stat"><div class="habit-stat-val">4</div><div class="habit-stat-lbl">This week</div></div>
+          <div class="habit-stat"><div class="habit-stat-val" style="color:var(--green);">14</div><div class="habit-stat-lbl">This month</div></div>
+          <div class="habit-stat"><div class="habit-stat-val">🔥 5</div><div class="habit-stat-lbl">Day streak</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-icon" style="background:var(--green-light);"><i class="bi bi-lightning-fill" style="color:var(--green);"></i></div><div><div class="card-title">Gym This Week</div><div class="card-sub">Mon 2 Mar — Sun 8 Mar · Tap to toggle</div></div></div>
+          <div class="card-body">
+            <div class="gym-week-grid">
+              <div class="gym-day"><div class="gym-day-label">Mon</div><div class="gym-day-dot done" onclick="toggleGymDay(this)"><i class="bi bi-check-lg"></i></div></div>
+              <div class="gym-day"><div class="gym-day-label">Tue</div><div class="gym-day-dot rest" onclick="toggleGymDay(this)"><i class="bi bi-dash"></i></div></div>
+              <div class="gym-day"><div class="gym-day-label">Wed</div><div class="gym-day-dot done" onclick="toggleGymDay(this)"><i class="bi bi-check-lg"></i></div></div>
+              <div class="gym-day"><div class="gym-day-label">Thu</div><div class="gym-day-dot done" onclick="toggleGymDay(this)"><i class="bi bi-check-lg"></i></div></div>
+              <div class="gym-day"><div class="gym-day-label">Fri</div><div class="gym-day-dot rest" onclick="toggleGymDay(this)"><i class="bi bi-dash"></i></div></div>
+              <div class="gym-day"><div class="gym-day-label">Sat</div><div class="gym-day-dot done" onclick="toggleGymDay(this)"><i class="bi bi-check-lg"></i></div></div>
+              <div class="gym-day"><div class="gym-day-label">Sun</div><div class="gym-day-dot rest" onclick="toggleGymDay(this)"><i class="bi bi-dash"></i></div></div>
+            </div>
+            <button class="btn btn-primary" style="font-size:12px;padding:7px 18px;" onclick="logGym()"><i class="bi bi-plus-lg"></i> Log Today's Session</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN TIME PANEL -->
+      <div id="htab-screen" class="profile-tab-panel">
+        <div class="habit-stats-row">
+          <div class="habit-stat"><div class="habit-stat-val">4<span style="font-size:14px;font-weight:400;">h</span> 32<span style="font-size:14px;font-weight:400;">m</span></div><div class="habit-stat-lbl">Today total</div></div>
+          <div class="habit-stat"><div class="habit-stat-val">5<span style="font-size:14px;font-weight:400;">h</span> 10<span style="font-size:14px;font-weight:400;">m</span></div><div class="habit-stat-lbl">Yesterday</div></div>
+          <div class="habit-stat"><div class="habit-stat-val">4<span style="font-size:14px;font-weight:400;">h</span> 45<span style="font-size:14px;font-weight:400;">m</span></div><div class="habit-stat-lbl">Weekly avg</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-phone-fill" style="color:#2c4a7c;"></i></div><div><div class="card-title">Screen Time Breakdown</div><div class="card-sub">Synced from iPhone · Today</div></div></div>
+          <div class="card-body">
+            <!-- Total bar -->
+            <div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:11px;font-weight:700;color:var(--ink);">Total</span><span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink);">4h 32m</span></div>
+              <div class="screen-bar-track" style="height:10px;"><div class="screen-bar-fill" style="width:75%;background:#2c4a7c;"></div></div>
+            </div>
+            <div class="screen-bar-row"><span class="screen-bar-label"><i class="bi bi-instagram" style="margin-right:5px;color:#e1306c;"></i>Social</span><div class="screen-bar-track"><div class="screen-bar-fill" style="width:58%;background:#e1306c;"></div></div><span class="screen-bar-time">1h 20m</span></div>
+            <div class="screen-bar-row"><span class="screen-bar-label"><i class="bi bi-briefcase-fill" style="margin-right:5px;color:#2c4a7c;"></i>Productivity</span><div class="screen-bar-track"><div class="screen-bar-fill" style="width:55%;background:#2c4a7c;"></div></div><span class="screen-bar-time">1h 15m</span></div>
+            <div class="screen-bar-row"><span class="screen-bar-label"><i class="bi bi-play-circle-fill" style="margin-right:5px;color:#ef4444;"></i>Entertainment</span><div class="screen-bar-track"><div class="screen-bar-fill" style="width:36%;background:#ef4444;"></div></div><span class="screen-bar-time">58m</span></div>
+            <div class="screen-bar-row"><span class="screen-bar-label"><i class="bi bi-grid-fill" style="margin-right:5px;color:var(--ink3);"></i>Other</span><div class="screen-bar-track"><div class="screen-bar-fill" style="width:36%;background:var(--border2);"></div></div><span class="screen-bar-time">59m</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOCKS VIEW -->
+    <div class="content" id="view-stocks">
+      <!-- Watchlist sidebar -->
+      <div class="stock-sidebar">
+        <div class="stock-sidebar-hdr">Watchlist</div>
+        <div class="stock-list">
+          <div class="stock-row active" id="srow-aapl" onclick="selectStock('aapl',this)">
+            <span class="stock-ticker-badge">AAPL</span>
+            <span class="stock-row-name">Apple Inc.</span>
+            <span class="stock-row-price">$182.40</span>
+            <span class="stock-row-chg up" style="background:var(--green-light);color:var(--green);">+1.2%</span>
+          </div>
+          <div class="stock-row" id="srow-nvda" onclick="selectStock('nvda',this)">
+            <span class="stock-ticker-badge">NVDA</span>
+            <span class="stock-row-name">NVIDIA Corp.</span>
+            <span class="stock-row-price">$875.10</span>
+            <span class="stock-row-chg up" style="background:var(--green-light);color:var(--green);">+3.4%</span>
+          </div>
+          <div class="stock-row" id="srow-tsla" onclick="selectStock('tsla',this)">
+            <span class="stock-ticker-badge">TSLA</span>
+            <span class="stock-row-name">Tesla Inc.</span>
+            <span class="stock-row-price">$193.57</span>
+            <span class="stock-row-chg dn" style="background:var(--red-light);color:var(--red);">−0.8%</span>
+          </div>
+          <div class="stock-row" id="srow-meta" onclick="selectStock('meta',this)">
+            <span class="stock-ticker-badge">META</span>
+            <span class="stock-row-name">Meta Platforms</span>
+            <span class="stock-row-price">$493.00</span>
+            <span class="stock-row-chg up" style="background:var(--green-light);color:var(--green);">+0.5%</span>
+          </div>
+        </div>
+      </div>
+      <!-- Detail panels -->
+      <div class="stock-detail" id="sdetail-aapl">
+        <div class="stock-hero">
+          <div class="stock-hero-name">Apple Inc.</div>
+          <div class="stock-hero-meta">AAPL · NASDAQ · Last updated: Mon 2 Mar, 21:00 EST</div>
+          <div class="stock-hero-price">$182.40</div>
+          <span class="stock-hero-chg" style="background:var(--green-light);color:var(--green);">▲ $2.16 (+1.21%) today</span>
+          <svg class="stock-sparkline-lg" viewBox="0 0 400 80" preserveAspectRatio="none">
+            <defs><linearGradient id="sg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2c4a7c" stop-opacity=".2"/><stop offset="100%" stop-color="#2c4a7c" stop-opacity="0"/></linearGradient></defs>
+            <polyline points="0,60 20,55 40,58 60,50 80,45 100,47 120,40 140,35 160,38 180,32 200,28 220,30 240,25 260,22 280,26 300,20 320,18 340,22 360,15 380,12 400,10" stroke="#2c4a7c" stroke-width="2" fill="none"/>
+            <polygon points="0,60 20,55 40,58 60,50 80,45 100,47 120,40 140,35 160,38 180,32 200,28 220,30 240,25 260,22 280,26 300,20 320,18 340,22 360,15 380,12 400,10 400,80 0,80" fill="url(#sg1)"/>
+          </svg>
+        </div>
+        <div class="stock-stats-grid">
+          <div class="stock-stat-box"><div class="stock-stat-lbl">Market Cap</div><div class="stock-stat-val">$2.81T</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">P/E Ratio</div><div class="stock-stat-val">28.4</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w High</div><div class="stock-stat-val">$199.62</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w Low</div><div class="stock-stat-val">$164.08</div></div>
+        </div>
+        <div class="stock-news">
+          <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;">Related News</div>
+          <div class="stock-news-item"><div class="stock-news-source">Reuters</div><div class="stock-news-headline">Apple reportedly developing AI chip for smart home devices ahead of 2026 launch</div><div class="stock-news-time">2h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">Bloomberg</div><div class="stock-news-headline">iPhone sales in China rebound as pricing strategy shifts, analysts say</div><div class="stock-news-time">5h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">CNBC</div><div class="stock-news-headline">Apple Services revenue hits new record in Q1 2026 earnings preview</div><div class="stock-news-time">Yesterday</div></div>
+        </div>
+      </div>
+      <div class="stock-detail" id="sdetail-nvda" style="display:none;">
+        <div class="stock-hero">
+          <div class="stock-hero-name">NVIDIA Corporation</div>
+          <div class="stock-hero-meta">NVDA · NASDAQ · Last updated: Mon 2 Mar, 21:00 EST</div>
+          <div class="stock-hero-price">$875.10</div>
+          <span class="stock-hero-chg" style="background:var(--green-light);color:var(--green);">▲ $28.78 (+3.40%) today</span>
+          <svg class="stock-sparkline-lg" viewBox="0 0 400 80" preserveAspectRatio="none">
+            <defs><linearGradient id="sg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#166534" stop-opacity=".2"/><stop offset="100%" stop-color="#166534" stop-opacity="0"/></linearGradient></defs>
+            <polyline points="0,70 20,65 40,60 60,52 80,48 100,42 120,36 140,30 160,26 180,22 200,18 220,20 240,15 260,12 280,10 300,8 320,6 340,8 360,5 380,3 400,2" stroke="#166534" stroke-width="2" fill="none"/>
+            <polygon points="0,70 20,65 40,60 60,52 80,48 100,42 120,36 140,30 160,26 180,22 200,18 220,20 240,15 260,12 280,10 300,8 320,6 340,8 360,5 380,3 400,2 400,80 0,80" fill="url(#sg2)"/>
+          </svg>
+        </div>
+        <div class="stock-stats-grid">
+          <div class="stock-stat-box"><div class="stock-stat-lbl">Market Cap</div><div class="stock-stat-val">$2.16T</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">P/E Ratio</div><div class="stock-stat-val">65.2</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w High</div><div class="stock-stat-val">$974.00</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w Low</div><div class="stock-stat-val">$461.88</div></div>
+        </div>
+        <div class="stock-news">
+          <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;">Related News</div>
+          <div class="stock-news-item"><div class="stock-news-source">FT</div><div class="stock-news-headline">NVIDIA Blackwell GPU demand continues to outstrip supply through H1 2026</div><div class="stock-news-time">1h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">WSJ</div><div class="stock-news-headline">Jensen Huang hints at next-gen AI accelerator roadmap at GTC 2026</div><div class="stock-news-time">4h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">The Verge</div><div class="stock-news-headline">NVIDIA expands data centre partnerships with three major cloud providers</div><div class="stock-news-time">Yesterday</div></div>
+        </div>
+      </div>
+      <div class="stock-detail" id="sdetail-tsla" style="display:none;">
+        <div class="stock-hero">
+          <div class="stock-hero-name">Tesla Inc.</div>
+          <div class="stock-hero-meta">TSLA · NASDAQ · Last updated: Mon 2 Mar, 21:00 EST</div>
+          <div class="stock-hero-price">$193.57</div>
+          <span class="stock-hero-chg" style="background:var(--red-light);color:var(--red);">▼ $1.56 (−0.80%) today</span>
+          <svg class="stock-sparkline-lg" viewBox="0 0 400 80" preserveAspectRatio="none">
+            <defs><linearGradient id="sg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#991b1b" stop-opacity=".15"/><stop offset="100%" stop-color="#991b1b" stop-opacity="0"/></linearGradient></defs>
+            <polyline points="0,10 20,15 40,12 60,20 80,25 100,22 120,30 140,28 160,35 180,32 200,40 220,38 240,45 260,42 280,48 300,52 320,50 340,56 360,58 380,62 400,65" stroke="#991b1b" stroke-width="2" fill="none"/>
+            <polygon points="0,10 20,15 40,12 60,20 80,25 100,22 120,30 140,28 160,35 180,32 200,40 220,38 240,45 260,42 280,48 300,52 320,50 340,56 360,58 380,62 400,65 400,80 0,80" fill="url(#sg3)"/>
+          </svg>
+        </div>
+        <div class="stock-stats-grid">
+          <div class="stock-stat-box"><div class="stock-stat-lbl">Market Cap</div><div class="stock-stat-val">$617B</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">P/E Ratio</div><div class="stock-stat-val">52.1</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w High</div><div class="stock-stat-val">$299.29</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w Low</div><div class="stock-stat-val">$138.80</div></div>
+        </div>
+        <div class="stock-news">
+          <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;">Related News</div>
+          <div class="stock-news-item"><div class="stock-news-source">Reuters</div><div class="stock-news-headline">Tesla Model Y refresh sales disappoint in Europe amid growing competition</div><div class="stock-news-time">3h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">Bloomberg</div><div class="stock-news-headline">Elon Musk's political activities seen weighing on Tesla brand perception</div><div class="stock-news-time">6h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">Electrek</div><div class="stock-news-headline">Tesla Cybertruck recall expanded to cover additional powertrain faults</div><div class="stock-news-time">Yesterday</div></div>
+        </div>
+      </div>
+      <div class="stock-detail" id="sdetail-meta" style="display:none;">
+        <div class="stock-hero">
+          <div class="stock-hero-name">Meta Platforms Inc.</div>
+          <div class="stock-hero-meta">META · NASDAQ · Last updated: Mon 2 Mar, 21:00 EST</div>
+          <div class="stock-hero-price">$493.00</div>
+          <span class="stock-hero-chg" style="background:var(--green-light);color:var(--green);">▲ $2.45 (+0.50%) today</span>
+          <svg class="stock-sparkline-lg" viewBox="0 0 400 80" preserveAspectRatio="none">
+            <defs><linearGradient id="sg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2c4a7c" stop-opacity=".2"/><stop offset="100%" stop-color="#2c4a7c" stop-opacity="0"/></linearGradient></defs>
+            <polyline points="0,45 20,42 40,44 60,38 80,36 100,39 120,34 140,32 160,35 180,30 200,28 220,31 240,26 260,24 280,27 300,22 320,20 340,23 360,18 380,16 400,14" stroke="#2c4a7c" stroke-width="2" fill="none"/>
+            <polygon points="0,45 20,42 40,44 60,38 80,36 100,39 120,34 140,32 160,35 180,30 200,28 220,31 240,26 260,24 280,27 300,22 320,20 340,23 360,18 380,16 400,14 400,80 0,80" fill="url(#sg4)"/>
+          </svg>
+        </div>
+        <div class="stock-stats-grid">
+          <div class="stock-stat-box"><div class="stock-stat-lbl">Market Cap</div><div class="stock-stat-val">$1.26T</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">P/E Ratio</div><div class="stock-stat-val">26.8</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w High</div><div class="stock-stat-val">$544.69</div></div>
+          <div class="stock-stat-box"><div class="stock-stat-lbl">52w Low</div><div class="stock-stat-val">$414.50</div></div>
+        </div>
+        <div class="stock-news">
+          <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;">Related News</div>
+          <div class="stock-news-item"><div class="stock-news-source">TechCrunch</div><div class="stock-news-headline">Meta's Llama 4 model beats GPT-4o on several key benchmarks, paper claims</div><div class="stock-news-time">2h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">Bloomberg</div><div class="stock-news-headline">Instagram ad revenue surges 18% YoY as Reels monetisation matures</div><div class="stock-news-time">5h ago</div></div>
+          <div class="stock-news-item"><div class="stock-news-source">WSJ</div><div class="stock-news-headline">Meta Reality Labs losses narrow as Quest 4 headset launch approaches</div><div class="stock-news-time">Yesterday</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVOICE VIEW -->
+    <div class="content" id="view-invoice">
+      <div class="invoice-layout">
+        <!-- Form -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-file-earmark-text-fill"></i></div>
+            <div><div class="card-title">Invoice Details</div><div class="card-sub">Fill in to generate invoice</div></div>
+          </div>
+          <div class="card-body invoice-form-section" style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <label>From</label>
+                <input class="inv-input" id="inv-from" value="Your Name / Company" oninput="updateInvoicePreview()">
+              </div>
+              <div>
+                <label>Invoice #</label>
+                <input class="inv-input" id="inv-num" value="INV-2026-001" oninput="updateInvoicePreview()">
+              </div>
+            </div>
+            <div>
+              <label>Bill To</label>
+              <input class="inv-input" id="inv-to" value="Acme Ltd, London" oninput="updateInvoicePreview()">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <label>Issue Date</label>
+                <input class="inv-input" id="inv-date" value="01/03/2026" oninput="updateInvoicePreview()">
+              </div>
+              <div>
+                <label>Due Date</label>
+                <input class="inv-input" id="inv-due" value="15/03/2026" oninput="updateInvoicePreview()">
+              </div>
+            </div>
+            <div>
+              <label>Line Items</label>
+              <table class="inv-line-table">
+                <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th><th></th></tr></thead>
+                <tbody id="inv-lines">
+                  <tr>
+                    <td><input class="inv-desc" value="Web Development — March" oninput="updateInvoicePreview()"></td>
+                    <td><input style="width:50px;" class="inv-qty" value="1" oninput="updateInvoicePreview()"></td>
+                    <td><input style="width:80px;" class="inv-price" value="1200" oninput="updateInvoicePreview()"></td>
+                    <td>£1,200.00</td>
+                    <td><span style="cursor:pointer;color:var(--red);font-size:12px;" onclick="removeInvoiceLine(this)">✕</span></td>
+                  </tr>
+                  <tr>
+                    <td><input class="inv-desc" value="SEO Consultancy" oninput="updateInvoicePreview()"></td>
+                    <td><input style="width:50px;" class="inv-qty" value="3" oninput="updateInvoicePreview()"></td>
+                    <td><input style="width:80px;" class="inv-price" value="150" oninput="updateInvoicePreview()"></td>
+                    <td>£450.00</td>
+                    <td><span style="cursor:pointer;color:var(--red);font-size:12px;" onclick="removeInvoiceLine(this)">✕</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-ghost" style="font-size:12px;margin-top:6px;" onclick="addInvoiceLine()">+ Add Line</button>
+            </div>
+            <div>
+              <label>Notes</label>
+              <input class="inv-input" id="inv-notes" value="Payment via bank transfer. 30-day terms." oninput="updateInvoicePreview()">
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <input type="checkbox" id="inv-vat" onchange="updateInvoicePreview()" checked>
+              <label style="font-size:12px;color:var(--ink);margin:0;text-transform:none;letter-spacing:0;">Include VAT (20%)</label>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px;">
+              <button class="btn btn-primary" style="flex:1;" onclick="showToast('Email sent — Invoice INV-2026-001')"><i class="bi bi-envelope"></i> Send by Email</button>
+              <button class="btn btn-ghost" onclick="downloadInvoice()"><i class="bi bi-download"></i> Download PDF</button>
+            </div>
+          </div>
+        </div>
+        <!-- Live Preview -->
+        <div>
+          <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Live Preview</div>
+          <div class="inv-preview" id="inv-preview">
+            <div class="inv-preview-header">
+              <div><div class="inv-preview-title">INVOICE</div><div class="inv-preview-from" id="prv-from">Your Name / Company</div></div>
+              <div style="text-align:right;font-size:12px;color:#555;">
+                <div style="font-weight:700;" id="prv-num">INV-2026-001</div>
+                <div id="prv-date">Issued: 01/03/2026</div>
+                <div id="prv-due">Due: 15/03/2026</div>
+              </div>
+            </div>
+            <div class="inv-preview-meta">
+              <div><div class="inv-preview-to-label">Bill To</div><div id="prv-to" style="font-weight:600;">Acme Ltd, London</div></div>
+              <div></div>
+            </div>
+            <table class="inv-preview-table">
+              <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+              <tbody id="prv-lines">
+                <tr><td>Web Development — March</td><td>1</td><td>£1,200.00</td><td>£1,200.00</td></tr>
+                <tr><td>SEO Consultancy</td><td>3</td><td>£150.00</td><td>£450.00</td></tr>
+              </tbody>
+            </table>
+            <div class="inv-preview-totals">
+              <div class="inv-preview-total-line"><span>Subtotal</span><span id="prv-sub">£1,650.00</span></div>
+              <div class="inv-preview-total-line" id="prv-vat-row"><span>VAT (20%)</span><span id="prv-vat">£330.00</span></div>
+              <div class="inv-preview-total-line inv-preview-grand"><span>Total Due</span><span id="prv-total">£1,980.00</span></div>
+            </div>
+            <div style="margin-top:12px;font-size:11px;color:#888;" id="prv-notes">Payment via bank transfer. 30-day terms.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASH FLOW VIEW -->
+    <div class="content" id="view-cashflow">
+      <!-- Summary stats -->
+      <div class="stat-row" style="margin-bottom:16px;">
+        <div class="stat-card"><div class="stat-value" style="color:var(--green);">+£1,240</div><div class="stat-label">Net This Month</div><div class="stat-change" style="color:var(--ink3);">Income − Expenses</div></div>
+        <div class="stat-card"><div class="stat-value" style="color:var(--green);">+£980</div><div class="stat-label">Forecast Next Month</div><div class="stat-change" style="color:var(--ink3);">ANN projection</div></div>
+        <div class="stat-card"><div class="stat-value" style="color:var(--green);">+£1,100</div><div class="stat-label">3-Month Average</div><div class="stat-change" style="color:var(--ink3);">Dec–Feb</div></div>
+        <div class="stat-card"><div class="stat-value">£3,200</div><div class="stat-label">Monthly Income</div><div class="stat-change" style="color:var(--ink3);">Salary + freelance</div></div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-cash-stack"></i></div>
+          <div><div class="card-title">Income vs Expenses</div><div class="card-sub">Oct 2025 — Mar 2026</div></div>
+          <div style="display:flex;gap:12px;margin-left:auto;align-items:center;">
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2);"><div style="width:10px;height:10px;background:#2c4a7c;border-radius:2px;"></div>Income</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2);"><div style="width:10px;height:10px;background:#ef4444;border-radius:2px;"></div>Expenses</div>
+          </div>
+        </div>
+        <div class="card-body cashflow-chart-wrap">
+          <div style="display:flex;align-items:flex-end;gap:0;padding:8px 0 0;">
+            <div style="display:flex;flex-direction:column;justify-content:space-between;height:140px;padding-right:8px;font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);text-align:right;flex-shrink:0;">
+              <span>£4k</span><span>£3k</span><span>£2k</span><span>£1k</span><span>£0</span>
+            </div>
+            <div style="flex:1;display:flex;gap:12px;align-items:flex-end;height:140px;border-bottom:1px solid var(--border);">
+              <!-- Oct: income 3200, exp 2050 -->
+              <div class="cf-month-group"><div class="cf-bar income" style="height:112px;" title="£3,200"></div><div class="cf-bar expense" style="height:72px;" title="£2,050"></div></div>
+              <!-- Nov: income 3200, exp 2200 -->
+              <div class="cf-month-group"><div class="cf-bar income" style="height:112px;"></div><div class="cf-bar expense" style="height:77px;"></div></div>
+              <!-- Dec: income 4100, exp 2800 -->
+              <div class="cf-month-group"><div class="cf-bar income" style="height:140px;" title="£4,100"></div><div class="cf-bar expense" style="height:98px;" title="£2,800"></div></div>
+              <!-- Jan: income 3200, exp 1960 -->
+              <div class="cf-month-group"><div class="cf-bar income" style="height:112px;"></div><div class="cf-bar expense" style="height:68px;"></div></div>
+              <!-- Feb: income 3200, exp 1958 (actual) -->
+              <div class="cf-month-group"><div class="cf-bar income" style="height:112px;"></div><div class="cf-bar expense" style="height:69px;"></div></div>
+              <!-- Mar: forecast income 3200, exp 2220 (projected) -->
+              <div class="cf-month-group"><div class="cf-bar income" style="height:112px;opacity:.5;"></div><div class="cf-bar expense" style="height:78px;opacity:.5;"></div></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;padding-left:36px;margin-top:5px;">
+            <div class="cf-month-label" style="flex:1;text-align:center;">Oct</div>
+            <div class="cf-month-label" style="flex:1;text-align:center;">Nov</div>
+            <div class="cf-month-label" style="flex:1;text-align:center;">Dec</div>
+            <div class="cf-month-label" style="flex:1;text-align:center;">Jan</div>
+            <div class="cf-month-label" style="flex:1;text-align:center;">Feb</div>
+            <div class="cf-month-label" style="flex:1;text-align:center;">Mar <span style="font-size:8px;color:var(--ink3);">(est)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breakdown table -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header"><div class="card-icon" style="background:var(--amber-light);"><i class="bi bi-table"></i></div><div><div class="card-title">Monthly Breakdown</div><div class="card-sub">Feb 2026 actuals</div></div></div>
+        <div class="card-body" style="padding:0;">
+          <table class="cf-table">
+            <thead><tr><th>Category</th><th>Income</th><th>Expenses</th><th>Net</th></tr></thead>
+            <tbody>
+              <tr><td>Salary</td><td class="income-col">+£2,800</td><td>—</td><td class="net-col">+£2,800</td></tr>
+              <tr><td>Freelance</td><td class="income-col">+£400</td><td>—</td><td class="net-col">+£400</td></tr>
+              <tr><td>Rent / Mortgage</td><td>—</td><td class="expense-col">−£780</td><td class="net-col" style="color:var(--red);">−£780</td></tr>
+              <tr><td>Food & Groceries</td><td>—</td><td class="expense-col">−£340</td><td class="net-col" style="color:var(--red);">−£340</td></tr>
+              <tr><td>Transport</td><td>—</td><td class="expense-col">−£210</td><td class="net-col" style="color:var(--red);">−£210</td></tr>
+              <tr><td>Subscriptions</td><td>—</td><td class="expense-col">−£200</td><td class="net-col" style="color:var(--red);">−£200</td></tr>
+              <tr><td>Shopping</td><td>—</td><td class="expense-col">−£312</td><td class="net-col" style="color:var(--red);">−£312</td></tr>
+              <tr><td style="font-weight:700;">Total</td><td class="income-col">+£3,200</td><td class="expense-col">−£1,842</td><td class="net-col" style="color:var(--green);">+£1,358</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ANN insight -->
+      <div class="cf-ann-insight">
+        <div style="width:28px;height:28px;border-radius:8px;background:#2c4a7c;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;"><i class="bi bi-stars"></i></div>
+        <div><div style="font-size:10.5px;font-weight:700;color:#2c4a7c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;">ANN Insight</div><div style="font-size:12.5px;color:var(--ink);">Your shopping spend is <strong>£312</strong> this month — 12% above your 3-month average. Reducing dining-out and impulse purchases could save approx. <strong>£60/month</strong>.</div></div>
+      </div>
+    </div>
+
+    <!-- PAYSLIPS VIEW -->
+    <div class="content" id="view-payslips">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn btn-primary" style="font-size:12px;" onclick="uploadPayslip()"><i class="bi bi-upload"></i> Upload Payslip</button>
+        <button class="btn btn-ghost" style="font-size:12px;" onclick="showToast('Syncing payslips from email…')"><i class="bi bi-envelope-arrow-down"></i> Sync Emails</button>
+      </div>
+      <div class="payslip-layout">
+        <!-- List -->
+        <div class="card" style="overflow:hidden;">
+          <div class="card-header"><div class="card-icon" style="background:var(--blue-light);"><i class="bi bi-file-earmark-person-fill"></i></div><div><div class="card-title">Your Payslips</div><div class="card-sub">4 total · 3 synced · 1 uploaded</div></div></div>
+          <div style="padding:0;" id="payslip-list">
+            <div class="payslip-item active" onclick="selectPayslip('mar26',this)">
+              <div class="payslip-logo">A</div>
+              <div class="payslip-meta"><div class="payslip-employer">Acme Ltd</div><div class="payslip-date">March 2026</div></div>
+              <div class="payslip-gross">£2,800</div>
+              <span class="payslip-badge synced">Synced</span>
+            </div>
+            <div class="payslip-item" onclick="selectPayslip('feb26',this)">
+              <div class="payslip-logo">A</div>
+              <div class="payslip-meta"><div class="payslip-employer">Acme Ltd</div><div class="payslip-date">February 2026</div></div>
+              <div class="payslip-gross">£2,800</div>
+              <span class="payslip-badge synced">Synced</span>
+            </div>
+            <div class="payslip-item" onclick="selectPayslip('jan26',this)">
+              <div class="payslip-logo">A</div>
+              <div class="payslip-meta"><div class="payslip-employer">Acme Ltd</div><div class="payslip-date">January 2026</div></div>
+              <div class="payslip-gross">£2,800</div>
+              <span class="payslip-badge synced">Synced</span>
+            </div>
+            <div class="payslip-item" onclick="selectPayslip('dec25',this)">
+              <div class="payslip-logo">F</div>
+              <div class="payslip-meta"><div class="payslip-employer">Freelance Invoice</div><div class="payslip-date">December 2025</div></div>
+              <div class="payslip-gross">£400</div>
+              <span class="payslip-badge uploaded">Uploaded</span>
+            </div>
+          </div>
+        </div>
+        <!-- Detail -->
+        <div class="card" id="payslip-detail">
+          <div class="card-header">
+            <div class="card-icon" style="background:#2c4a7c;color:#fff;font-weight:800;font-size:12px;">A</div>
+            <div><div class="card-title">Acme Ltd — March 2026</div><div class="card-sub">Payslip · Employee: Your Name · NI: AB123456C</div></div>
+            <button class="btn btn-ghost" style="margin-left:auto;font-size:11px;" onclick="showToast('Payslip PDF downloaded')"><i class="bi bi-download"></i> PDF</button>
+          </div>
+          <div class="card-body">
+            <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Pay Period: 1–31 March 2026 · Payment Date: 28 March 2026</div>
+            <div class="payslip-detail-row"><span class="payslip-detail-lbl">Gross Pay</span><span class="payslip-detail-val">£2,800.00</span></div>
+            <div class="payslip-detail-row"><span class="payslip-detail-lbl">Income Tax (PAYE)</span><span class="payslip-detail-val deduction">−£420.00</span></div>
+            <div class="payslip-detail-row"><span class="payslip-detail-lbl">National Insurance</span><span class="payslip-detail-val deduction">−£196.00</span></div>
+            <div class="payslip-detail-row"><span class="payslip-detail-lbl">Pension (5%)</span><span class="payslip-detail-val deduction">−£140.00</span></div>
+            <div class="payslip-detail-row total"><span class="payslip-detail-lbl">Net Pay</span><span class="payslip-detail-val" style="color:#2c4a7c;">£2,044.00</span></div>
+            <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);">
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Year to Date (2025/26)</div>
+              <div class="payslip-detail-row" style="font-size:12px;"><span class="payslip-detail-lbl">Gross YTD</span><span class="payslip-detail-val">£28,000.00</span></div>
+              <div class="payslip-detail-row" style="font-size:12px;"><span class="payslip-detail-lbl">Tax YTD</span><span class="payslip-detail-val deduction">−£4,200.00</span></div>
+              <div class="payslip-detail-row" style="font-size:12px;"><span class="payslip-detail-lbl">NI YTD</span><span class="payslip-detail-val deduction">−£1,960.00</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="payslip-file-input" accept=".pdf,.jpg,.png" style="display:none;" onchange="showToast('Payslip uploaded successfully')">
+    </div>
+
   </div>
 </div>
 
@@ -3944,8 +4634,13 @@ body::after {
     <div class="nav-item" onclick="navigateMobile('categorisation', this)"><span class="nav-icon"><i class="bi bi-tags-fill"></i></span> Categorisation</div>
     <div class="nav-item" onclick="navigateMobile('vat', this)"><span class="nav-icon"><i class="bi bi-file-earmark-spreadsheet-fill"></i></span> VAT Return</div>
     <div class="nav-item" onclick="navigateMobile('tax', this)"><span class="nav-icon"><i class="bi bi-calculator-fill"></i></span> Tax Return</div>
+    <div class="nav-item" onclick="navigateMobile('stocks', this)"><span class="nav-icon"><i class="bi bi-graph-up"></i></span> Stocks</div>
+    <div class="nav-item" onclick="navigateMobile('invoice', this)"><span class="nav-icon"><i class="bi bi-file-earmark-text-fill"></i></span> Invoice</div>
+    <div class="nav-item" onclick="navigateMobile('cashflow', this)"><span class="nav-icon"><i class="bi bi-cash-stack"></i></span> Cash Flow</div>
+    <div class="nav-item" onclick="navigateMobile('payslips', this)"><span class="nav-icon"><i class="bi bi-file-earmark-person-fill"></i></span> Payslips</div>
     <div class="nav-section-label">Lifestyle</div>
     <div class="nav-item" onclick="navigateMobile('profile', this)"><span class="nav-icon"><i class="bi bi-person-fill"></i></span> Profile</div>
+    <div class="nav-item" onclick="navigateMobile('habits', this)"><span class="nav-icon"><i class="bi bi-activity"></i></span> Habits</div>
     <div class="nav-item" onclick="navigateMobile('inventory', this)"><span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span> Inventory</div>
     <div class="nav-item" onclick="navigateMobile('meals', this)"><span class="nav-icon"><i class="bi bi-cup-hot-fill"></i></span> Meals</div>
     <div class="nav-item" onclick="navigateMobile('trips', this)"><span class="nav-icon"><i class="bi bi-globe2"></i></span> Trips</div>
@@ -4435,6 +5130,11 @@ const views = {
   meetings: { title: 'Meetings', sub: 'Synced from Calendar · Mon 2 Mar 2026', btn: '+ Schedule' },
   profile: { title: 'Taste Profile', sub: 'Interests, hobbies & food preferences', btn: 'Edit Profile' },
   chat: { title: 'Chat', sub: 'Messages from Teams, WhatsApp & Slack', btn: 'New Message' },
+  habits: { title: 'Habit Tracker', sub: 'Sleep, gym & screen time', btn: 'Log Today' },
+  stocks: { title: 'Stocks', sub: 'Watchlist · Last market close', btn: '+ Add Stock' },
+  invoice: { title: 'Invoice Generator', sub: 'Create & send professional invoices', btn: 'New Invoice' },
+  cashflow: { title: 'Cash Flow', sub: 'Income vs expenses · 6-month forecast', btn: 'Export' },
+  payslips: { title: 'Payslips', sub: 'Synced from email · Manual uploads', btn: 'Upload Payslip' },
 };
 
 function navigate(view, el) {
@@ -5337,6 +6037,136 @@ function addChatEventToCalendar() {
   btn.classList.add('added');
   btn.disabled = true;
   showToast('Team Lunch · Fri 6 Mar 12:30 added to Calendar');
+}
+
+// ── Habit Tracker ─────────────────────────────────────
+function switchHabitTab(tab, btn) {
+  document.querySelectorAll('#view-habits .profile-tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#view-habits .meal-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('htab-' + tab).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+function logSleep() {
+  const v = document.getElementById('sleep-input').value;
+  if (!v) { showToast('Enter hours first'); return; }
+  document.getElementById('sleep-input').value = '';
+  showToast('Sleep logged: ' + v + 'h tonight');
+}
+function logGym() {
+  showToast('Gym session logged for today');
+}
+function toggleGymDay(dot) {
+  dot.classList.toggle('done');
+  dot.classList.toggle('rest');
+  dot.innerHTML = dot.classList.contains('done') ? '<i class="bi bi-check-lg"></i>' : '<i class="bi bi-dash"></i>';
+}
+
+// ── Stocks ────────────────────────────────────────────
+function selectStock(id, row) {
+  document.querySelectorAll('.stock-row').forEach(r => r.classList.remove('active'));
+  document.querySelectorAll('.stock-detail').forEach(d => d.style.display = 'none');
+  if (row) row.classList.add('active');
+  const detail = document.getElementById('sdetail-' + id);
+  if (detail) detail.style.display = 'flex';
+}
+
+// ── Shopping List ─────────────────────────────────────
+function toggleShopItem(check) {
+  check.classList.toggle('checked');
+  check.innerHTML = check.classList.contains('checked') ? '<i class="bi bi-check-lg"></i>' : '';
+  const name = check.nextElementSibling;
+  if (name) name.classList.toggle('done');
+}
+function addShopItem() {
+  const inp = document.getElementById('shop-add-input');
+  if (!inp || !inp.value.trim()) return;
+  const text = inp.value.trim();
+  const row = document.createElement('div');
+  row.className = 'shop-item';
+  row.innerHTML = `<div class="shop-check" onclick="toggleShopItem(this)"></div><div class="shop-name">${text.replace(/</g,'&lt;')}</div><div class="shop-qty">1</div><span class="shop-source added">Added</span>`;
+  document.getElementById('shop-list').appendChild(row);
+  inp.value = '';
+}
+function copyShopList() {
+  const items = [...document.querySelectorAll('#shop-list .shop-name')].map(n => n.textContent).join('\n');
+  navigator.clipboard?.writeText(items).catch(()=>{});
+  showToast('Shopping list copied to clipboard');
+}
+function regenShopList() {
+  showToast('Shopping list regenerated from inventory');
+}
+
+// ── Invoice ───────────────────────────────────────────
+function updateInvoicePreview() {
+  const get = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+  document.getElementById('prv-from').textContent = get('inv-from');
+  document.getElementById('prv-num').textContent = get('inv-num');
+  document.getElementById('prv-to').textContent = get('inv-to');
+  document.getElementById('prv-date').textContent = 'Issued: ' + get('inv-date');
+  document.getElementById('prv-due').textContent = 'Due: ' + get('inv-due');
+  document.getElementById('prv-notes').textContent = get('inv-notes');
+  // Recalculate totals
+  let sub = 0;
+  const rows = document.querySelectorAll('#inv-lines tr');
+  const prvLines = document.getElementById('prv-lines');
+  prvLines.innerHTML = '';
+  rows.forEach(row => {
+    const desc = row.querySelector('.inv-desc')?.value || '';
+    const qty = parseFloat(row.querySelector('.inv-qty')?.value) || 0;
+    const price = parseFloat(row.querySelector('.inv-price')?.value) || 0;
+    const amt = qty * price;
+    sub += amt;
+    // update amount cell
+    const cells = row.querySelectorAll('td');
+    if (cells[3]) cells[3].textContent = '£' + amt.toFixed(2);
+    prvLines.innerHTML += `<tr><td>${desc}</td><td>${qty}</td><td>£${price.toFixed(2)}</td><td>£${amt.toFixed(2)}</td></tr>`;
+  });
+  const vatOn = document.getElementById('inv-vat')?.checked;
+  const vat = vatOn ? sub * 0.2 : 0;
+  const total = sub + vat;
+  document.getElementById('prv-sub').textContent = '£' + sub.toFixed(2);
+  document.getElementById('prv-vat').textContent = '£' + vat.toFixed(2);
+  document.getElementById('prv-total').textContent = '£' + total.toFixed(2);
+  document.getElementById('prv-vat-row').style.display = vatOn ? 'flex' : 'none';
+}
+function addInvoiceLine() {
+  const tbody = document.getElementById('inv-lines');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input class="inv-desc" value="New Item" oninput="updateInvoicePreview()"></td><td><input style="width:50px;" class="inv-qty" value="1" oninput="updateInvoicePreview()"></td><td><input style="width:80px;" class="inv-price" value="0" oninput="updateInvoicePreview()"></td><td>£0.00</td><td><span style="cursor:pointer;color:var(--red);font-size:12px;" onclick="removeInvoiceLine(this)">✕</span></td>`;
+  tbody.appendChild(tr);
+  updateInvoicePreview();
+}
+function removeInvoiceLine(btn) {
+  btn.closest('tr').remove();
+  updateInvoicePreview();
+}
+function downloadInvoice() {
+  const num = document.getElementById('inv-num')?.value || 'invoice';
+  showToast('Invoice ' + num + ' downloaded as PDF');
+}
+
+// ── Payslips ──────────────────────────────────────────
+const payslipData = {
+  mar26: { employer:'Acme Ltd', period:'March 2026', gross:2800, tax:420, ni:196, pension:140, net:2044, ytdGross:28000, ytdTax:4200, ytdNI:1960 },
+  feb26: { employer:'Acme Ltd', period:'February 2026', gross:2800, tax:420, ni:196, pension:140, net:2044, ytdGross:25200, ytdTax:3780, ytdNI:1764 },
+  jan26: { employer:'Acme Ltd', period:'January 2026', gross:2800, tax:420, ni:196, pension:140, net:2044, ytdGross:22400, ytdTax:3360, ytdNI:1568 },
+  dec25: { employer:'Freelance Invoice', period:'December 2025', gross:400, tax:0, ni:0, pension:0, net:400, ytdGross:400, ytdTax:0, ytdNI:0 },
+};
+function selectPayslip(id, row) {
+  document.querySelectorAll('.payslip-item').forEach(r => r.classList.remove('active'));
+  if (row) row.classList.add('active');
+  const d = payslipData[id]; if (!d) return;
+  const det = document.getElementById('payslip-detail');
+  det.querySelector('.card-title').textContent = d.employer + ' — ' + d.period;
+  const rows = det.querySelectorAll('.payslip-detail-row');
+  if (rows[0]) { rows[0].querySelector('.payslip-detail-val').textContent = '£' + d.gross.toFixed(2); rows[0].querySelector('.payslip-detail-lbl').textContent = 'Gross Pay'; }
+  if (rows[1]) rows[1].querySelector('.payslip-detail-val').textContent = d.tax ? '−£' + d.tax.toFixed(2) : '—';
+  if (rows[2]) rows[2].querySelector('.payslip-detail-val').textContent = d.ni ? '−£' + d.ni.toFixed(2) : '—';
+  if (rows[3]) rows[3].querySelector('.payslip-detail-val').textContent = d.pension ? '−£' + d.pension.toFixed(2) : '—';
+  if (rows[4]) rows[4].querySelector('.payslip-detail-val').textContent = '£' + d.net.toFixed(2);
+}
+function uploadPayslip() {
+  document.getElementById('payslip-file-input').click();
 }
 </script>
 
